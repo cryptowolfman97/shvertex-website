@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casino Tools Pro | SH Vertex Tech</title>
+  <meta name="description" content="Casino Tools Pro original edition by SH Vertex Tech. Advanced gambling analytics and simulation toolkit." />
+  <link rel="icon" type="image/png" href="./assets/site/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
+    body {
+      background:#000;
+      color:#fff;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      scroll-behavior:smooth;
+    }
+    .page-overlay {
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        radial-gradient(circle at top center, rgba(34,197,94,0.08), transparent 28%),
+        linear-gradient(to bottom, rgba(0,0,0,0.20), rgba(0,0,0,0.54) 26%, rgba(0,0,0,0.78) 100%);
+    }
+    .mesh-bg {
+      position:fixed; inset:0; z-index:-3; pointer-events:none;
+      background:
+        radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size:24px 24px;
+      opacity:.55;
+    }
+    .nav-blur {background:rgba(0,0,0,.8);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.05)}
+    .nav-links {display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+    .nav-pill {display:inline-flex;align-items:center;justify-content:center;padding:10px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:#9ca3af;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;transition:.25s ease;backdrop-filter:blur(6px)}
+    .nav-pill:hover {color:#fff;border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
+    .nav-pill-active {color:#d1fae5;border-color:rgba(34,197,94,.50);background:rgba(34,197,94,.16);box-shadow:0 0 0 1px rgba(34,197,94,.04) inset}
+    .nav-pill-featured {color:#86efac;border-color:rgba(34,197,94,.30);background:rgba(34,197,94,.10)}
+    .hero-card, .glass-card, .feature-card, .cta-card {
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(10px);
+      border-radius:1.75rem;
+    }
+    .hero-card {position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+    .hero-orb {
+      position:absolute; border-radius:999px; pointer-events:none;
+      background:radial-gradient(circle, rgba(34,197,94,.28), rgba(34,197,94,.06) 40%, transparent 72%);
+      width:220px;height:220px;right:-60px;top:-40px;opacity:.8;
+    }
+    .hero-orb.secondary {
+      width:180px;height:180px;left:-40px;bottom:-60px;opacity:.45;
+      background:radial-gradient(circle, rgba(255,255,255,.16), rgba(34,197,94,.04) 45%, transparent 72%);
+    }
+    .kicker, .status-chip {
+      display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);
+      font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#cbd5e1;
+    }
+    .status-chip-green {color:#86efac;border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.08)}
+    .btn-green, .btn-dark, .btn-sky {
+      display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:999px;
+      font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;transition:.25s ease
+    }
+    .btn-green {background:#22c55e;color:#000}
+    .btn-green:hover {background:#fff;color:#000;transform:translateY(-1px)}
+    .btn-dark {border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:#fff}
+    .btn-dark:hover {background:#fff;color:#000}
+    .btn-sky {background:#38bdf8;color:#000}
+    .btn-sky:hover {background:#fff;color:#000;transform:translateY(-1px)}
+    .feature-card:hover, .glass-card:hover {border-color:rgba(34,197,94,.35);transform:translateY(-2px)}
+    .section-title {font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-.03em}
+    .micro-note {font-size:11px;color:#94a3b8;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+    .metric {border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:1rem;padding:1rem 1.1rem}
+    .metric-number {font-size:1.35rem;font-weight:900;letter-spacing:-.03em;color:#22c55e}
+    .metric-label {font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:#9ca3af}
+    .bullet li {display:flex;align-items:flex-start;gap:12px;margin-bottom:.8rem;color:#aeb8c8;font-size:.94rem;line-height:1.7}
+    .bullet i {color:#22c55e;margin-top:.35rem;font-size:.7rem}
+    .footer-shell {background:rgba(0,0,0,.65);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.05)}
+    .footer-link {color:#6b7280;text-transform:uppercase;font-weight:800;letter-spacing:.18em;font-size:10px;transition:.25s}
+    .footer-link:hover {color:#22c55e}
+    .footer-contact {display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#d1d5db;font-size:12px;transition:.25s}
+    .footer-contact:hover {color:#fff;border-color:rgba(34,197,94,.3)}
+    @media (max-width:768px){.nav-pill{padding:9px 12px;font-size:10px;letter-spacing:.10em}}
+  </style>
+</head>
+<body>
+  <div class="mesh-bg"></div>
+  <div class="page-overlay"></div>
+
+  <nav class="fixed top-0 w-full z-50 nav-blur">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col gap-4 nav-wrap">
+      <div class="flex items-center justify-between gap-4">
+        <a href="./index.html" class="text-white font-black tracking-tight text-lg md:text-xl">SH Vertex Tech</a>
+        <a href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20discuss%20Casino%20Tools%20Pro." target="_blank" class="nav-pill nav-pill-featured">Discuss Product</a>
+      </div>
+      <div class="nav-links">
+        <a class="nav-pill" href="./index.html">Home</a>
+        <a class="nav-pill nav-pill-active" href="./products.html">Products</a>
+        <a class="nav-pill" href="./future-products.html">Future Products</a>
+        <a class="nav-pill" href="./vault.html">Vault</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-40 md:pt-44">
+    <section class="px-4 md:px-6 pb-8">
+      <div class="max-w-6xl mx-auto hero-card p-8 md:p-12">
+        <div class="hero-orb"></div>
+        <div class="hero-orb secondary"></div>
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="kicker"><i class="fa-solid fa-layer-group"></i> Casino Tools Pro Ecosystem</span>
+            <span class="status-chip status-chip-green">Original Edition</span>
+          </div>
+          <div class="micro-note mb-3 text-emerald-300">Advanced gambling analytics toolkit</div>
+          <h1 class="section-title mb-5">Casino Tools Pro</h1>
+          <p class="text-slate-300 text-lg leading-relaxed max-w-3xl mb-8">
+            The original edition of the ecosystem. Casino Tools Pro keeps the direct gambling analytics framing, original green identity, and the full module stack that made the product commercially interesting in the first place.
+          </p>
+          <div class="grid md:grid-cols-3 gap-4 mb-8 max-w-4xl">
+            <div class="metric"><div class="metric-number">Original</div><div class="metric-label">Presentation Layer</div></div>
+            <div class="metric"><div class="metric-number">Shared</div><div class="metric-label">Core Engine Base</div></div>
+            <div class="metric"><div class="metric-number">Buyer</div><div class="metric-label">Ready Product Lane</div></div>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a class="btn-green" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20discuss%20Casino%20Tools%20Pro." target="_blank">Discuss Original Edition</a>
+            <a class="btn-dark" href="./strategy-suite-pro.html">View Clean Edition</a>
+            <a class="btn-dark" href="./products.html">Back to Products</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-6 py-8">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-[1.15fr_.85fr] gap-6">
+        <div class="glass-card p-7 md:p-8 transition duration-300">
+          <div class="micro-note mb-3 text-emerald-300">What this edition is for</div>
+          <h2 class="text-3xl font-black tracking-tight mb-5">The direct product version</h2>
+          <ul class="bullet">
+            <li><i class="fa-solid fa-circle"></i><span>Maintains the original gambling-focused naming, framing, and presentation language across the product family.</span></li>
+            <li><i class="fa-solid fa-circle"></i><span>Best suited for buyers who specifically want the original category positioning and audience fit.</span></li>
+            <li><i class="fa-solid fa-circle"></i><span>Uses the same simulation foundation, licensing environment, and module core as the clean edition.</span></li>
+            <li><i class="fa-solid fa-circle"></i><span>Can be sold as part of the full dual-edition ecosystem or pitched as the original flagship edition on its own.</span></li>
+          </ul>
+        </div>
+        <div class="glass-card p-7 md:p-8 transition duration-300">
+          <div class="micro-note mb-3 text-slate-400">Edition highlights</div>
+          <div class="space-y-4 text-slate-300 text-sm leading-relaxed">
+            <div class="p-4 rounded-2xl border border-white/8 bg-white/3"><strong class="text-white">Original identity:</strong> green-accent presentation and direct gambling-tool market fit.</div>
+            <div class="p-4 rounded-2xl border border-white/8 bg-white/3"><strong class="text-white">Shared licensing:</strong> aligned to the same ecosystem-facing licensing foundation as the clean edition.</div>
+            <div class="p-4 rounded-2xl border border-white/8 bg-white/3"><strong class="text-white">Acquisition ready:</strong> ideal for buyers who want the original commercial angle preserved.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-6 py-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-8">
+          <div class="kicker mb-4"><i class="fa-solid fa-cubes"></i> Module posture</div>
+          <h2 class="section-title mb-3">Core capability profile</h2>
+          <p class="text-slate-400 max-w-3xl leading-relaxed">Casino Tools Pro remains the original edition with the direct-facing module framing. This page should use original screenshots and original naming if you later add deep visual product content here.</p>
+        </div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div class="feature-card p-7 transition duration-300"><div class="micro-note text-emerald-300 mb-3">Core</div><h3 class="text-2xl font-black mb-3">Simulation tools</h3><p class="text-slate-400 leading-relaxed">Original edition access to the same main simulation and calculation foundation that powers the broader ecosystem.</p></div>
+          <div class="feature-card p-7 transition duration-300"><div class="micro-note text-emerald-300 mb-3">Research</div><h3 class="text-2xl font-black mb-3">Optimization stack</h3><p class="text-slate-400 leading-relaxed">Keeps the original product presentation for strategy generation, testing, and evaluation workflows.</p></div>
+          <div class="feature-card p-7 transition duration-300"><div class="micro-note text-emerald-300 mb-3">Commercial</div><h3 class="text-2xl font-black mb-3">Licensing ready</h3><p class="text-slate-400 leading-relaxed">Built to live inside the same licensing package, manager tooling, and buyer-facing ecosystem bundle.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 md:px-6 py-10">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6">
+        <div class="cta-card p-8">
+          <div class="micro-note text-emerald-300 mb-3">Positioning</div>
+          <h3 class="text-3xl font-black tracking-tight mb-4">When this edition makes sense</h3>
+          <p class="text-slate-300 leading-relaxed mb-6">Choose Casino Tools Pro when the buyer wants the original product identity intact and is comfortable marketing the product in its native gambling analytics framing.</p>
+          <div class="flex flex-wrap gap-3">
+            <span class="status-chip status-chip-green">Original Product Story</span>
+            <span class="status-chip">Shared Ecosystem Base</span>
+          </div>
+        </div>
+        <div class="cta-card p-8">
+          <div class="micro-note text-sky-300 mb-3">Cross-edition bridge</div>
+          <h3 class="text-3xl font-black tracking-tight mb-4">Need the cleaner angle too?</h3>
+          <p class="text-slate-300 leading-relaxed mb-6">The clean counterpart is Strategy Suite Pro. Together they form the dual-edition Casino Tools Pro Ecosystem for broader buyer flexibility.</p>
+          <div class="flex flex-wrap gap-3">
+            <a class="btn-sky" href="./strategy-suite-pro.html">Open Strategy Suite Pro</a>
+            <a class="btn-dark" href="./products.html#casino-pricing">Compare Editions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-shell py-10 px-6 mt-12">
+    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+      <div>
+        <p class="text-white font-black tracking-tight text-lg">SH Vertex Tech</p>
+        <p class="text-gray-500 text-sm mt-1">Original Edition page for the Casino Tools Pro Ecosystem.</p>
+      </div>
+      <div class="flex flex-wrap gap-4 items-center">
+        <a class="footer-link" href="./index.html">Home</a>
+        <a class="footer-link" href="./products.html">Products</a>
+        <a class="footer-link" href="./future-products.html">Future Products</a>
+        <a class="footer-link" href="./vault.html">Vault</a>
+      </div>
+      <a class="footer-contact" href="https://wa.me/94771363462" target="_blank"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp SH Vertex</span></a>
+    </div>
+  </footer>
+</body>
+</html>

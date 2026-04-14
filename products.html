@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Products | SH Vertex Tech</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+.page-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at top center, rgba(34,197,94,0.05), transparent 28%),
+                linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.46) 24%, rgba(0,0,0,0.68) 100%);
+        }
+
+        .nav-blur {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.03);
+            color: #9ca3af;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            transition: 0.25s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .nav-pill:hover {
+            color: #ffffff;
+            border-color: rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .nav-pill-active {
+            color: #d1fae5;
+            border-color: rgba(34,197,94,0.50);
+            background: rgba(34,197,94,0.16);
+            box-shadow: 0 0 0 1px rgba(34,197,94,0.04) inset;
+        }
+
+        .nav-pill-featured {
+            color: #86efac;
+            border-color: rgba(34,197,94,0.30);
+            background: rgba(34,197,94,0.10);
+        }
+
+        @media (min-width: 768px) {
+            .nav-pill {
+                padding: 11px 18px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-wrap {
+                gap: 10px;
+            }
+            .nav-pill {
+                padding: 9px 12px;
+                font-size: 10px;
+                letter-spacing: 0.10em;
+            }
+            .product-jump-section {
+                padding: 18.5rem 1.25rem 2.75rem;
+            }
+            .product-jump-section h1 {
+                font-size: clamp(2.1rem, 8vw, 2.85rem) !important;
+                line-height: 1.04 !important;
+            }
+            .product-jump-card h3 {
+                font-size: 1.95rem;
+                line-height: 1.06;
+            }
+            .product-hero {
+                height: auto;
+                min-height: 620px;
+                padding: 6.5rem 0 3.25rem;
+                justify-content: flex-start;
+            }
+            .hero-content {
+                width: 100%;
+                padding: 0 18px;
+            }
+            .product-hero h2 {
+                font-size: clamp(2.85rem, 12vw, 3.8rem) !important;
+                line-height: 0.96 !important;
+                margin-bottom: 0.85rem !important;
+            }
+            .product-hero .subtle-pill {
+                margin-bottom: 1rem !important;
+            }
+            .product-hero .secondary-product-label,
+            .product-hero .secondary-product-label-amber {
+                margin-bottom: 0.9rem !important;
+            }
+            .product-hero p {
+                margin-bottom: 1rem !important;
+            }
+            .hero-actions {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                margin-top: 1rem !important;
+            }
+            .hero-actions a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                max-width: 320px;
+            }
+            .btn-green-active,
+            .btn-green-outline,
+            .btn-sky-active,
+            .btn-sky-outline,
+            .btn-amber-active,
+            .btn-amber-outline,
+            .btn-download-outline {
+                padding: 11px 16px;
+                font-size: 12px;
+                letter-spacing: 0.08em;
+            }
+        }
+
+        .product-hero {
+            height: 46vh;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-bg-synapse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130%;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.68), rgba(0,0,0,0.74)),
+                url('./assets/site/36731.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .parallax-bg-casino {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130%;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.74), rgba(0,0,0,0.84)),
+                url('./assets/site/casino-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .parallax-bg-budget {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130%;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.82)),
+                url('./assets/site/simplibudget-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        .btn-green-active {
+            background: #22c55e;
+            color: black;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2);
+        }
+
+        .btn-green-active:hover {
+            transform: scale(1.05);
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn-green-outline {
+            border: 2px solid #22c55e;
+            color: #22c55e;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.18);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-green-outline:hover {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .btn-sky-active {
+            background: #38bdf8;
+            color: black;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+        }
+
+        .btn-sky-active:hover {
+            transform: scale(1.05);
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn-sky-outline {
+            border: 2px solid #38bdf8;
+            color: #38bdf8;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.18);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-sky-outline:hover {
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .btn-amber-active {
+            background: #fbbf24;
+            color: black;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2);
+        }
+
+        .btn-amber-active:hover {
+            transform: scale(1.05);
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn-amber-outline {
+            border: 2px solid #fbbf24;
+            color: #fbbf24;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.18);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-amber-outline:hover {
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .btn-download-outline {
+            border: 1px solid rgba(255,255,255,0.18);
+            color: #ffffff;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-download-outline:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .unified-content-section {
+            background-color: rgba(2,2,2,0.52);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .screenshot-stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .screenshot-stack {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .gallery-image-direct {
+            width: 100%;
+            border-radius: 1.5rem;
+            border: 4px solid #1a1a1a;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .feature-grid-section {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 5rem 0;
+        }
+
+        .feature-card {
+            background: rgba(0,0,0,0.62);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: border-color 0.3s, transform 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(4px);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(34, 197, 94, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .feature-card-casino:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        .feature-card-budget:hover {
+            border-color: rgba(251, 191, 36, 0.5);
+        }
+
+        .feature-img-wrapper {
+            width: 100%;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.05);
+        }
+
+        .feature-img-wrapper img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .pricing-card {
+            background: rgba(15, 23, 42, 0.42);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            border-radius: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .product-separator {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0.15) 50%, rgba(0,0,0,1) 100%);
+            margin: 0;
+        }
+
+        .subtle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #cbd5e1;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .who-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .who-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .who-card h5 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.65rem;
+        }
+
+        .micro-note {
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .secondary-product-label {
+            font-size: 12px;
+            color: #94a3b8;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .original-module {
+            font-size: 11px;
+            color: #94a3b8;
+            letter-spacing: 0.04em;
+            font-weight: 700;
+            margin-top: -0.15rem;
+        }
+
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .footer-shell {
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-link {
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            font-size: 10px;
+            transition: 0.25s;
+        }
+
+        .footer-link:hover {
+            color: #22c55e;
+        }
+
+        .footer-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #d1d5db;
+            font-size: 12px;
+            transition: 0.25s;
+        }
+
+        .footer-contact:hover {
+            color: #ffffff;
+            border-color: rgba(34,197,94,0.3);
+        }
+
+        .product-jump-section {
+            padding: 14rem 1.5rem 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .product-jump-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .product-jump-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .product-jump-card {
+            display: block;
+            padding: 1.4rem;
+            border-radius: 1.4rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(7, 7, 7, 0.72);
+            backdrop-filter: blur(8px);
+            transition: 0.25s ease;
+            text-decoration: none;
+        }
+
+        .product-jump-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.16);
+            background: rgba(12, 12, 12, 0.82);
+        }
+
+        .product-jump-card-casino:hover {
+            border-color: rgba(56,189,248,0.45);
+            box-shadow: 0 14px 40px rgba(56,189,248,0.10);
+        }
+
+        .product-jump-card-synapse:hover {
+            border-color: rgba(34,197,94,0.45);
+            box-shadow: 0 14px 40px rgba(34,197,94,0.10);
+        }
+
+        .product-anchor-offset {
+            scroll-margin-top: 110px;
+        }
+
+        @media (max-width: 768px) {
+            .product-anchor-offset {
+                scroll-margin-top: 155px;
+            }
+        }
+
+    
+        .animation-modal-shell {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(14px);
+        }
+
+        .animation-modal-shell.active {
+            display: flex;
+        }
+
+        .animation-modal-card {
+            width: min(100%, 540px);
+            background: linear-gradient(180deg, rgba(10,10,10,0.96), rgba(5,5,5,0.94));
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 1.75rem;
+            padding: 2rem;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+            text-align: center;
+        }
+
+        .animation-modal-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #cbd5e1;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 1.1rem;
+        }
+
+        .animation-choice-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 520px) {
+            .animation-choice-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .animation-choice-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 14px 18px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            transition: 0.25s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.10);
+        }
+
+        .animation-choice-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .animation-choice-btn.on {
+            background: #22c55e;
+            color: #000000;
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18);
+        }
+
+        .animation-choice-btn.off {
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+        }
+
+        .animation-choice-note {
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.7;
+            margin-top: 1rem;
+        }
+
+        .animation-toggle-shell {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 18px;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(6px);
+        }
+
+        .animation-toggle-status {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #cbd5e1;
+        }
+
+        .animation-mini-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 92px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: #e5e7eb;
+            transition: 0.25s ease;
+        }
+
+        .animation-mini-btn.active-on {
+            background: #22c55e;
+            color: #000000;
+            border-color: rgba(34,197,94,0.5);
+        }
+
+        .animation-mini-btn.active-off {
+            background: rgba(255,255,255,0.12);
+            color: #ffffff;
+            border-color: rgba(255,255,255,0.18);
+        }
+
+        .animations-disabled
+body.animation-gate-open {
+            overflow: hidden;
+        }
+
+    
+
+/* Phase 2.1 hybrid navigation */
+.nav-wrap {
+  position: relative;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.nav-desktop-whatsapp {
+  display: none;
+}
+.mobile-nav {
+  position: relative;
+}
+.mobile-nav summary {
+  list-style: none;
+}
+.mobile-nav summary::-webkit-details-marker {
+  display: none;
+}
+.mobile-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  min-height: 44px;
+  padding: .78rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: #ffffff;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+  cursor: pointer;
+}
+.mobile-nav-toggle:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.18);
+}
+.mobile-nav[open] .mobile-nav-toggle {
+  background: rgba(34,197,94,0.12);
+  border-color: rgba(34,197,94,0.28);
+  color: #d1fae5;
+}
+.mobile-nav-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(330px, calc(100vw - 2rem));
+  padding: .95rem;
+  border-radius: 1.3rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(10,10,10,0.96), rgba(4,4,4,0.94));
+  box-shadow: 0 22px 48px rgba(0,0,0,0.48);
+  backdrop-filter: blur(16px);
+}
+.mobile-nav-list {
+  display: grid;
+  gap: .6rem;
+}
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .9rem;
+  padding: .92rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: #e5e7eb;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.mobile-nav-link:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.14);
+  transform: translateY(-1px);
+}
+.mobile-nav-link.is-active {
+  color: #d1fae5;
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.13);
+}
+.mobile-nav-link.is-featured {
+  color: #86efac;
+  border-color: rgba(34,197,94,0.24);
+  background: rgba(34,197,94,0.08);
+}
+.mobile-nav-link.mobile-nav-whatsapp {
+  color: #bbf7d0;
+  border-color: rgba(34,197,94,0.24);
+  background: rgba(34,197,94,0.08);
+}
+.mobile-nav-link i {
+  font-size: .88rem;
+}
+@media (max-width: 767px) {
+  .nav-links {
+    display: none !important;
+  }
+  .nav-wrap {
+    min-height: 56px;
+  }
+  .shv-hero-layout,
+  .hero-shell {
+    padding-top: 8.85rem !important;
+  }
+  .product-jump-section {
+    padding-top: 8.9rem !important;
+  }
+}
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex !important;
+  }
+  .mobile-nav {
+    display: none;
+  }
+  .nav-desktop-whatsapp {
+    display: inline-flex;
+  }
+}
+
+/* Final mobile nav spacing override */
+@media (max-width: 768px) {
+  .shv-hero-layout,
+  .hero-shell {
+    padding-top: 8.85rem !important;
+  }
+  .product-jump-section {
+    padding-top: 8.9rem !important;
+  }
+}
+
+</style>
+<meta content="#020303" name="theme-color"/>
+<style id="shv-phase2-style">
+:root {
+  --shv-bg: #020303;
+  --shv-surface: rgba(8, 11, 11, 0.78);
+  --shv-surface-2: rgba(12, 16, 16, 0.9);
+  --shv-line: rgba(255,255,255,0.10);
+  --shv-line-strong: rgba(255,255,255,0.18);
+  --shv-green: #22c55e;
+  --shv-green-soft: rgba(34,197,94,0.14);
+  --shv-cyan-soft: rgba(56,189,248,0.14);
+  --shv-amber-soft: rgba(251,191,36,0.14);
+  --shv-shadow: 0 20px 50px rgba(0,0,0,0.42);
+  --shv-shadow-lg: 0 28px 80px rgba(0,0,0,0.55);
+  --shv-radius: 1.5rem;
+}
+body.shv-phase2 {
+  background:
+    radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 28%),
+    radial-gradient(circle at 100% 15%, rgba(56,189,248,0.08), transparent 22%),
+    linear-gradient(180deg, #020303 0%, #020303 36%, #050808 100%);
+  overflow-x: hidden;
+}
+body.shv-phase2::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(34,197,94,0.08) 0, transparent 20%),
+    radial-gradient(circle at 85% 12%, rgba(56,189,248,0.08) 0, transparent 18%),
+    radial-gradient(circle at 82% 76%, rgba(251,191,36,0.06) 0, transparent 18%);
+}
+body.shv-phase2::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.25;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+}
+.shv-progress {
+  position: fixed;
+  inset: 0 auto auto 0;
+  height: 3px;
+  width: 0;
+  z-index: 70;
+  background: linear-gradient(90deg, #22c55e, #38bdf8);
+  box-shadow: 0 0 16px rgba(34,197,94,0.55);
+}
+body.is-scrolled .nav-blur {
+  background: rgba(0,0,0,0.88) !important;
+  border-bottom-color: rgba(255,255,255,0.10) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+.nav-blur {
+  transition: background .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.nav-pill, .hero-cta-primary, .hero-cta-secondary, .btn-green-active, .btn-green-outline,
+.btn-sky-active, .btn-sky-outline, .btn-amber-active, .btn-amber-outline,
+.btn-download-outline, .bridge-btn-green, .bridge-btn-sky, .bridge-btn-amber,
+.bridge-btn-outline, .card-btn-green, .card-btn-dark, .footer-contact {
+  position: relative;
+  overflow: hidden;
+}
+.nav-pill::after, .hero-cta-primary::after, .hero-cta-secondary::after,
+.btn-green-active::after, .btn-green-outline::after, .btn-sky-active::after,
+.btn-sky-outline::after, .btn-amber-active::after, .btn-amber-outline::after,
+.btn-download-outline::after, .bridge-btn-green::after, .bridge-btn-sky::after,
+.bridge-btn-amber::after, .bridge-btn-outline::after, .card-btn-green::after,
+.card-btn-dark::after, .footer-contact::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -120%;
+  width: 70%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  transform: skewX(-22deg);
+  transition: left .45s ease;
+}
+.nav-pill:hover::after, .hero-cta-primary:hover::after, .hero-cta-secondary:hover::after,
+.btn-green-active:hover::after, .btn-green-outline:hover::after, .btn-sky-active:hover::after,
+.btn-sky-outline:hover::after, .btn-amber-active:hover::after, .btn-amber-outline:hover::after,
+.btn-download-outline:hover::after, .bridge-btn-green:hover::after, .bridge-btn-sky:hover::after,
+.bridge-btn-amber:hover::after, .bridge-btn-outline:hover::after, .card-btn-green:hover::after,
+.card-btn-dark:hover::after, .footer-contact:hover::after { left: 135%; }
+.hero-text-plane, .hero-card, .product-jump-card, .feature-card, .pricing-card,
+.trend-card, .why-card, .product-bridge-card, .who-card, .vault-cta-card,
+.mini-stat, .animation-toggle-shell {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  box-shadow: var(--shv-shadow);
+  position: relative;
+  isolation: isolate;
+}
+.hero-text-plane::before, .hero-card::before, .product-jump-card::before, .feature-card::before,
+.pricing-card::before, .trend-card::before, .why-card::before, .product-bridge-card::before,
+.who-card::before, .vault-cta-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
+  z-index: 0;
+}
+.hero-text-plane, .hero-card {
+  border-radius: 2rem !important;
+  box-shadow: var(--shv-shadow-lg);
+}
+.hero-text-plane > *, .hero-card > *, .pricing-card > *, .trend-card > *, .feature-card > *, .product-jump-card > *, .vault-cta-card > * {
+  position: relative;
+  z-index: 1;
+}
+.section-shell, .unified-content-section, .feature-grid-section,
+section[id="pipeline"], .product-jump-section, .product-hero, footer.footer-shell,
+body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16 {
+  position: relative;
+}
+.section-shell::after, .unified-content-section::after, .feature-grid-section::after,
+section[id="pipeline"]::after, .product-jump-section::after,
+body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(34,197,94,0.05), transparent 18%),
+    radial-gradient(circle at 90% 100%, rgba(56,189,248,0.04), transparent 18%);
+}
+.feature-card:hover, .trend-card:hover, .pricing-card:hover, .product-jump-card:hover,
+.why-card:hover, .product-bridge-card:hover, .who-card:hover, .mini-stat:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(255,255,255,0.18) !important;
+}
+.feature-img-wrapper, .gallery-image-direct, .trend-card .h-64, .trend-card .h-72 {
+  border-radius: 1.25rem !important;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+.gallery-image-direct, .feature-img-wrapper img, .trend-card img, .hero-product-image, .service-card img {
+  transition: transform .55s ease, filter .55s ease, opacity .55s ease;
+}
+.feature-card:hover img, .trend-card:hover img, .gallery-image-direct:hover {
+  transform: scale(1.03);
+}
+.product-hero::before, .hero-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.34)),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 26%);
+  z-index: 2;
+}
+.hero-content, .hero-card, .hero-text-plane {
+  backdrop-filter: blur(12px) saturate(120%);
+}
+.subtle-pill, .proof-pill, .product-tag, .status-badge, .section-kicker {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+.shv-hero-side {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .shv-hero-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) 360px;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .shv-hero-side {
+    display: grid;
+    gap: 1rem;
+    align-self: stretch;
+  }
+}
+.shv-aside-card {
+  border-radius: 1.6rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  padding: 1.25rem;
+  box-shadow: var(--shv-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.shv-aside-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -30% auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(34,197,94,0.14), transparent 68%);
+}
+.shv-aside-title {
+  font-size: .72rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #cbd5e1;
+  margin-bottom: .65rem;
+}
+.shv-aside-stat {
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -.03em;
+  font-weight: 900;
+  margin-bottom: .45rem;
+}
+.shv-aside-copy {
+  color: #aeb8c7;
+  font-size: .88rem;
+  line-height: 1.65;
+}
+.shv-chip-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: 1.35rem;
+}
+.shv-chip {
+  padding: .8rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: #d6dee9;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.shv-chip i { margin-right: .5rem; }
+.shv-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.shv-reveal.shv-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .hero-text-plane, .hero-card {
+    padding: 1.45rem !important;
+    border-radius: 1.5rem !important;
+  }
+  .product-jump-section { padding-top: 12.75rem !important; }
+  .product-hero { min-height: 600px !important; }
+  .product-jump-card, .feature-card, .pricing-card, .trend-card, .why-card, .who-card, .vault-cta-card, .mini-stat {
+    box-shadow: 0 14px 32px rgba(0,0,0,0.34);
+  }
+  .shv-chip-strip {
+    gap: .55rem;
+    margin-top: 1rem;
+  }
+  .shv-chip {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: .65rem;
+    padding: .8rem .9rem;
+  }
+  .shv-progress { height: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .shv-reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Final mobile nav spacing override */
+@media (max-width: 768px) {
+  .shv-hero-layout,
+  .hero-shell {
+    padding-top: 8.85rem !important;
+  }
+  .product-jump-section {
+    padding-top: 8.9rem !important;
+  }
+}
+
+
+/* Casino Tools Pro presentation cleanup */
+.casino-showcase-shell {
+    display: block;
+    margin-bottom: 1rem;
+}
+.casino-showcase-card,
+.casino-summary-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(9,12,18,0.92), rgba(4,6,11,0.88));
+    box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+    backdrop-filter: blur(10px);
+}
+.casino-showcase-card {
+    padding: 1.25rem;
+}
+.casino-summary-card {
+    padding: 1.5rem;
+}
+.casino-showcase-kicker,
+.casino-summary-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(125,211,252,0.22);
+    background: rgba(56,189,248,0.08);
+    color: #bae6fd;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+.casino-showcase-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+.casino-showcase-image {
+    border-radius: 1.35rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.58);
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem;
+}
+.casino-showcase-image img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 540px;
+    object-fit: contain;
+    display: block;
+    border-radius: 1rem;
+}
+.casino-showcase-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 60rem;
+}
+.casino-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+.casino-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #cbd5e1;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.casino-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.casino-summary-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #dbeafe;
+    font-size: 12px;
+    font-weight: 700;
+}
+.casino-thumb-rail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 0.9rem;
+    margin: 1.15rem 0 1.5rem;
+}
+.casino-thumb-card {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(6,10,18,0.86);
+}
+.casino-thumb-card img {
+    width: 100%;
+    height: 145px;
+    object-fit: cover;
+    display: block;
+}
+.casino-thumb-label {
+    padding: 0.8rem 0.9rem;
+    color: #e2e8f0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.inventory-anchor {
+    scroll-margin-top: 105px;
+}
+.inventory-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.inventory-group {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(7,10,16,0.92), rgba(3,5,9,0.88));
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+.inventory-group summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+}
+.inventory-group summary::-webkit-details-marker {
+    display: none;
+}
+.inventory-group-title {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.2rem;
+}
+.inventory-group-subtitle {
+    color: #94a3b8;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    max-width: 58rem;
+}
+.inventory-group-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+.inventory-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(125,211,252,0.2);
+    background: rgba(56,189,248,0.08);
+    color: #bae6fd;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.inventory-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #e5e7eb;
+    transition: transform 0.25s ease;
+}
+.inventory-group[open] .inventory-chevron {
+    transform: rotate(45deg);
+}
+.inventory-group-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.95rem;
+    padding: 0 1.1rem 1.1rem;
+}
+.inventory-compact-card {
+    display: grid;
+    grid-template-columns: 140px minmax(0,1fr);
+    gap: 1rem;
+    align-items: stretch;
+    padding: 0.95rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+}
+.inventory-compact-thumb {
+    overflow: hidden;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+}
+.inventory-compact-thumb img {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.inventory-compact-copy {
+    min-width: 0;
+}
+@media (min-width: 768px) {
+    .casino-thumb-rail {
+        grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    .inventory-group-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+}
+@media (min-width: 1100px) {
+    .casino-thumb-rail {
+        grid-template-columns: repeat(6, minmax(0,1fr));
+    }
+}
+@media (max-width: 1024px) {
+    .casino-showcase-main {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 767px) {
+    .casino-showcase-card,
+    .casino-summary-card {
+        padding: 0.95rem;
+        border-radius: 1.35rem;
+    }
+    .casino-showcase-image {
+        padding: 0.55rem;
+    }
+    .casino-showcase-image img {
+        max-height: 420px;
+    }
+    .casino-thumb-card img {
+        height: 120px;
+    }
+    .inventory-group summary {
+        padding: 1rem;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .inventory-group-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .inventory-compact-card {
+        grid-template-columns: 1fr;
+        padding: 0.8rem;
+    }
+    .inventory-compact-thumb img {
+        height: 180px;
+    }
+    .inventory-anchor {
+        scroll-margin-top: 95px;
+    }
+}
+</style>
+</head>
+<body class="shv-phase2"><div class="shv-progress"></div>
+<div class="page-overlay"></div>
+<nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10"><div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4"><a href="index.html"><img alt="SH Vertex" class="h-8 md:h-10 grayscale" src="./assets/site/logo.png"/></a><div class="nav-links"><a class="nav-pill" href="index.html">Base</a><a class="nav-pill nav-pill-active" href="products.html">Products</a><a class="nav-pill" href="future-products.html">Future Products</a><a class="nav-pill" href="vault.html">Vault</a><a class="nav-pill" href="https://wa.me/94771363462" target="_blank">Inquiry</a></div><div class="nav-actions"><a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a><details class="mobile-nav"><summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary><div class="mobile-nav-panel"><div class="mobile-nav-list"><a class="mobile-nav-link" href="index.html"><span>Base</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link is-active" href="products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="https://wa.me/94771363462" target="_blank"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a></div></div></details></div></div></nav>
+<section class="product-jump-section product-anchor-offset">
+<div class="max-w-6xl mx-auto text-center">
+<div class="subtle-pill mb-5">
+<i class="fas fa-box-open text-sky-400"></i>
+                Featured Products
+            </div>
+<h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Jump straight to the product you want.</h1>
+<p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-10">
+                Products are organized by family below, starting with the Casino Tools Pro Ecosystem and its two editions, followed by SimpliBudget and then Synapse. Tap a product card here to jump directly to that section.
+            </p>
+<div class="product-jump-grid">
+<a class="product-jump-card product-jump-card-casino text-left" href="#casino-tools">
+<div class="micro-note mb-3 text-sky-400">First Product Family</div>
+<h3 class="text-2xl font-black tracking-tight mb-1">Casino Tools Pro Ecosystem</h3>
+<div class="secondary-product-label mb-3">Original Edition + Clean Edition</div>
+<p class="text-slate-400 text-sm leading-relaxed">Open the dual-edition overview, compare Casino Tools Pro and Strategy Suite Pro, and review the shared core engine inventory.</p>
+</a>
+<a class="product-jump-card product-jump-card-budget text-left" href="#simplibudget-product">
+<div class="micro-note mb-3 text-amber-400">Second Product</div>
+<h3 class="text-2xl font-black tracking-tight mb-1">SimpliBudget</h3>
+<div class="secondary-product-label-amber mb-3">SimpliBudget by SHV</div>
+<p class="text-slate-400 text-sm leading-relaxed">Open the SimpliBudget overview, access paths, download area, screenshots, and finance workflow features.</p>
+</a>
+<a class="product-jump-card product-jump-card-synapse text-left" href="#synapse-product">
+<div class="micro-note mb-3 text-green-400">Third Product</div>
+<h3 class="text-2xl font-black tracking-tight mb-2">Synapse</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Open the Synapse section, workspace overview, architecture notes, download area, and licensing details.</p>
+</a>
+</div>
+<div class="shv-chip-strip"><div class="shv-chip"><i class="fas fa-mobile-screen"></i>Mobile-first layouts</div><div class="shv-chip"><i class="fas fa-key"></i>Licensing-ready presentation</div><div class="shv-chip"><i class="fas fa-chart-line"></i>Richer product showcases</div><div class="shv-chip"><i class="fas fa-images"></i>Screenshot-led sections</div></div></div>
+</section>
+<section class="product-hero product-anchor-offset" id="casino-tools">
+<div class="parallax-bg-casino parallax-layer"></div>
+<div class="hero-content">
+<div class="subtle-pill mb-6">
+<i class="fas fa-layer-group text-sky-400"></i>
+                Dual-Edition Product Family
+            </div>
+<h2 class="text-5xl md:text-7xl font-black mb-3 tracking-tighter uppercase">
+                Casino Tools <span class="text-sky-400">Pro Ecosystem</span>
+</h2>
+<div class="secondary-product-label mb-4">Original Edition + Clean Edition on one shared foundation</div>
+<p class="text-gray-300 text-lg md:text-xl mb-4 max-w-3xl mx-auto italic font-light">
+                One premium software family delivered in two public-facing editions for different deployment needs.
+            </p>
+<p class="text-sky-400/80 text-sm md:text-base font-bold mb-8 max-w-4xl mx-auto">
+                Casino Tools Pro keeps the original gambling analytics presentation. Strategy Suite Pro delivers the clean analytics edition with neutral wording and blue-accent presentation. Both sit on the same core simulation, licensing, and product foundation.
+            </p>
+<div class="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto mb-10 text-left">
+<div class="rounded-3xl border border-emerald-400/20 bg-black/35 backdrop-blur-md p-6">
+<div class="micro-note mb-3 text-emerald-300">Original Edition</div>
+<h3 class="text-2xl font-black tracking-tight text-white mb-2">Casino Tools Pro</h3>
+<p class="text-slate-400 text-sm leading-relaxed mb-4">The original green-accent product for direct gambling analytics workflows, original module language, and the legacy presentation layer.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">GREEN THEME</span>
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">ORIGINAL WORDING</span>
+</div>
+</div>
+<div class="rounded-3xl border border-sky-400/20 bg-black/35 backdrop-blur-md p-6">
+<div class="micro-note mb-3 text-sky-300">Clean Edition</div>
+<h3 class="text-2xl font-black tracking-tight text-white mb-2">Strategy Suite Pro</h3>
+<p class="text-slate-400 text-sm leading-relaxed mb-4">The clean blue-accent edition for compliance-friendly analytics presentation, neutral naming, and broader buyer-facing marketing use.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">BLUE THEME</span>
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">CLEAN WORDING</span>
+</div>
+</div>
+</div>
+<div class="hero-actions flex flex-wrap items-center justify-center gap-4 mt-6 relative z-20">
+<a class="btn-green-active" href="./casino-tools-pro.html">Open Original Edition</a>
+<a class="btn-sky-active" href="./strategy-suite-pro.html">Open Clean Edition</a>
+<a class="btn-sky-outline" href="#casino-features">Shared Core Inventory</a>
+</div>
+<div class="shv-chip-strip"><div class="shv-chip"><i class="fas fa-code-branch"></i>Shared core engine</div><div class="shv-chip"><i class="fas fa-key"></i>Shared licensing foundation</div><div class="shv-chip"><i class="fas fa-display"></i>Two presentation layers</div></div></div>
+</section>
+<section class="py-32 px-6 bg-[rgba(3,5,10,0.48)] backdrop-blur-[4px] border-t border-white/5" id="casino-pricing">
+<div class="max-w-6xl mx-auto text-center">
+<h3 class="text-4xl font-black text-center mb-4 tracking-widest uppercase italic">Edition Structure</h3>
+<p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-16">
+                The Casino Tools Pro Ecosystem is offered in two editions built on the same core engine and licensing foundation. Choose the original presentation layer or the clean analytics edition depending on audience, deployment style, and commercial positioning.
+            </p>
+<div class="grid md:grid-cols-2 gap-8 mb-14 text-left">
+<div class="pricing-card border-emerald-500/25 shadow-2xl shadow-emerald-900/10">
+<div>
+<div class="text-[11px] font-black uppercase tracking-[0.22em] text-emerald-300 mb-4">Original Edition</div>
+<div class="text-4xl font-black mb-2 italic text-emerald-400">Casino Tools Pro</div>
+<p class="text-sm text-slate-400 mb-4 italic">The original product edition with direct gambling analytics language, original module framing, and the green product identity.</p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">Best for direct gambling-tool buyers who want the original in-app identity, original terminology, and the same controlled licensing model already used in the product family.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">ORIGINAL BRANDING</span>
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">GREEN UI</span>
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">DIRECT ANALYTICS</span>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3"><a class="w-full py-4 rounded-xl bg-emerald-500 text-black font-black text-xs uppercase italic hover:bg-emerald-400 transition text-center" href="./casino-tools-pro.html">Open Original Edition Page</a><a class="w-full py-4 rounded-xl border border-white/10 bg-white/5 text-white font-black text-xs uppercase italic hover:bg-white hover:text-black transition text-center" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20discuss%20the%20original%20Casino%20Tools%20Pro%20edition." target="_blank">Ask About Original Edition</a></div>
+</div>
+<div class="pricing-card border-sky-500/25 shadow-2xl shadow-sky-900/10">
+<div>
+<div class="text-[11px] font-black uppercase tracking-[0.22em] text-sky-300 mb-4">Clean Edition</div>
+<div class="text-4xl font-black mb-2 italic text-sky-400">Strategy Suite Pro</div>
+<p class="text-sm text-slate-400 mb-4 italic">The clean blue-accent edition with neutral analytics wording and buyer-friendly presentation for broader commercial use.</p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">Best for clean marketing, compliance-friendly presentation, and buyer conversations where a neutral analytics frame is the stronger fit.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">CLEAN BRANDING</span>
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">BLUE UI</span>
+<span class="px-3 py-2 border border-white/10 rounded-full text-[10px] font-bold text-gray-400 tracking-widest">NEUTRAL ANALYTICS</span>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3"><a class="w-full py-4 rounded-xl bg-sky-400 text-black font-black text-xs uppercase italic hover:bg-sky-300 transition text-center" href="./strategy-suite-pro.html">Open Clean Edition Page</a><a class="w-full py-4 rounded-xl border border-white/10 bg-white/5 text-white font-black text-xs uppercase italic hover:bg-white hover:text-black transition text-center" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20discuss%20the%20clean%20Strategy%20Suite%20Pro%20edition." target="_blank">Ask About Clean Edition</a></div>
+</div>
+</div>
+<div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20 text-left">
+<div class="who-card">
+<h5 class="text-white text-lg">Shared Core Foundation</h5>
+<p class="text-gray-400 text-sm leading-relaxed">Both editions retain the same underlying simulation logic, licensing architecture, and product depth while changing only the public-facing presentation layer.</p>
+</div>
+<div class="who-card">
+<h5 class="text-white text-lg">Original Edition Buyers</h5>
+<p class="text-gray-400 text-sm leading-relaxed">Direct product buyers who want the original identity, original tone, and the established Casino Tools Pro presentation style.</p>
+</div>
+<div class="who-card">
+<h5 class="text-white text-lg">Clean Edition Buyers</h5>
+<p class="text-gray-400 text-sm leading-relaxed">Buyers who want a cleaner product frame, neutral wording, and a compliance-safer presentation for broader outreach or marketplace use.</p>
+</div>
+</div>
+<div class="max-w-4xl mx-auto bg-[rgba(0,0,0,0.52)] backdrop-blur-[6px] border border-white/10 rounded-2xl p-10 relative overflow-hidden text-left">
+<div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-emerald-400 via-sky-400 to-purple-500"></div>
+<h4 class="text-2xl font-black uppercase tracking-tight mb-4">Casino Tools Pro Ecosystem Acquisition</h4>
+<p class="text-gray-400 text-sm leading-relaxed mb-8">
+                    Full product buyout inquiries are welcome. Acquisition of this ecosystem can include the original Casino Tools Pro edition, the clean Strategy Suite Pro edition, the shared licensing environment, and the buyer-ready presentation structure around both editions.
+                </p>
+<div class="flex flex-wrap gap-6 items-center">
+<a class="flex items-center gap-3 text-sm font-bold bg-white/5 hover:bg-white/10 px-6 py-3 rounded-lg border border-white/10 transition contact-chip" href="mailto:ceo@shvertex.online?subject=Casino%20Tools%20Pro%20Ecosystem%20Inquiry">
+<i class="fas fa-envelope text-sky-400"></i> ceo@shvertex.online
+                    </a>
+<a class="flex items-center gap-3 text-sm font-bold bg-white/5 hover:bg-white/10 px-6 py-3 rounded-lg border border-white/10 transition contact-chip" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20discuss%20the%20Casino%20Tools%20Pro%20Ecosystem%20including%20both%20editions." target="_blank">
+<i class="fab fa-whatsapp text-green-400"></i> +94 77 136 3462
+                    </a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="py-32 px-6 bg-[rgba(0,0,0,0.42)] backdrop-blur-[3px] border-t border-white/5" id="casino-features">
+<div class="max-w-7xl mx-auto">
+<h3 class="text-4xl font-extrabold text-center mb-6 tracking-tight italic uppercase">Shared Core Inventory</h3>
+<div class="micro-note text-center mb-4">Clean edition names first • Original edition module names shown as supporting metadata</div>
+<p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 italic">
+      Shared engine inventory for the Casino Tools Pro Ecosystem. Strategy Suite Pro represents the clean public-facing naming layer, while Casino Tools Pro retains the original presentation on the same product foundation.
+</p>
+<div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-14 text-left"><div class="who-card"><div class="micro-note mb-3 text-emerald-300">Original Edition</div><h5 class="text-white text-lg">Casino Tools Pro</h5><p class="text-gray-400 text-sm leading-relaxed">Original product names, direct gambling analytics framing, and the original green interface style remain available for the same core module set.</p></div><div class="who-card"><div class="micro-note mb-3 text-sky-300">Clean Edition</div><h5 class="text-white text-lg">Strategy Suite Pro</h5><p class="text-gray-400 text-sm leading-relaxed">Neutral analytics wording, clean presentation, and blue-accent visuals make the same core engine easier to market in broader buyer-facing contexts.</p></div></div>
+<div class="casino-showcase-shell">
+<div class="casino-showcase-card">
+<div class="casino-showcase-kicker">
+<i class="fas fa-layer-group text-sky-400"></i>
+          Featured Interface Preview
+        </div>
+<div class="casino-showcase-main">
+<div class="casino-showcase-image">
+<img alt="RNG Variance Engine (Dice Simulator V2)" src="./assets/site/dice-sim-v2.png"/>
+</div>
+<div class="casino-showcase-copy">
+<div class="casino-chip-row">
+<span class="casino-chip">23 Integrated Modules</span>
+<span class="casino-chip">All Screens Retained</span>
+<span class="casino-chip">Cleaner Product Presentation</span>
+</div>
+<h4 class="text-2xl md:text-3xl font-black tracking-tight text-white mb-3">RNG Variance Engine</h4>
+<div class="original-module mb-3">Original module: Dice Simulator V2</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-5">Interactive variance simulator with session tracking and performance visualization. Tracks balance, session result, turnover, and win/loss counts.</p>
+<div class="casino-chip-row mt-1"><span class="casino-chip">Featured Preview</span><span class="casino-chip">Thumbnail Rail</span><span class="casino-chip">Full Inventory Below</span></div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="casino-thumb-rail">
+<div class="casino-thumb-card">
+<img alt="Logic Templates (Strategies Library)" src="./assets/site/library-vault.png"/>
+<div class="casino-thumb-label">Logic Templates</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="RNG Variance Engine (Dice Simulator V2)" src="./assets/site/dice-sim-v2.png"/>
+<div class="casino-thumb-label">RNG Variance Engine</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Model Efficiency Lab (Dice Strategy Optimizer)" src="./assets/site/dice-optimizer.png"/>
+<div class="casino-thumb-label">Model Efficiency Lab</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Probability Evolution (Dice Evolution Engine)" src="./assets/site/dice-evo-engine.png"/>
+<div class="casino-thumb-label">Probability Evolution</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Statistical Deck Engine (Blackjack Strategy Hub)" src="./assets/site/blackjack-hub.png"/>
+<div class="casino-thumb-label">Statistical Deck Engine</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Market Convergence Calc (Arbitrage Calculator)" src="./assets/site/arbitrage-calc.png"/>
+<div class="casino-thumb-label">Market Convergence Calc</div>
+</div>
+</div>
+<div class="inventory-anchor" id="casino-inventory"></div>
+<div class="inventory-stack">
+<details class="inventory-group" open="">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Core Discovery &amp; Simulation</div>
+<div class="inventory-group-subtitle">Template vaults, live simulators, parameter sweeps, and structured system generation.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">7 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Logic Templates (Strategies Library)" src="./assets/site/library-vault.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Logic Templates</h4>
+<div class="original-module mb-2">Original module: Strategies Library</div>
+<p class="text-slate-400 text-xs leading-relaxed">A centralized template vault for saving, naming, filtering, and reusing discovered systems. Logic Templates stores source, risk profile, configuration settings, and notes.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="RNG Variance Engine (Dice Simulator V2)" src="./assets/site/dice-sim-v2.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">RNG Variance Engine</h4>
+<div class="original-module mb-2">Original module: Dice Simulator V2</div>
+<p class="text-slate-400 text-xs leading-relaxed">Interactive variance simulator with session tracking and performance visualization. Tracks balance, session result, turnover, and win/loss counts.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Threshold Multiplier (Dice/Limbo Calculator)" src="./assets/site/dice-limbo-calc.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Threshold Multiplier</h4>
+<div class="original-module mb-2">Original module: Dice/Limbo Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Progression sizing calculator for capital planning. Threshold Multiplier translates base size, multipliers, and hit probability into a step-by-step recovery ladder.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Monte Carlo Simulator (Monte Carlo Simulator)" src="./assets/site/dice-monte-carlo.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Monte Carlo Simulator</h4>
+<div class="original-module mb-2">Original module: Monte Carlo Simulator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Batch simulation engine for validating behavior across thousands of sessions. Reports average profit, win rate, and bust rate.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Model Efficiency Lab (Dice Strategy Optimizer)" src="./assets/site/dice-optimizer.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Model Efficiency Lab</h4>
+<div class="original-module mb-2">Original module: Dice Strategy Optimizer</div>
+<p class="text-slate-400 text-xs leading-relaxed">Parameter search engine that sweeps through sizing and multiplier ranges to rank configurations for a specific goal.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Sequence Automator (Dice Auto Generator)" src="./assets/site/dice-auto-gen.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Sequence Automator</h4>
+<div class="original-module mb-2">Original module: Dice Auto Generator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Random discovery tool that generates large batches of candidate systems and surfaces the strongest performers.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Logic Builder (Strategy Forge)" src="./assets/site/strategy-forge.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Logic Builder</h4>
+<div class="original-module mb-2">Original module: Strategy Forge</div>
+<p class="text-slate-400 text-xs leading-relaxed">Controlled discovery engine blending population-based search with ranked output to surface new logical systems.</p>
+</div>
+</article>
+</div>
+</details>
+<details class="inventory-group">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Evolution &amp; Stress Labs</div>
+<div class="inventory-group-subtitle">Evolutionary searches, endurance testing, and distribution-focused modeling engines.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">7 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Probability Evolution (Dice Evolution Engine)" src="./assets/site/dice-evo-engine.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Probability Evolution</h4>
+<div class="original-module mb-2">Original module: Dice Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Evolutionary search system that mutates and selects best-performing probability models across thousands of generations.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Exponential Growth Lab (Limbo Evolution Engine)" src="./assets/site/limbo-evolution.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Exponential Growth Lab</h4>
+<div class="original-module mb-2">Original module: Limbo Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Target-based evolution engine for exponential-outcome play. Searches base size, target multiplier, and progression settings.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Pattern Evolution (Keno Evolution Engine)" src="./assets/site/keno-evolution.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Pattern Evolution</h4>
+<div class="original-module mb-2">Original module: Keno Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Advanced system exploring combinations of tiles, target hits, and progression to find standout distribution models.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Grid-Risk Evolution (Mines Evolution Engine)" src="./assets/site/mines-evolution.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Grid-Risk Evolution</h4>
+<div class="original-module mb-2">Original module: Mines Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Searches combinations of grid count, safe picks, and payout profiles to rank strong grid-risk systems.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Stress Test (Strategy Stress Test)" src="./assets/site/stress-test-lab.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Stress Test</h4>
+<div class="original-module mb-2">Original module: Strategy Stress Test</div>
+<p class="text-slate-400 text-xs leading-relaxed">Direct stability check pushing one setup through many sessions to analyze downside and volatility.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Capital Sustainability (Bankroll Survival Lab)" src="./assets/site/survival-lab.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Capital Sustainability</h4>
+<div class="original-module mb-2">Original module: Bankroll Survival Lab</div>
+<p class="text-slate-400 text-xs leading-relaxed">Probability-focused endurance simulator. Capital Sustainability reports survival chance, bust chance, and expected ROI.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Spatial Distribution Lab (Keno Monte Carlo)" src="./assets/site/keno-monte-carlo.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Spatial Distribution Lab</h4>
+<div class="original-module mb-2">Original module: Keno Monte Carlo</div>
+<p class="text-slate-400 text-xs leading-relaxed">Multi-outcome model estimating performance across weighted payout ladders and result distributions.</p>
+</div>
+</article>
+</div>
+</details>
+<details class="inventory-group">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Analytics &amp; Decision Models</div>
+<div class="inventory-group-subtitle">Fast analysis layers for path decisions, table support, edge checks, and compounded risk review.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">5 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Probability Path Analysis (Mines Analytics)" src="./assets/site/mines-analytics.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Probability Path Analysis</h4>
+<div class="original-module mb-2">Original module: Mines Analytics</div>
+<p class="text-slate-400 text-xs leading-relaxed">Quick success-probability and multiplier calculator for grid-path decision-making.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Statistical Deck Engine (Blackjack Strategy Hub)" src="./assets/site/blackjack-hub.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Statistical Deck Engine</h4>
+<div class="original-module mb-2">Original module: Blackjack Strategy Hub</div>
+<p class="text-slate-400 text-xs leading-relaxed">Fast decision assistant providing basic-strategy recommendations for visible deck states.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Kelly Criterion Tool (Kelly Bet Calculator)" src="./assets/site/kelly-calc.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Kelly Criterion Tool</h4>
+<div class="original-module mb-2">Original module: Kelly Bet Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Capital sizing tool for positive-EV scenarios across full, half, and quarter Kelly stakes.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Compounded Risk Analyst (Parlay Analyzer)" src="./assets/site/parlay-analyzer.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Compounded Risk Analyst</h4>
+<div class="original-module mb-2">Original module: Parlay Analyzer</div>
+<p class="text-slate-400 text-xs leading-relaxed">Multi-leg compounded-risk evaluator quantifying ticket value, edge, EV, ROI, and hit rates.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Edge Discovery Tool (Value Bet Calculator)" src="./assets/site/value-ev-checker.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Edge Discovery Tool</h4>
+<div class="original-module mb-2">Original module: Value Bet Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Edge checker comparing market odds against estimated true probability.</p>
+</div>
+</article>
+</div>
+</details>
+<details class="inventory-group">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Markets, Growth &amp; Utility Tools</div>
+<div class="inventory-group-subtitle">Arbitrage, compounding, structured planning, and live conversion utilities.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">4 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Market Convergence Calc (Arbitrage Calculator)" src="./assets/site/arbitrage-calc.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Market Convergence Calc</h4>
+<div class="original-module mb-2">Original module: Arbitrage Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Market convergence calculator for locking in margins across opposite outcomes.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Compound Growth Pro (Compound Growth Pro)" src="./assets/site/compound-growth-pro.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Compound Growth Pro</h4>
+<div class="original-module mb-2">Original module: Compound Growth Pro</div>
+<p class="text-slate-400 text-xs leading-relaxed">Compounding planner for target-driven capital growth over fixed periods.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Pattern Sequence Master (Pattern Sequence Master)" src="./assets/site/pattern-sequence-master.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Pattern Sequence Master</h4>
+<div class="original-module mb-2">Original module: Pattern Sequence Master</div>
+<p class="text-slate-400 text-xs leading-relaxed">Sequence generator for structured repeated patterns and progression planning.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Live Crypto Converter (Live Crypto Converter)" src="./assets/site/crypto-converter-live.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Live Crypto Converter</h4>
+<div class="original-module mb-2">Original module: Live Crypto Converter</div>
+<p class="text-slate-400 text-xs leading-relaxed">On-device utility for translating crypto denominations into units or fiat currency.</p>
+</div>
+</article>
+</div>
+</details>
+</div>
+<div class="mt-16 text-center">
+<a class="btn-sky-active" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20more%20about%20the%20Casino%20Tools%20Pro%20Ecosystem%20and%20its%20two%20editions." target="_blank">Inquire About Both Editions</a>
+</div>
+</div>
+</section>
+
+<div class="product-separator"></div>
+<section class="product-hero product-anchor-offset" id="simplibudget-product">
+<div class="parallax-bg-budget parallax-layer"></div>
+<div class="hero-content">
+<div class="subtle-pill mb-6">
+<i class="fas fa-wallet text-amber-400"></i>
+                Personal Finance Software
+            </div>
+<h2 class="text-5xl md:text-7xl font-black mb-3 tracking-tighter">SimpliBudget</h2>
+<div class="secondary-product-label-amber mb-4">SimpliBudget by SHV</div>
+<p class="text-gray-300 text-lg md:text-xl mb-4 max-w-3xl mx-auto italic font-light">
+                A clean mobile budgeting workspace built for daily money tracking without clutter.
+            </p>
+<p class="text-amber-300/80 text-sm md:text-base font-bold mb-10 max-w-4xl mx-auto">
+                SimpliBudget combines income tracking, expense logging, bill monitoring, category management, and dashboard-level visibility in a dark, mobile-first interface built for real everyday use.
+            </p>
+<div class="hero-actions flex flex-wrap items-center justify-center gap-6 mt-6 relative z-20">
+<a class="btn-amber-active" href="#simplibudget-access">Access</a>
+<a class="btn-amber-outline" href="#simplibudget-features">Features</a>
+</div>
+<div class="shv-chip-strip"><div class="shv-chip"><i class="fas fa-wallet"></i>Daily finance flow</div><div class="shv-chip"><i class="fas fa-layer-group"></i>Clean dashboarding</div><div class="shv-chip"><i class="fas fa-mobile-screen"></i>Dark mobile UI</div></div></div>
+</section>
+<section class="py-32 px-6 bg-[rgba(10,8,3,0.42)] backdrop-blur-[4px] border-t border-white/5" id="simplibudget-access">
+<div class="max-w-6xl mx-auto text-center">
+<h3 class="text-4xl font-black text-center mb-4 tracking-widest uppercase italic">SimpliBudget Access</h3>
+<p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-16">
+                Download links can be added later. For now, this section is structured so you can support demo previews, direct downloads, and future premium rollout options without redesigning the page.
+            </p>
+<div class="grid md:grid-cols-3 gap-8 mb-20">
+<div class="pricing-card">
+<div>
+<div class="text-4xl font-black mb-2 italic">DEMO</div>
+<div class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-6">Preview Access</div>
+<p class="text-sm text-slate-400 mb-3 italic">
+                            A lightweight way to test the dashboard, transaction flow, and financial layout.
+                        </p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">
+                            Ideal for first-time users who want to understand the app structure before moving to the full version.
+                        </p>
+</div>
+<!-- TODO: Replace with actual demo link for SimpliBudget -->
+<a class="w-full py-4 rounded-xl border border-amber-400 text-amber-300 font-bold text-xs uppercase italic hover:bg-amber-400/10 transition text-center" href="REPLACE_WITH_SIMPLIBUDGET_DEMO_LINK" target="_blank">
+                        Demo Download
+                    </a>
+</div>
+<div class="pricing-card border-amber-400/30 shadow-2xl shadow-amber-900/10 md:-translate-y-4">
+<div>
+<div class="text-4xl font-black mb-2 italic text-amber-300">STANDARD</div>
+<div class="text-amber-300/60 text-[10px] font-bold uppercase tracking-widest mb-6">Full App Access</div>
+<p class="text-sm text-slate-400 mb-3 italic">
+                            The complete budgeting workspace for active personal finance tracking and bill management.
+                        </p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">
+                            Best for users who want the full day-to-day budgeting experience with dashboard visibility, logs, and category-level control.
+                        </p>
+</div>
+<!-- TODO: Replace with actual standard download link for SimpliBudget -->
+<a class="w-full py-4 rounded-xl bg-amber-400 text-black font-black text-xs uppercase italic hover:bg-amber-300 transition text-center" href="REPLACE_WITH_SIMPLIBUDGET_STANDARD_LINK" target="_blank">
+                        Standard Download
+                    </a>
+</div>
+<div class="pricing-card">
+<div>
+<div class="text-4xl font-black mb-2 italic text-purple-400">PREMIUM</div>
+<div class="text-purple-400/50 text-[10px] font-bold uppercase tracking-widest mb-6">Custom Rollout</div>
+<p class="text-sm text-slate-400 mb-3 italic">
+                            Reserved for branded deployments, tailored builds, or future advanced package options.
+                        </p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">
+                            Useful if you later want a more customized release path, private distribution, or commercial packaging.
+                        </p>
+</div>
+<a class="w-full py-4 rounded-xl bg-purple-500 text-white font-black text-xs uppercase italic hover:bg-purple-400 transition text-center" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20ask%20about%20SimpliBudget%20premium%20or%20custom%20rollout%20options." target="_blank">
+                        Ask About Premium
+                    </a>
+</div>
+</div>
+<div class="max-w-4xl mx-auto mb-16">
+<div class="bg-[rgba(0,0,0,0.52)] backdrop-blur-[6px] border border-white/10 rounded-2xl p-8 text-center">
+<h4 class="text-2xl font-black uppercase tracking-tight mb-3 text-sky-300">Primary Download Placeholder</h4>
+<p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Use this placeholder for a future direct APK or packaged product download for Strategy Suite Pro.
+                    </p>
+<a class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-sky-400 text-black font-black text-xs uppercase tracking-widest" href="REPLACE_WITH_STRATEGY_SUITE_PRO_DOWNLOAD_LINK">
+                        Download Placeholder
+                    </a>
+</div>
+</div>
+<div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20 text-left">
+<div class="who-card">
+<h5 class="text-white text-lg">Personal Budget Users</h5>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Built for people who want a simple daily finance dashboard without unnecessary complexity.
+                    </p>
+</div>
+<div class="who-card">
+<h5 class="text-white text-lg">Expense-Conscious Households</h5>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Especially useful for tracking bills, essentials, housing, income flows, and recurring spending categories.
+                    </p>
+</div>
+<div class="who-card">
+<h5 class="text-white text-lg">Mobile-First Users</h5>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Designed around mobile visibility, quick entry, clean logs, and easy day-to-day use on Android devices.
+                    </p>
+</div>
+</div>
+<div class="max-w-4xl mx-auto bg-[rgba(0,0,0,0.52)] backdrop-blur-[6px] border border-white/10 rounded-2xl p-10 relative overflow-hidden text-left">
+<div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-amber-300 to-orange-500"></div>
+<h4 class="text-2xl font-black uppercase tracking-tight mb-4">Download Placeholder Area</h4>
+<p class="text-gray-400 text-sm leading-relaxed mb-8">
+                    This area is intentionally structured for future direct APK or product-link rollout. Replace the placeholder links in the buttons above whenever your download endpoint is ready.
+                </p>
+<div class="flex flex-wrap gap-6 items-center">
+<!-- TODO: Replace with actual download link for SimpliBudget -->
+<a class="flex items-center gap-3 text-sm font-bold bg-white/5 hover:bg-white/10 px-6 py-3 rounded-lg border border-white/10 transition contact-chip" href="REPLACE_WITH_SIMPLIBUDGET_PRIMARY_DOWNLOAD_LINK">
+<i class="fas fa-download text-amber-300"></i> Primary Download Placeholder
+                    </a>
+<a class="flex items-center gap-3 text-sm font-bold bg-white/5 hover:bg-white/10 px-6 py-3 rounded-lg border border-white/10 transition contact-chip" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20more%20about%20SimpliBudget." target="_blank">
+<i class="fab fa-whatsapp text-green-400"></i> Ask About SimpliBudget
+                    </a>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 px-6 bg-[rgba(0,0,0,0.40)] backdrop-blur-[3px] border-t border-white/5" id="simplibudget-features">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h3 class="text-4xl font-extrabold text-center mb-6 tracking-tight italic uppercase">Financial Workflow Overview</h3>
+<p class="text-center text-slate-400 max-w-2xl mx-auto mb-10 italic">
+                    SimpliBudget focuses on fast entry, clear status visibility, and a practical dashboard for personal money management.
+                </p>
+<div class="screenshot-stack mt-10">
+<img alt="SimpliBudget dashboard overview" class="gallery-image-direct" src="./assets/site/simplibudget-dashboard.png"/>
+<img alt="SimpliBudget transaction log" class="gallery-image-direct" src="./assets/site/simplibudget-transactions.png"/>
+<img alt="SimpliBudget bills and categories view" class="gallery-image-direct" src="./assets/site/simplibudget-bills.png"/>
+</div>
+</div>
+<div class="feature-grid-section pt-0">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-chart-pie text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Budget Dashboard</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            A clear home-screen snapshot of balances, totals, and overall financial movement.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-arrow-trend-up text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Income Tracking</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Record salary, side income, and one-off credits with fast entry and immediate dashboard reflection.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-arrow-trend-down text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Expense Logging</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Capture spending across common categories and keep a running view of outgoing money.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-file-invoice-dollar text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Bills &amp; Due Tracking</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Add bills, mark them paid, and keep recurring obligations visible inside the finance workflow.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-house text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Essentials Categories</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Track housing and other essentials separately so core spending stays visible at a glance.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-clock-rotate-left text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Transaction History</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Review a clean log of entries and status changes so daily money flow stays auditable.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-layer-group text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Category Structure</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Keep financial activity grouped into understandable categories instead of one flat stream.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-mobile-screen-button text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">Mobile-First UI</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Built for real phone screens with dark styling, quick access, and readable daily-use layouts.
+                        </p>
+</div>
+<div class="feature-card feature-card-budget space-y-3">
+<i class="fas fa-shield-heart text-amber-300 text-xl"></i>
+<h4 class="text-lg font-bold">License-Ready Release Flow</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Structured to support controlled release paths as the app matures into a distributable product.
+                        </p>
+</div>
+</div>
+</div>
+<div class="mt-16 text-center">
+<!-- TODO: Replace with actual download link for SimpliBudget -->
+<a class="btn-amber-active" href="REPLACE_WITH_SIMPLIBUDGET_DOWNLOAD_LINK" target="_blank">Download SimpliBudget</a>
+</div>
+</div>
+</section>
+<div class="product-separator"></div>
+<section class="product-hero product-anchor-offset" id="synapse-product">
+<div class="parallax-bg-synapse parallax-layer"></div>
+<div class="hero-content">
+<div class="subtle-pill mb-6">
+<i class="fas fa-layer-group text-green-400"></i>
+                Operational Productivity Software
+            </div>
+<h2 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter">Synapse</h2>
+<p class="text-gray-300 text-lg md:text-xl mb-4 max-w-2xl mx-auto">
+                Project planning, operational tracking, call logging, checklist control, and file generation for high-end engineering workflows.
+            </p>
+<p class="text-green-400/80 text-sm md:text-base font-bold mb-10 max-w-3xl mx-auto">
+                Synapse now supports Demo and Pro licensing paths. Demo is designed for real hands-on evaluation, while Pro unlocks the full operational workspace.
+            </p>
+<div class="hero-actions flex flex-wrap items-center justify-center gap-4 mt-6 relative z-20">
+<a class="btn-green-active" href="#synapse-pricing">Pricing</a>
+<a class="btn-green-outline" href="#unified-section">View Interface</a>
+</div>
+<div class="shv-chip-strip"><div class="shv-chip"><i class="fas fa-diagram-project"></i>Project control</div><div class="shv-chip"><i class="fas fa-file-code"></i>Build file generation</div><div class="shv-chip"><i class="fas fa-clock"></i>Operational planning</div></div></div>
+</section>
+<section class="unified-content-section py-24 px-6" id="unified-section">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-24">
+<h3 class="text-gray-500 font-extrabold uppercase tracking-widest text-xs mb-6">System Interface Overview</h3>
+<p class="text-gray-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                    Synapse is designed for people building real projects, not just collecting notes. It combines structured project control, client-call documentation, roadmap tracking, build-file generation, and local data ownership in one dark, mobile-first environment.
+                </p>
+<div class="screenshot-stack mt-10">
+<img alt="Dashboard View - Leads Pipeline" class="gallery-image-direct" src="./assets/site/36686.png"/>
+<img alt="Projects View - Data Management" class="gallery-image-direct" src="./assets/site/36685.png"/>
+<img alt="Checklist View - Task Verification" class="gallery-image-direct" src="./assets/site/36684.png"/>
+</div>
+</div>
+<div class="feature-grid-section">
+<h3 class="text-4xl font-extrabold text-center mb-16 tracking-tight">Technical Architecture</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="feature-card space-y-3">
+<i class="fas fa-code-branch text-green-500 text-xl"></i>
+<h4 class="text-lg font-bold">Automated Build Flow</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Direct generation of <code>buildozer.spec</code> and GitHub build workflows for Android delivery.
+                        </p>
+</div>
+<div class="feature-card space-y-3">
+<i class="fas fa-network-wired text-green-500 text-xl"></i>
+<h4 class="text-lg font-bold">Universal Time Sync</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Minute-perfect conversion across global zones for teams, calls, deadlines, and buyer coordination.
+                        </p>
+</div>
+<div class="feature-card space-y-3">
+<i class="fas fa-list-check text-green-500 text-xl"></i>
+<h4 class="text-lg font-bold">Checklist Import Engine</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Reusable import-ready checklists for QA, project review, and release testing with operational consistency.
+                        </p>
+</div>
+<div class="feature-card space-y-3">
+<i class="fas fa-database text-green-500 text-xl"></i>
+<h4 class="text-lg font-bold">Data Sovereignty</h4>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Local-first JSON export/import architecture with backup control and Master Password protection.
+                        </p>
+</div>
+</div>
+</div>
+<div class="pt-8">
+<div class="text-center mb-10">
+<div class="micro-note mb-3">Who Synapse Is For</div>
+<h4 class="text-3xl font-black tracking-tight">Built for real operators.</h4>
+</div>
+<div class="who-grid">
+<div class="who-card">
+<h5 class="text-white text-lg">Solo Founders</h5>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Keep product ideas, client notes, roadmap items, and shipping tasks in one operational command center.
+                        </p>
+</div>
+<div class="who-card">
+<h5 class="text-white text-lg">Android / Python Builders</h5>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Especially useful for Kivy, Buildozer, GitHub Actions, APK pipelines, and iterative app development.
+                        </p>
+</div>
+<div class="who-card">
+<h5 class="text-white text-lg">Small Tech Teams</h5>
+<p class="text-gray-400 text-sm leading-relaxed">
+                            Track calls, follow-ups, future development, sales notes, and build history without bloated SaaS tooling.
+                        </p>
+</div>
+</div>
+<div class="mt-10 text-center">
+<a class="btn-green-active" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20more%20about%20Synapse." target="_blank">Inquire About Synapse</a>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 px-6 bg-[rgba(3,8,5,0.42)] backdrop-blur-[4px] border-t border-white/5" id="synapse-pricing">
+<div class="max-w-6xl mx-auto text-center">
+<h3 class="text-4xl font-black text-center mb-4 tracking-widest uppercase italic">Synapse Licensing</h3>
+<p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-16">
+                Synapse is available in Demo and Pro tiers. Demo is meant to be genuinely useful for evaluation, while Pro unlocks the full mobile-first project planning workspace. Purchase and activation are currently handled directly through inquiry.
+            </p>
+<div class="grid md:grid-cols-2 gap-8 mb-16">
+<div class="pricing-card">
+<div>
+<div class="text-4xl font-black mb-2 italic">DEMO</div>
+<div class="text-green-400 text-[10px] font-bold uppercase tracking-widest mb-6">Operational Preview</div>
+<p class="text-sm text-slate-400 mb-3 italic">
+                            Enough access to test how Synapse fits a real workflow before purchasing Pro.
+                        </p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">
+                            Includes 2 projects, 10 file generations, and 10 Universal Time conversions. Ideal for verifying the interface, export flow, project structure, and mobile usability.
+                        </p>
+</div>
+<a class="w-full py-4 rounded-xl border border-green-500 text-green-400 font-bold text-xs uppercase italic hover:bg-green-500/10 transition text-center" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20request%20the%20Synapse%20demo." target="_blank">
+                        Request Demo
+                    </a>
+</div>
+<div class="pricing-card border-green-500/30 shadow-2xl shadow-green-900/10 md:-translate-y-4">
+<div>
+<div class="text-4xl font-black mb-2 italic text-green-400">PRO</div>
+<div class="text-green-400/50 text-[10px] font-bold uppercase tracking-widest mb-6">Full Workspace Access</div>
+<p class="text-sm text-slate-400 mb-3 italic">
+                            Unlock the complete Synapse environment for ongoing project work and internal operations.
+                        </p>
+<p class="text-xs text-slate-500 mb-8 leading-relaxed">
+                            Removes Demo limits and unlocks the full operational flow across projects, checklists, calls, future developments, sales notes, file generation, Universal Time, and structured backups.
+                        </p>
+</div>
+<a class="w-full py-4 rounded-xl bg-green-500 text-black font-black text-xs uppercase italic hover:bg-green-400 transition text-center" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20buy%20Synapse%20Pro.%20Please%20share%20the%20next%20steps." target="_blank">
+                        Ask About Pro
+                    </a>
+</div>
+</div>
+<div class="max-w-4xl mx-auto mb-16">
+<div class="bg-[rgba(0,0,0,0.52)] backdrop-blur-[6px] border border-white/10 rounded-2xl p-8 text-center">
+<h4 class="text-2xl font-black uppercase tracking-tight mb-3 text-green-300">Primary Download Placeholder</h4>
+<p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Use this placeholder for a future direct APK or packaged product download for Synapse.
+                    </p>
+<a class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-green-500 text-black font-black text-xs uppercase tracking-widest" href="REPLACE_WITH_SYNAPSE_DOWNLOAD_LINK">
+                        Download Placeholder
+                    </a>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-left">
+<div class="feature-card">
+<h4 class="text-lg font-black uppercase tracking-tight mb-4 text-green-400">Demo Includes</h4>
+<ul class="space-y-3 text-sm text-slate-300 leading-relaxed">
+<li>• Up to 2 active projects</li>
+<li>• 10 GitHub APK / file generator outputs</li>
+<li>• 10 Universal Time conversions</li>
+<li>• Project structure testing with checklists, calls, future developments, and sales notes</li>
+<li>• Local import/export and licensing flow evaluation</li>
+</ul>
+</div>
+<div class="feature-card">
+<h4 class="text-lg font-black uppercase tracking-tight mb-4 text-green-400">Pro Unlocks</h4>
+<ul class="space-y-3 text-sm text-slate-300 leading-relaxed">
+<li>• Unlimited projects and operational records</li>
+<li>• Unlimited file generation and time conversions</li>
+<li>• Full use of project planning, build support, and internal tracking modules</li>
+<li>• Licensing and revocation support through SH Vertex Admin Panel</li>
+<li>• Better fit for serious daily use, solo operators, and small product teams</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<div class="product-separator"></div>
+<section class="py-24 px-6 bg-[rgba(0,0,0,0.38)] backdrop-blur-[3px] border-t border-white/5">
+<div class="max-w-5xl mx-auto text-center">
+<div class="subtle-pill mb-6">
+<i class="fas fa-flask text-purple-400"></i>
+                Future Product Pipeline
+            </div>
+<h3 class="text-4xl font-black tracking-tight mb-4">More SH Vertex products are on the way.</h3>
+<p class="text-slate-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-10">
+                The live products page only shows currently featured systems. For roadmap-stage tools, in-development software, and upcoming releases, open the dedicated Future Products page.
+            </p>
+<div class="flex flex-wrap justify-center gap-4">
+<a class="btn-green-active" href="future-products.html">Open Future Products</a>
+<a class="btn-green-outline" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20what%20future%20products%20are%20coming." target="_blank">Ask About Roadmap</a>
+</div>
+</div>
+</section>
+<footer class="footer-shell py-12 text-center">
+<div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-6">
+<img alt="SH Vertex" class="h-8 opacity-80 grayscale" src="./assets/site/logo.png"/>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="footer-link" href="index.html">Base</a>
+<a class="footer-link" href="products.html">Products</a>
+<a class="footer-link" href="future-products.html">Future Products</a>
+<a class="footer-link" href="vault.html">Vault</a>
+<a class="footer-link" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
+</div>
+<div class="flex flex-wrap justify-center gap-3">
+<a class="footer-contact" href="mailto:ceo@shvertex.online">
+<i class="fas fa-envelope text-green-400"></i>
+<span>ceo@shvertex.online</span>
+</a>
+<a class="footer-contact" href="https://wa.me/94771363462" target="_blank">
+<i class="fab fa-whatsapp text-green-400"></i>
+<span>+94 77 136 3462</span>
+</a>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="footer-link" href="privacy.html">Privacy Policy</a>
+<a class="footer-link" href="terms.html">Terms of Service</a>
+</div>
+<p class="text-[10px] text-gray-600 font-extrabold uppercase tracking-[0.35em]">© 2026 SH VERTEX TECHNOLOGIES</p>
+</div>
+</footer>
+<script>
+        const shvParallaxItems = [
+            { bg: document.querySelector('.parallax-bg-casino'), section: document.getElementById('casino-tools') },
+            { bg: document.querySelector('.parallax-bg-budget'), section: document.getElementById('simplibudget-product') },
+            { bg: document.querySelector('.parallax-bg-synapse'), section: document.getElementById('synapse-product') }
+        ];
+
+        function shvHandleScroll() {
+            const scrollPosition = window.pageYOffset;
+            shvParallaxItems.forEach(function(item) {
+                if (item.bg && item.section) {
+                    const relativeScroll = scrollPosition - item.section.offsetTop;
+                    item.bg.style.transform = 'translateY(' + (relativeScroll * 0.22) + 'px)';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('scroll', shvHandleScroll, { passive: true });
+            shvHandleScroll();
+        });
+    </script>
+<script id="shv-phase2-script">
+(function(){
+  const body = document.body;
+  const progress = document.querySelector('.shv-progress');
+  const onScroll = () => {
+    const y = window.scrollY || 0;
+    body.classList.toggle('is-scrolled', y > 18);
+    if (progress) {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = h > 0 ? (y / h) * 100 : 0;
+      progress.style.width = Math.max(0, Math.min(100, p)) + '%';
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const targets = document.querySelectorAll('section > div, .feature-card, .trend-card, .pricing-card, .product-jump-card, .who-card, .why-card, .mini-stat, .vault-cta-card');
+  targets.forEach((el, i) => {
+    el.classList.add('shv-reveal');
+    el.style.transitionDelay = Math.min(i % 8, 5) * 35 + 'ms';
+  });
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('shv-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(el => io.observe(el));
+  } else {
+    targets.forEach(el => el.classList.add('shv-revealed'));
+  }
+})();
+</script>
+</body>
+</html>

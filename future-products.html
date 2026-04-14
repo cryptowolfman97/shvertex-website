@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+
+<div class="site-static-bg"></div>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Future Products | SH Vertex Tech</title>
+<link href="./assets/site/favicon.png" rel="icon" type="image/png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        body.animations-enabled .site-static-bg { position: fixed; inset: 0; z-index: -3; pointer-events: none; background: #000000; }
+
+        .page-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at top center, rgba(34,197,94,0.05), transparent 28%),
+                linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.46) 24%, rgba(0,0,0,0.68) 100%);
+        }
+        .nav-blur {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.03);
+            color: #9ca3af;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            transition: 0.25s ease;
+            backdrop-filter: blur(6px);
+        }
+        .nav-pill:hover {
+            color: #ffffff;
+            border-color: rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.06);
+        }
+        .nav-pill-active {
+            color: #d1fae5;
+            border-color: rgba(34,197,94,0.50);
+            background: rgba(34,197,94,0.16);
+            box-shadow: 0 0 0 1px rgba(34,197,94,0.04) inset;
+        }
+        .nav-pill-featured {
+            color: #86efac;
+            border-color: rgba(34,197,94,0.30);
+            background: rgba(34,197,94,0.10);
+        }
+        @media (min-width: 768px) {
+            .nav-pill { padding: 11px 18px; font-size: 12px; }
+        }
+        @media (max-width: 768px) {
+            .nav-wrap { gap: 10px; }
+            .nav-pill { padding: 9px 12px; font-size: 10px; letter-spacing: 0.10em; }
+            .hero-shell { padding-top: 14rem; }
+        }
+        .hero-shell {
+            min-height: 62vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12rem 1.5rem 4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .hero-card {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0,0,0,0.50);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 1.75rem;
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .subtle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #cbd5e1;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+        }
+        .btn-green-active {
+            background: #22c55e;
+            color: black;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2);
+        }
+        .btn-green-active:hover { transform: scale(1.05); background: #ffffff; color: #000000; }
+        .btn-green-outline {
+            border: 2px solid #22c55e;
+            color: #22c55e;
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.18);
+            backdrop-filter: blur(4px);
+        }
+        .btn-green-outline:hover { background: rgba(34, 197, 94, 0.1); }
+        .feature-card {
+            background: rgba(0,0,0,0.62);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: border-color 0.3s, transform 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(4px);
+        }
+        .feature-card:hover {
+            border-color: rgba(34, 197, 94, 0.5);
+            transform: translateY(-3px);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            padding: 8px 12px;
+            margin-bottom: 1rem;
+        }
+        .status-active {
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            background: rgba(34, 197, 94, 0.08);
+        }
+        .status-concept {
+            color: #d8b4fe;
+            border: 1px solid rgba(192, 132, 252, 0.25);
+            background: rgba(192, 132, 252, 0.08);
+        }
+        .status-internal {
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            background: rgba(56, 189, 248, 0.08);
+        }
+        .footer-shell {
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-link {
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            font-size: 10px;
+            transition: 0.25s;
+        }
+        .footer-link:hover { color: #22c55e; }
+        .footer-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #d1d5db;
+            font-size: 12px;
+            transition: 0.25s;
+        }
+        .footer-contact:hover { color: #ffffff; border-color: rgba(34,197,94,0.3); }
+    
+        
+
+        
+
+        .hero-dynamic-card {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-dynamic-card .hero-fx-orb,
+        .hero-dynamic-card .hero-fx-sheen,
+        .hero-dynamic-card .hero-fx-ring {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform, opacity;
+        }
+
+        .hero-dynamic-card .hero-fx-orb {
+            border-radius: 999px;
+            opacity: 0.55;
+        }
+
+        .hero-dynamic-card .hero-fx-orb.primary {
+            width: 180px;
+            height: 180px;
+            right: -42px;
+            top: -30px;
+            background: radial-gradient(circle, rgba(34,197,94,0.24) 0%, rgba(34,197,94,0.09) 42%, transparent 74%);
+            animation: heroOrbFloat 9s ease-in-out infinite;
+        }
+
+        .hero-dynamic-card .hero-fx-orb.secondary {
+            width: 150px;
+            height: 150px;
+            left: -36px;
+            bottom: -44px;
+            background: radial-gradient(circle, rgba(255,255,255,0.13) 0%, rgba(34,197,94,0.07) 45%, transparent 74%);
+            animation: heroOrbFloatSecondary 11s ease-in-out infinite;
+        }
+
+        .hero-dynamic-card .hero-fx-ring {
+            inset: 12px;
+            border-radius: 1.2rem;
+            border: 1px solid rgba(34,197,94,0.14);
+            box-shadow: inset 0 0 28px rgba(255,255,255,0.02), 0 0 34px rgba(34,197,94,0.06);
+            opacity: 0.42;
+            animation: heroRingPulse 6.2s ease-in-out infinite;
+        }
+
+        .hero-dynamic-card .hero-fx-sheen {
+            top: -38%;
+            left: -22%;
+            width: 46%;
+            height: 190%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 48%, rgba(255,255,255,0) 100%);
+            opacity: 0.0;
+            transform: translateX(-135%) rotate(14deg);
+            animation: heroSheenSweep 8.8s ease-in-out infinite;
+        }
+
+        @keyframes heroOrbFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.50; }
+            50% { transform: translate3d(-14px, 12px, 0) scale(1.06); opacity: 0.74; }
+        }
+
+        @keyframes heroOrbFloatSecondary {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.30; }
+            50% { transform: translate3d(16px, -10px, 0) scale(1.08); opacity: 0.56; }
+        }
+
+        @keyframes heroRingPulse {
+            0%, 100% { transform: scale(1); opacity: 0.34; }
+            50% { transform: scale(1.014); opacity: 0.66; }
+        }
+
+        @keyframes heroSheenSweep {
+            0%, 68%, 100% { transform: translateX(-135%) rotate(14deg); opacity: 0; }
+            76% { opacity: 0.18; }
+            86% { transform: translateX(300%) rotate(14deg); opacity: 0.22; }
+            92% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-dynamic-card .hero-fx-orb.primary {
+                width: 130px;
+                height: 130px;
+                right: -28px;
+                top: -18px;
+            }
+            .hero-dynamic-card .hero-fx-orb.secondary {
+                width: 110px;
+                height: 110px;
+                left: -24px;
+                bottom: -28px;
+            }
+            .hero-dynamic-card .hero-fx-ring {
+                inset: 10px;
+            }
+            .hero-dynamic-card .hero-fx-sheen {
+                width: 58%;
+                opacity: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-dynamic-card .hero-fx-orb,
+            .hero-dynamic-card .hero-fx-sheen,
+            .hero-dynamic-card .hero-fx-ring {
+                animation: none !important;
+                transform: none !important;
+            }
+            .hero-dynamic-card .hero-fx-sheen {
+                display: none;
+            }
+            .hero-dynamic-card .hero-fx-ring {
+                opacity: 0.26;
+            }
+            .hero-dynamic-card .hero-fx-orb {
+                opacity: 0.24;
+            }
+        }
+
+    
+
+/* Phase 2.1 hybrid navigation */
+.nav-wrap {
+  position: relative;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.nav-desktop-whatsapp {
+  display: none;
+}
+.mobile-nav {
+  position: relative;
+}
+.mobile-nav summary {
+  list-style: none;
+}
+.mobile-nav summary::-webkit-details-marker {
+  display: none;
+}
+.mobile-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  min-height: 44px;
+  padding: .78rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: #ffffff;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+  cursor: pointer;
+}
+.mobile-nav-toggle:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.18);
+}
+.mobile-nav[open] .mobile-nav-toggle {
+  background: rgba(34,197,94,0.12);
+  border-color: rgba(34,197,94,0.28);
+  color: #d1fae5;
+}
+.mobile-nav-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(330px, calc(100vw - 2rem));
+  padding: .95rem;
+  border-radius: 1.3rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(10,10,10,0.96), rgba(4,4,4,0.94));
+  box-shadow: 0 22px 48px rgba(0,0,0,0.48);
+  backdrop-filter: blur(16px);
+}
+.mobile-nav-list {
+  display: grid;
+  gap: .6rem;
+}
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .9rem;
+  padding: .92rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: #e5e7eb;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.mobile-nav-link:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.14);
+  transform: translateY(-1px);
+}
+.mobile-nav-link.is-active {
+  color: #d1fae5;
+  border-color: rgba(34,197,94,0.35);
+  background: rgba(34,197,94,0.13);
+}
+.mobile-nav-link.is-featured {
+  color: #86efac;
+  border-color: rgba(34,197,94,0.24);
+  background: rgba(34,197,94,0.08);
+}
+.mobile-nav-link.mobile-nav-whatsapp {
+  color: #bbf7d0;
+  border-color: rgba(34,197,94,0.24);
+  background: rgba(34,197,94,0.08);
+}
+.mobile-nav-link i {
+  font-size: .88rem;
+}
+@media (max-width: 767px) {
+  .nav-links {
+    display: none !important;
+  }
+  .nav-wrap {
+    min-height: 56px;
+  }
+  .shv-hero-layout,
+  .hero-shell {
+    padding-top: 8.85rem !important;
+  }
+  .product-jump-section {
+    padding-top: 8.9rem !important;
+  }
+}
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex !important;
+  }
+  .mobile-nav {
+    display: none;
+  }
+  .nav-desktop-whatsapp {
+    display: inline-flex;
+  }
+}
+
+/* Final mobile nav spacing override */
+@media (max-width: 768px) {
+  .shv-hero-layout,
+  .hero-shell {
+    padding-top: 8.85rem !important;
+  }
+  .product-jump-section {
+    padding-top: 8.9rem !important;
+  }
+}
+
+</style>
+<meta content="#020303" name="theme-color"/>
+<style id="shv-phase2-style">
+:root {
+  --shv-bg: #020303;
+  --shv-surface: rgba(8, 11, 11, 0.78);
+  --shv-surface-2: rgba(12, 16, 16, 0.9);
+  --shv-line: rgba(255,255,255,0.10);
+  --shv-line-strong: rgba(255,255,255,0.18);
+  --shv-green: #22c55e;
+  --shv-green-soft: rgba(34,197,94,0.14);
+  --shv-cyan-soft: rgba(56,189,248,0.14);
+  --shv-amber-soft: rgba(251,191,36,0.14);
+  --shv-shadow: 0 20px 50px rgba(0,0,0,0.42);
+  --shv-shadow-lg: 0 28px 80px rgba(0,0,0,0.55);
+  --shv-radius: 1.5rem;
+}
+body.shv-phase2 {
+  background:
+    radial-gradient(circle at top left, rgba(34,197,94,0.12), transparent 28%),
+    radial-gradient(circle at 100% 15%, rgba(56,189,248,0.08), transparent 22%),
+    linear-gradient(180deg, #020303 0%, #020303 36%, #050808 100%);
+  overflow-x: hidden;
+}
+body.shv-phase2::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(34,197,94,0.08) 0, transparent 20%),
+    radial-gradient(circle at 85% 12%, rgba(56,189,248,0.08) 0, transparent 18%),
+    radial-gradient(circle at 82% 76%, rgba(251,191,36,0.06) 0, transparent 18%);
+}
+body.shv-phase2::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.25;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+}
+.shv-progress {
+  position: fixed;
+  inset: 0 auto auto 0;
+  height: 3px;
+  width: 0;
+  z-index: 70;
+  background: linear-gradient(90deg, #22c55e, #38bdf8);
+  box-shadow: 0 0 16px rgba(34,197,94,0.55);
+}
+body.is-scrolled .nav-blur {
+  background: rgba(0,0,0,0.88) !important;
+  border-bottom-color: rgba(255,255,255,0.10) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+.nav-blur {
+  transition: background .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.nav-pill, .hero-cta-primary, .hero-cta-secondary, .btn-green-active, .btn-green-outline,
+.btn-sky-active, .btn-sky-outline, .btn-amber-active, .btn-amber-outline,
+.btn-download-outline, .bridge-btn-green, .bridge-btn-sky, .bridge-btn-amber,
+.bridge-btn-outline, .card-btn-green, .card-btn-dark, .footer-contact {
+  position: relative;
+  overflow: hidden;
+}
+.nav-pill::after, .hero-cta-primary::after, .hero-cta-secondary::after,
+.btn-green-active::after, .btn-green-outline::after, .btn-sky-active::after,
+.btn-sky-outline::after, .btn-amber-active::after, .btn-amber-outline::after,
+.btn-download-outline::after, .bridge-btn-green::after, .bridge-btn-sky::after,
+.bridge-btn-amber::after, .bridge-btn-outline::after, .card-btn-green::after,
+.card-btn-dark::after, .footer-contact::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -120%;
+  width: 70%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  transform: skewX(-22deg);
+  transition: left .45s ease;
+}
+.nav-pill:hover::after, .hero-cta-primary:hover::after, .hero-cta-secondary:hover::after,
+.btn-green-active:hover::after, .btn-green-outline:hover::after, .btn-sky-active:hover::after,
+.btn-sky-outline:hover::after, .btn-amber-active:hover::after, .btn-amber-outline:hover::after,
+.btn-download-outline:hover::after, .bridge-btn-green:hover::after, .bridge-btn-sky:hover::after,
+.bridge-btn-amber:hover::after, .bridge-btn-outline:hover::after, .card-btn-green:hover::after,
+.card-btn-dark:hover::after, .footer-contact:hover::after { left: 135%; }
+.hero-text-plane, .hero-card, .product-jump-card, .feature-card, .pricing-card,
+.trend-card, .why-card, .product-bridge-card, .who-card, .vault-cta-card,
+.mini-stat, .animation-toggle-shell {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  box-shadow: var(--shv-shadow);
+  position: relative;
+  isolation: isolate;
+}
+.hero-text-plane::before, .hero-card::before, .product-jump-card::before, .feature-card::before,
+.pricing-card::before, .trend-card::before, .why-card::before, .product-bridge-card::before,
+.who-card::before, .vault-cta-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
+  z-index: 0;
+}
+.hero-text-plane, .hero-card {
+  border-radius: 2rem !important;
+  box-shadow: var(--shv-shadow-lg);
+}
+.hero-text-plane > *, .hero-card > *, .pricing-card > *, .trend-card > *, .feature-card > *, .product-jump-card > *, .vault-cta-card > * {
+  position: relative;
+  z-index: 1;
+}
+.section-shell, .unified-content-section, .feature-grid-section,
+section[id="pipeline"], .product-jump-section, .product-hero, footer.footer-shell,
+body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16 {
+  position: relative;
+}
+.section-shell::after, .unified-content-section::after, .feature-grid-section::after,
+section[id="pipeline"]::after, .product-jump-section::after,
+body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(34,197,94,0.05), transparent 18%),
+    radial-gradient(circle at 90% 100%, rgba(56,189,248,0.04), transparent 18%);
+}
+.feature-card:hover, .trend-card:hover, .pricing-card:hover, .product-jump-card:hover,
+.why-card:hover, .product-bridge-card:hover, .who-card:hover, .mini-stat:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(255,255,255,0.18) !important;
+}
+.feature-img-wrapper, .gallery-image-direct, .trend-card .h-64, .trend-card .h-72 {
+  border-radius: 1.25rem !important;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+.gallery-image-direct, .feature-img-wrapper img, .trend-card img, .hero-product-image, .service-card img {
+  transition: transform .55s ease, filter .55s ease, opacity .55s ease;
+}
+.feature-card:hover img, .trend-card:hover img, .gallery-image-direct:hover {
+  transform: scale(1.03);
+}
+.product-hero::before, .hero-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.34)),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06), transparent 26%);
+  z-index: 2;
+}
+.hero-content, .hero-card, .hero-text-plane {
+  backdrop-filter: blur(12px) saturate(120%);
+}
+.subtle-pill, .proof-pill, .product-tag, .status-badge, .section-kicker {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+.shv-hero-side {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .shv-hero-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) 360px;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .shv-hero-side {
+    display: grid;
+    gap: 1rem;
+    align-self: stretch;
+  }
+}
+.shv-aside-card {
+  border-radius: 1.6rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  padding: 1.25rem;
+  box-shadow: var(--shv-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.shv-aside-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -30% auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(34,197,94,0.14), transparent 68%);
+}
+.shv-aside-title {
+  font-size: .72rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #cbd5e1;
+  margin-bottom: .65rem;
+}
+.shv-aside-stat {
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -.03em;
+  font-weight: 900;
+  margin-bottom: .45rem;
+}
+.shv-aside-copy {
+  color: #aeb8c7;
+  font-size: .88rem;
+  line-height: 1.65;
+}
+.shv-chip-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: 1.35rem;
+}
+.shv-chip {
+  padding: .8rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: #d6dee9;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.shv-chip i { margin-right: .5rem; }
+.shv-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.shv-reveal.shv-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .hero-text-plane, .hero-card {
+    padding: 1.45rem !important;
+    border-radius: 1.5rem !important;
+  }
+  .product-jump-section { padding-top: 12.75rem !important; }
+  .product-hero { min-height: 600px !important; }
+  .product-jump-card, .feature-card, .pricing-card, .trend-card, .why-card, .who-card, .vault-cta-card, .mini-stat {
+    box-shadow: 0 14px 32px rgba(0,0,0,0.34);
+  }
+  .shv-chip-strip {
+    gap: .55rem;
+    margin-top: 1rem;
+  }
+  .shv-chip {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: .65rem;
+    padding: .8rem .9rem;
+  }
+  .shv-progress { height: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .shv-reveal { opacity: 1 !important; transform: none !important; }
+}
+
+
+        .hero-dynamic-card {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-dynamic-card .hero-fx-orb,
+        .hero-dynamic-card .hero-fx-sheen,
+        .hero-dynamic-card .hero-fx-ring {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform, opacity;
+        }
+
+        .hero-dynamic-card .hero-fx-orb {
+            border-radius: 999px;
+            opacity: 0.55;
+        }
+
+        .hero-dynamic-card .hero-fx-orb.primary {
+            width: 180px;
+            height: 180px;
+            right: -42px;
+            top: -30px;
+            background: radial-gradient(circle, rgba(34,197,94,0.24) 0%, rgba(34,197,94,0.09) 42%, transparent 74%);
+            animation: heroOrbFloat 9s ease-in-out infinite;
+        }
+
+        .hero-dynamic-card .hero-fx-orb.secondary {
+            width: 150px;
+            height: 150px;
+            left: -36px;
+            bottom: -44px;
+            background: radial-gradient(circle, rgba(255,255,255,0.13) 0%, rgba(34,197,94,0.07) 45%, transparent 74%);
+            animation: heroOrbFloatSecondary 11s ease-in-out infinite;
+        }
+
+        .hero-dynamic-card .hero-fx-ring {
+            inset: 12px;
+            border-radius: 1.2rem;
+            border: 1px solid rgba(34,197,94,0.14);
+            box-shadow: inset 0 0 28px rgba(255,255,255,0.02), 0 0 34px rgba(34,197,94,0.06);
+            opacity: 0.42;
+            animation: heroRingPulse 6.2s ease-in-out infinite;
+        }
+
+        .hero-dynamic-card .hero-fx-sheen {
+            top: -38%;
+            left: -22%;
+            width: 46%;
+            height: 190%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 48%, rgba(255,255,255,0) 100%);
+            opacity: 0.0;
+            transform: translateX(-135%) rotate(14deg);
+            animation: heroSheenSweep 8.8s ease-in-out infinite;
+        }
+
+        @keyframes heroOrbFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.50; }
+            50% { transform: translate3d(-14px, 12px, 0) scale(1.06); opacity: 0.74; }
+        }
+
+        @keyframes heroOrbFloatSecondary {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.30; }
+            50% { transform: translate3d(16px, -10px, 0) scale(1.08); opacity: 0.56; }
+        }
+
+        @keyframes heroRingPulse {
+            0%, 100% { transform: scale(1); opacity: 0.34; }
+            50% { transform: scale(1.014); opacity: 0.66; }
+        }
+
+        @keyframes heroSheenSweep {
+            0%, 68%, 100% { transform: translateX(-135%) rotate(14deg); opacity: 0; }
+            76% { opacity: 0.18; }
+            86% { transform: translateX(300%) rotate(14deg); opacity: 0.22; }
+            92% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-dynamic-card .hero-fx-orb.primary {
+                width: 130px;
+                height: 130px;
+                right: -28px;
+                top: -18px;
+            }
+            .hero-dynamic-card .hero-fx-orb.secondary {
+                width: 110px;
+                height: 110px;
+                left: -24px;
+                bottom: -28px;
+            }
+            .hero-dynamic-card .hero-fx-ring {
+                inset: 10px;
+            }
+            .hero-dynamic-card .hero-fx-sheen {
+                width: 58%;
+                opacity: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-dynamic-card .hero-fx-orb,
+            .hero-dynamic-card .hero-fx-sheen,
+            .hero-dynamic-card .hero-fx-ring {
+                animation: none !important;
+                transform: none !important;
+            }
+            .hero-dynamic-card .hero-fx-sheen {
+                display: none;
+            }
+            .hero-dynamic-card .hero-fx-ring {
+                opacity: 0.26;
+            }
+            .hero-dynamic-card .hero-fx-orb {
+                opacity: 0.24;
+            }
+        }
+
+    
+/* Final mobile nav spacing override */
+@media (max-width: 768px) {
+  .shv-hero-layout,
+  .hero-shell {
+    padding-top: 8.85rem !important;
+  }
+  .product-jump-section {
+    padding-top: 8.9rem !important;
+  }
+}
+
+</style>
+</head>
+<body class="shv-phase2"><div class="shv-progress"></div>
+<div class="page-overlay"></div>
+<nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10"><div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4"><a href="index.html"><img alt="SH Vertex" class="h-8 md:h-10 grayscale" src="./assets/site/logo.png"/></a><div class="nav-links"><a class="nav-pill" href="index.html">Base</a><a class="nav-pill nav-pill-featured" href="products.html">Products</a><a class="nav-pill nav-pill-active" href="future-products.html">Future Products</a><a class="nav-pill" href="vault.html">Vault</a><a class="nav-pill" href="https://wa.me/94771363462" target="_blank">Inquiry</a></div><div class="nav-actions"><a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a><details class="mobile-nav"><summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary><div class="mobile-nav-panel"><div class="mobile-nav-list"><a class="mobile-nav-link" href="index.html"><span>Base</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link is-featured" href="products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link is-active" href="future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="https://wa.me/94771363462" target="_blank"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a></div></div></details></div></div></nav>
+<section class="hero-shell shv-hero-layout">
+<div class="hero-card hero-dynamic-card border-l-4 border-green-500">
+<span aria-hidden="true" class="hero-fx-ring"></span><span aria-hidden="true" class="hero-fx-orb primary"></span><span aria-hidden="true" class="hero-fx-orb secondary"></span><span aria-hidden="true" class="hero-fx-sheen"></span>
+<div class="subtle-pill mb-6">
+<i class="fas fa-flask text-green-400"></i>
+                Product Roadmap / Future Pipeline
+            </div>
+<h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6">
+                FUTURE <span class="text-green-500">PRODUCTS</span>
+</h1>
+<p class="text-gray-300 text-sm md:text-base leading-relaxed max-w-3xl mb-6">
+                A live holding page for SH Vertex products that are in development, under internal testing, or not yet ready for the main products catalog.
+            </p>
+<p class="text-gray-500 text-xs md:text-sm uppercase tracking-[0.22em] font-bold mb-8">
+                roadmap-stage systems • internal tools • future releases • concept validation
+            </p>
+<div class="flex flex-wrap gap-4">
+<a class="btn-green-active" href="#pipeline">View Pipeline</a>
+<a class="btn-green-outline" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20what%20future%20products%20are%20coming." target="_blank">Ask About Roadmap</a>
+</div>
+<div class="shv-chip-strip"><div class="shv-chip"><i class="fas fa-flask"></i>Concept validation</div><div class="shv-chip"><i class="fas fa-code-branch"></i>Pipeline clarity</div><div class="shv-chip"><i class="fas fa-rocket"></i>Promotion-ready sections</div></div></div><div class="shv-hero-side"><div class="shv-aside-card">
+<div class="shv-aside-title">Pipeline</div>
+<div class="shv-aside-stat">Live</div>
+<div class="shv-aside-copy">This page stays ready for products to move from concept to active release without redesigning the layout.</div>
+</div><div class="shv-aside-card">
+<div class="shv-aside-title">Status</div>
+<div class="shv-aside-stat">Roadmap</div>
+<div class="shv-aside-copy">Internal tools, active development items, and reserved slots now feel more like a proper product pipeline.</div>
+</div><div class="shv-aside-card">
+<div class="shv-aside-title">Presentation</div>
+<div class="shv-aside-stat">Clean</div>
+<div class="shv-aside-copy">The upgraded visuals keep the roadmap premium without adding heavy effects that punish weaker phones.</div>
+</div></div>
+</section>
+<section class="py-14 px-6 border-t border-white/5 border-b border-white/5 bg-[rgba(3,6,10,0.46)] backdrop-blur-[4px]">
+<div class="max-w-6xl mx-auto">
+<div class="hero-card border-l-4 border-sky-400">
+<div class="subtle-pill mb-5"><i class="fas fa-layer-group text-sky-400"></i>Live Product Family Update</div>
+<h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4">Casino Tools Pro now ships as a <span class="text-sky-400">two-edition ecosystem</span>.</h2>
+<p class="text-gray-300 text-sm md:text-base leading-relaxed max-w-4xl mb-6">The active product family now includes the original Casino Tools Pro edition and the clean Strategy Suite Pro edition. Both sit on the same core product foundation while serving different presentation and deployment needs.</p>
+<div class="grid md:grid-cols-2 gap-4 mb-6 text-left">
+<div class="feature-card !p-6"><div class="status-badge status-active">Original Edition</div><h3 class="text-2xl font-black tracking-tight mb-3">Casino Tools Pro</h3><p class="text-gray-400 text-sm leading-relaxed">Original presentation layer for direct gambling analytics buyers and legacy product positioning.</p></div>
+<div class="feature-card !p-6"><div class="status-badge status-internal">Clean Edition</div><h3 class="text-2xl font-black tracking-tight mb-3">Strategy Suite Pro</h3><p class="text-gray-400 text-sm leading-relaxed">Clean analytics wording and compliance-friendly presentation for broader buyer-facing marketing.</p></div>
+</div>
+<div class="flex flex-wrap gap-4"><a class="btn-green-active" href="./casino-tools-pro.html">Original Edition Page</a><a class="btn-green-outline" href="./strategy-suite-pro.html">Clean Edition Page</a><a class="btn-green-outline" href="vault.html">View Vault</a></div>
+</div>
+</div>
+</section>
+<section class="py-24 px-6" id="pipeline">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<div class="subtle-pill mb-5">
+<i class="fas fa-cube text-green-400"></i>
+                    Current Pipeline
+                </div>
+<h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">What is coming next from SH Vertex.</h2>
+<p class="text-gray-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                    This page is intentionally update-friendly. Products can be promoted, renamed, expanded, or removed as they move from concept to active release.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="feature-card">
+<div class="status-badge status-internal">Internal Command Center</div>
+<h3 class="text-2xl font-black tracking-tight mb-3">SH Vertex Admin Panel</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        The company-side control hub for licensing, backups, revocations, authority management, product dashboards, and future internal operations.
+                    </p>
+<ul class="space-y-2 text-sm text-slate-300">
+<li>• Multi-product licensing modules</li>
+<li>• Backup vault and authority controls</li>
+<li>• Customer, release, and activity tracking</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="status-badge status-active">Active Development</div>
+<h3 class="text-2xl font-black tracking-tight mb-3">Bet Edge Lab</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        A premium toolkit focused on betting mathematics, matched betting support, bonus analysis, slip grading, and edge-focused utilities.
+                    </p>
+<ul class="space-y-2 text-sm text-slate-300">
+<li>• Bonus Lab / Matched Lab / Slip Lab</li>
+<li>• No live API dependency required</li>
+<li>• Built for structured analysis, not hype</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="status-badge status-concept">Specialized Utility</div>
+<h3 class="text-2xl font-black tracking-tight mb-3">Gem Tool Kit for Pros</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        A high-end calculator suite for gemstone workflows, margin estimation, cut planning, yield logic, and professional decision support.
+                    </p>
+<ul class="space-y-2 text-sm text-slate-300">
+<li>• Margin and planning support</li>
+<li>• Mobile-first operational layout</li>
+<li>• Targeted for serious niche users</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="status-badge status-concept">Research Track</div>
+<h3 class="text-2xl font-black tracking-tight mb-3">Sports Analytics Engine</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        A deeper analytics path for pricing models, edge detection, structured sports research, and premium internal-use logic systems.
+                    </p>
+<ul class="space-y-2 text-sm text-slate-300">
+<li>• Edge scoring and structured models</li>
+<li>• Premium internal-use orientation</li>
+<li>• Candidate for later public release</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="status-badge status-active">Expansion Layer</div>
+<h3 class="text-2xl font-black tracking-tight mb-3">Future Licensing Modules</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        The SH Vertex Admin Panel is designed to keep absorbing new product licensing flows as the product line expands.
+                    </p>
+<ul class="space-y-2 text-sm text-slate-300">
+<li>• New customer apps</li>
+<li>• New revocation feeds</li>
+<li>• New authority and backup branches</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="status-badge status-internal">Flexible Placeholder</div>
+<h3 class="text-2xl font-black tracking-tight mb-3">Reserved Slot</h3>
+<p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Leave room for the next software idea without needing to redesign the whole website. This card can be replaced anytime as the roadmap evolves.
+                    </p>
+<ul class="space-y-2 text-sm text-slate-300">
+<li>• Swap name, copy, and badge</li>
+<li>• Use for stealth or private products</li>
+<li>• Keep the page easy to extend later</li>
+</ul>
+</div>
+</div>
+<div class="mt-16 text-center">
+<div class="subtle-pill mb-6">
+<i class="fas fa-note-sticky text-green-400"></i>
+                    Updating This Page
+                </div>
+<p class="text-gray-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-8">
+                    This page is meant to stay flexible. Add a new card when a concept becomes real, remove one when a track is discontinued, or promote a product into the main Products page once it becomes customer-facing.
+                </p>
+<a class="btn-green-outline" href="products.html">Back to Live Products</a>
+</div>
+</div>
+</section>
+<footer class="footer-shell py-12 text-center">
+<div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-6">
+<img alt="SH Vertex" class="h-8 opacity-80 grayscale" src="./assets/site/logo.png"/>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="footer-link" href="index.html">Base</a>
+<a class="footer-link" href="products.html">Products</a>
+<a class="footer-link" href="future-products.html">Future Products</a>
+<a class="footer-link" href="vault.html">Vault</a>
+<a class="footer-link" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
+</div>
+<div class="flex flex-wrap justify-center gap-3">
+<a class="footer-contact" href="mailto:ceo@shvertex.online">
+<i class="fas fa-envelope text-green-400"></i>
+<span>ceo@shvertex.online</span>
+</a>
+<a class="footer-contact" href="https://wa.me/94771363462" target="_blank">
+<i class="fab fa-whatsapp text-green-400"></i>
+<span>+94 77 136 3462</span>
+</a>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="footer-link" href="privacy.html">Privacy Policy</a>
+<a class="footer-link" href="terms.html">Terms of Service</a>
+</div>
+<p class="text-[10px] text-gray-600 font-extrabold uppercase tracking-[0.35em]">© 2026 SH VERTEX TECHNOLOGIES</p>
+</div>
+</footer>
+<script id="shv-phase2-script">
+(function(){
+  const body = document.body;
+  const progress = document.querySelector('.shv-progress');
+  const onScroll = () => {
+    const y = window.scrollY || 0;
+    body.classList.toggle('is-scrolled', y > 18);
+    if (progress) {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = h > 0 ? (y / h) * 100 : 0;
+      progress.style.width = Math.max(0, Math.min(100, p)) + '%';
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const targets = document.querySelectorAll('section > div, .feature-card, .trend-card, .pricing-card, .product-jump-card, .who-card, .why-card, .mini-stat, .vault-cta-card');
+  targets.forEach((el, i) => {
+    el.classList.add('shv-reveal');
+    el.style.transitionDelay = Math.min(i % 8, 5) * 35 + 'ms';
+  });
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('shv-revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(el => io.observe(el));
+  } else {
+    targets.forEach(el => el.classList.add('shv-revealed'));
+  }
+})();
+</script>
+</body>
+</html>
