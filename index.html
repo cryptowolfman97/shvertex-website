@@ -1262,84 +1262,88 @@ body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
 <style id="shv-hero-aurora-style">
 .hero-aurora-field {
     background:
-        linear-gradient(135deg, rgba(2,8,10,0.94) 0%, rgba(4,10,18,0.90) 42%, rgba(0,0,0,0.84) 100%) !important;
-    box-shadow: 0 28px 80px rgba(0,0,0,0.58), 0 0 40px rgba(34,197,94,0.06);
+        linear-gradient(135deg, rgba(1,4,6,0.97) 0%, rgba(2,7,11,0.95) 42%, rgba(0,0,0,0.92) 100%) !important;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.64), 0 0 30px rgba(34,197,94,0.035);
+    contain: paint;
+    transform: translateZ(0);
 }
 
 .hero-aurora-field .hero-aurora-layer,
 .hero-aurora-field .hero-grid-overlay,
 .hero-aurora-field .hero-noise-overlay {
     position: absolute;
-    inset: -18%;
+    inset: -12%;
     pointer-events: none;
     z-index: 0;
     border-radius: inherit;
-    will-change: transform, opacity, background-position, filter;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .hero-aurora-field .hero-aurora-layer {
-    filter: blur(46px) saturate(135%);
+    filter: blur(34px) saturate(115%);
     mix-blend-mode: screen;
 }
 
 .hero-aurora-field .hero-aurora-layer.layer-a {
     background:
-        radial-gradient(circle at 18% 30%, rgba(34,197,94,0.50) 0%, rgba(34,197,94,0.22) 20%, transparent 46%),
-        radial-gradient(circle at 72% 22%, rgba(34,211,238,0.42) 0%, rgba(34,211,238,0.18) 18%, transparent 42%),
-        radial-gradient(circle at 46% 72%, rgba(59,130,246,0.34) 0%, rgba(59,130,246,0.12) 20%, transparent 46%);
-    opacity: 0.85;
-    animation: shvAuroraShiftA 5.2s ease-in-out infinite alternate;
+        radial-gradient(circle at 18% 30%, rgba(22,163,74,0.28) 0%, rgba(22,163,74,0.12) 20%, transparent 48%),
+        radial-gradient(circle at 72% 22%, rgba(8,145,178,0.22) 0%, rgba(8,145,178,0.10) 18%, transparent 44%),
+        radial-gradient(circle at 46% 72%, rgba(37,99,235,0.18) 0%, rgba(37,99,235,0.08) 20%, transparent 46%);
+    opacity: 0.62;
+    animation: shvAuroraShiftA 4.6s ease-in-out infinite alternate;
 }
 
 .hero-aurora-field .hero-aurora-layer.layer-b {
     background:
-        radial-gradient(circle at 78% 62%, rgba(34,197,94,0.40) 0%, rgba(34,197,94,0.16) 22%, transparent 44%),
-        radial-gradient(circle at 28% 74%, rgba(6,182,212,0.38) 0%, rgba(6,182,212,0.14) 18%, transparent 42%),
-        radial-gradient(circle at 60% 18%, rgba(96,165,250,0.28) 0%, rgba(96,165,250,0.12) 18%, transparent 40%);
-    opacity: 0.78;
-    animation: shvAuroraShiftB 6.4s ease-in-out infinite alternate;
+        radial-gradient(circle at 78% 62%, rgba(21,128,61,0.24) 0%, rgba(21,128,61,0.10) 22%, transparent 46%),
+        radial-gradient(circle at 28% 74%, rgba(14,116,144,0.20) 0%, rgba(14,116,144,0.09) 18%, transparent 44%),
+        radial-gradient(circle at 60% 18%, rgba(29,78,216,0.16) 0%, rgba(29,78,216,0.08) 18%, transparent 42%);
+    opacity: 0.52;
+    animation: shvAuroraShiftB 5.4s ease-in-out infinite alternate;
 }
 
 .hero-aurora-field .hero-aurora-layer.layer-c {
-    inset: -8%;
+    inset: -4%;
     background:
         conic-gradient(from 0deg at 50% 50%,
             rgba(34,197,94,0.00) 0deg,
-            rgba(34,197,94,0.14) 65deg,
-            rgba(34,211,238,0.22) 145deg,
-            rgba(59,130,246,0.18) 225deg,
-            rgba(34,197,94,0.10) 300deg,
+            rgba(34,197,94,0.06) 70deg,
+            rgba(34,211,238,0.08) 148deg,
+            rgba(59,130,246,0.07) 228deg,
+            rgba(34,197,94,0.05) 302deg,
             rgba(34,197,94,0.00) 360deg);
-    filter: blur(60px) saturate(130%);
-    opacity: 0.48;
-    animation: shvAuroraSpin 8.5s linear infinite;
+    filter: blur(42px) saturate(110%);
+    opacity: 0.22;
+    animation: shvAuroraSpin 11s linear infinite;
 }
 
 .hero-aurora-field .hero-grid-overlay {
     inset: 0;
     background-image:
-        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 34px 34px;
-    mask-image: radial-gradient(circle at 50% 42%, rgba(0,0,0,0.88), rgba(0,0,0,0.22) 72%, transparent 100%);
-    opacity: 0.12;
-    animation: shvGridPulse 3.8s ease-in-out infinite alternate;
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at 50% 42%, rgba(0,0,0,0.92), rgba(0,0,0,0.28) 72%, transparent 100%);
+    opacity: 0.07;
+    animation: shvGridPulse 4.8s ease-in-out infinite alternate;
 }
 
 .hero-aurora-field .hero-noise-overlay {
     inset: 0;
     background-image:
-        radial-gradient(rgba(255,255,255,0.16) 0.7px, transparent 0.9px),
-        radial-gradient(rgba(34,197,94,0.10) 0.8px, transparent 1px);
-    background-position: 0 0, 8px 8px;
-    background-size: 16px 16px, 22px 22px;
-    opacity: 0.045;
+        radial-gradient(rgba(255,255,255,0.06) 0.6px, transparent 0.9px),
+        radial-gradient(rgba(34,197,94,0.05) 0.6px, transparent 0.95px);
+    background-position: 0 0, 9px 9px;
+    background-size: 18px 18px, 24px 24px;
+    opacity: 0.018;
     mix-blend-mode: soft-light;
 }
 
 .hero-aurora-field .hero-fx-ring {
-    border-color: rgba(34,197,94,0.18);
-    box-shadow: inset 0 0 28px rgba(255,255,255,0.03), 0 0 34px rgba(34,197,94,0.10);
+    border-color: rgba(34,197,94,0.13);
+    box-shadow: inset 0 0 24px rgba(255,255,255,0.018), 0 0 28px rgba(34,197,94,0.06);
 }
 
 .hero-aurora-field > :not(.hero-aurora-layer):not(.hero-grid-overlay):not(.hero-noise-overlay):not(.hero-fx-ring):not(.hero-fx-orb):not(.hero-fx-sheen) {
@@ -1349,60 +1353,99 @@ body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
 
 @keyframes shvAuroraShiftA {
     0% {
-        transform: translate3d(-4%, -2%, 0) scale(1) rotate(-4deg);
-        opacity: 0.70;
+        transform: translate3d(-3%, -2%, 0) scale(1) rotate(-3deg);
+        opacity: 0.54;
     }
     50% {
-        transform: translate3d(5%, 4%, 0) scale(1.08) rotate(3deg);
-        opacity: 0.92;
+        transform: translate3d(4%, 3%, 0) scale(1.05) rotate(2deg);
+        opacity: 0.68;
     }
     100% {
-        transform: translate3d(9%, -3%, 0) scale(1.03) rotate(6deg);
-        opacity: 0.82;
+        transform: translate3d(7%, -2%, 0) scale(1.02) rotate(4deg);
+        opacity: 0.58;
     }
 }
 
 @keyframes shvAuroraShiftB {
     0% {
-        transform: translate3d(6%, -5%, 0) scale(1.02) rotate(5deg);
-        opacity: 0.56;
+        transform: translate3d(4%, -4%, 0) scale(1.01) rotate(4deg);
+        opacity: 0.42;
     }
     50% {
-        transform: translate3d(-7%, 3%, 0) scale(1.11) rotate(-4deg);
-        opacity: 0.84;
+        transform: translate3d(-5%, 2%, 0) scale(1.07) rotate(-3deg);
+        opacity: 0.58;
     }
     100% {
-        transform: translate3d(-3%, 7%, 0) scale(1.05) rotate(-7deg);
-        opacity: 0.64;
+        transform: translate3d(-2%, 5%, 0) scale(1.03) rotate(-5deg);
+        opacity: 0.46;
     }
 }
 
 @keyframes shvAuroraSpin {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.08); }
-    100% { transform: rotate(360deg) scale(1); }
+    0% { transform: rotate(0deg) scale(1); opacity: 0.16; }
+    50% { transform: rotate(180deg) scale(1.04); opacity: 0.24; }
+    100% { transform: rotate(360deg) scale(1); opacity: 0.16; }
 }
 
 @keyframes shvGridPulse {
-    0% { opacity: 0.07; transform: scale(1); }
-    100% { opacity: 0.14; transform: scale(1.018); }
+    0% { opacity: 0.045; transform: scale(1); }
+    100% { opacity: 0.085; transform: scale(1.01); }
 }
 
 @media (max-width: 768px) {
-    .hero-aurora-field .hero-aurora-layer.layer-a,
+    .hero-aurora-field {
+        box-shadow: 0 20px 44px rgba(0,0,0,0.56), 0 0 16px rgba(34,197,94,0.025);
+    }
+
+    .hero-aurora-field .hero-aurora-layer,
+    .hero-aurora-field .hero-grid-overlay,
+    .hero-aurora-field .hero-noise-overlay {
+        inset: -6%;
+        will-change: transform, opacity;
+    }
+
+    .hero-aurora-field .hero-aurora-layer {
+        mix-blend-mode: normal;
+        filter: blur(22px) saturate(108%);
+    }
+
+    .hero-aurora-field .hero-aurora-layer.layer-a {
+        opacity: 0.40;
+        animation: shvAuroraShiftA 6s ease-in-out infinite alternate;
+    }
+
     .hero-aurora-field .hero-aurora-layer.layer-b {
-        filter: blur(34px) saturate(130%);
-        opacity: 0.72;
+        opacity: 0.32;
+        animation: shvAuroraShiftB 6.8s ease-in-out infinite alternate;
     }
 
     .hero-aurora-field .hero-aurora-layer.layer-c {
-        filter: blur(44px) saturate(120%);
-        opacity: 0.38;
+        display: none;
     }
 
     .hero-aurora-field .hero-grid-overlay {
-        background-size: 26px 26px;
-        opacity: 0.10;
+        background-size: 28px 28px;
+        opacity: 0.045;
+        animation: none;
+    }
+
+    .hero-aurora-field .hero-noise-overlay {
+        display: none;
+    }
+
+    .hero-aurora-field .hero-fx-sheen {
+        display: none;
+    }
+
+    .hero-aurora-field .hero-fx-orb.primary,
+    .hero-aurora-field .hero-fx-orb.secondary {
+        opacity: 0.16;
+        filter: blur(4px);
+    }
+
+    .hero-aurora-field .hero-fx-ring {
+        opacity: 0.20;
+        box-shadow: inset 0 0 14px rgba(255,255,255,0.01), 0 0 16px rgba(34,197,94,0.035);
     }
 }
 
