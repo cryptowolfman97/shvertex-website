@@ -1259,13 +1259,170 @@ body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
 }
 
 </style>
+<style id="shv-hero-aurora-style">
+.hero-aurora-field {
+    background:
+        linear-gradient(135deg, rgba(2,8,10,0.94) 0%, rgba(4,10,18,0.90) 42%, rgba(0,0,0,0.84) 100%) !important;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.58), 0 0 40px rgba(34,197,94,0.06);
+}
+
+.hero-aurora-field .hero-aurora-layer,
+.hero-aurora-field .hero-grid-overlay,
+.hero-aurora-field .hero-noise-overlay {
+    position: absolute;
+    inset: -18%;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: inherit;
+    will-change: transform, opacity, background-position, filter;
+}
+
+.hero-aurora-field .hero-aurora-layer {
+    filter: blur(46px) saturate(135%);
+    mix-blend-mode: screen;
+}
+
+.hero-aurora-field .hero-aurora-layer.layer-a {
+    background:
+        radial-gradient(circle at 18% 30%, rgba(34,197,94,0.50) 0%, rgba(34,197,94,0.22) 20%, transparent 46%),
+        radial-gradient(circle at 72% 22%, rgba(34,211,238,0.42) 0%, rgba(34,211,238,0.18) 18%, transparent 42%),
+        radial-gradient(circle at 46% 72%, rgba(59,130,246,0.34) 0%, rgba(59,130,246,0.12) 20%, transparent 46%);
+    opacity: 0.85;
+    animation: shvAuroraShiftA 5.2s ease-in-out infinite alternate;
+}
+
+.hero-aurora-field .hero-aurora-layer.layer-b {
+    background:
+        radial-gradient(circle at 78% 62%, rgba(34,197,94,0.40) 0%, rgba(34,197,94,0.16) 22%, transparent 44%),
+        radial-gradient(circle at 28% 74%, rgba(6,182,212,0.38) 0%, rgba(6,182,212,0.14) 18%, transparent 42%),
+        radial-gradient(circle at 60% 18%, rgba(96,165,250,0.28) 0%, rgba(96,165,250,0.12) 18%, transparent 40%);
+    opacity: 0.78;
+    animation: shvAuroraShiftB 6.4s ease-in-out infinite alternate;
+}
+
+.hero-aurora-field .hero-aurora-layer.layer-c {
+    inset: -8%;
+    background:
+        conic-gradient(from 0deg at 50% 50%,
+            rgba(34,197,94,0.00) 0deg,
+            rgba(34,197,94,0.14) 65deg,
+            rgba(34,211,238,0.22) 145deg,
+            rgba(59,130,246,0.18) 225deg,
+            rgba(34,197,94,0.10) 300deg,
+            rgba(34,197,94,0.00) 360deg);
+    filter: blur(60px) saturate(130%);
+    opacity: 0.48;
+    animation: shvAuroraSpin 8.5s linear infinite;
+}
+
+.hero-aurora-field .hero-grid-overlay {
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(circle at 50% 42%, rgba(0,0,0,0.88), rgba(0,0,0,0.22) 72%, transparent 100%);
+    opacity: 0.12;
+    animation: shvGridPulse 3.8s ease-in-out infinite alternate;
+}
+
+.hero-aurora-field .hero-noise-overlay {
+    inset: 0;
+    background-image:
+        radial-gradient(rgba(255,255,255,0.16) 0.7px, transparent 0.9px),
+        radial-gradient(rgba(34,197,94,0.10) 0.8px, transparent 1px);
+    background-position: 0 0, 8px 8px;
+    background-size: 16px 16px, 22px 22px;
+    opacity: 0.045;
+    mix-blend-mode: soft-light;
+}
+
+.hero-aurora-field .hero-fx-ring {
+    border-color: rgba(34,197,94,0.18);
+    box-shadow: inset 0 0 28px rgba(255,255,255,0.03), 0 0 34px rgba(34,197,94,0.10);
+}
+
+.hero-aurora-field > :not(.hero-aurora-layer):not(.hero-grid-overlay):not(.hero-noise-overlay):not(.hero-fx-ring):not(.hero-fx-orb):not(.hero-fx-sheen) {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes shvAuroraShiftA {
+    0% {
+        transform: translate3d(-4%, -2%, 0) scale(1) rotate(-4deg);
+        opacity: 0.70;
+    }
+    50% {
+        transform: translate3d(5%, 4%, 0) scale(1.08) rotate(3deg);
+        opacity: 0.92;
+    }
+    100% {
+        transform: translate3d(9%, -3%, 0) scale(1.03) rotate(6deg);
+        opacity: 0.82;
+    }
+}
+
+@keyframes shvAuroraShiftB {
+    0% {
+        transform: translate3d(6%, -5%, 0) scale(1.02) rotate(5deg);
+        opacity: 0.56;
+    }
+    50% {
+        transform: translate3d(-7%, 3%, 0) scale(1.11) rotate(-4deg);
+        opacity: 0.84;
+    }
+    100% {
+        transform: translate3d(-3%, 7%, 0) scale(1.05) rotate(-7deg);
+        opacity: 0.64;
+    }
+}
+
+@keyframes shvAuroraSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.08); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes shvGridPulse {
+    0% { opacity: 0.07; transform: scale(1); }
+    100% { opacity: 0.14; transform: scale(1.018); }
+}
+
+@media (max-width: 768px) {
+    .hero-aurora-field .hero-aurora-layer.layer-a,
+    .hero-aurora-field .hero-aurora-layer.layer-b {
+        filter: blur(34px) saturate(130%);
+        opacity: 0.72;
+    }
+
+    .hero-aurora-field .hero-aurora-layer.layer-c {
+        filter: blur(44px) saturate(120%);
+        opacity: 0.38;
+    }
+
+    .hero-aurora-field .hero-grid-overlay {
+        background-size: 26px 26px;
+        opacity: 0.10;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-aurora-field .hero-aurora-layer,
+    .hero-aurora-field .hero-grid-overlay {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+</style>
+
 </head>
 <body class="overflow-x-hidden bg-dot-pattern shv-phase2"><div class="shv-progress"></div>
 <div class="vanta-static-bg" id="vanta-static-bg"></div>
 <nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10"><div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4"><a href="#home"><img alt="SH Vertex" class="h-8 md:h-10" src="./assets/site/logo.png"/></a><div class="nav-links"><a class="nav-pill nav-pill-active" href="#home">Base</a><a class="nav-pill nav-pill-featured" href="products.html">Products</a><a class="nav-pill" href="future-products.html">Future Products</a><a class="nav-pill" href="vault.html">Vault</a><a class="nav-pill" href="account.html">Account</a><a class="nav-pill nav-pill-outline" href="#contact">Inquiry</a></div><div class="nav-actions"><a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a><details class="mobile-nav"><summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary><div class="mobile-nav-panel"><div class="mobile-nav-list"><a class="mobile-nav-link is-active" href="#home"><span>Base</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link is-featured" href="products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="#contact"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a></div></div></details></div></div></nav>
 <section class="relative pt-64 pb-24 px-6 max-w-7xl mx-auto flex flex-col justify-center border-b border-white/10 min-h-[85vh] shv-hero-layout" id="home">
-<div class="hero-text-plane hero-dynamic-card hero-kitt-border max-w-4xl relative z-10">
+<div class="hero-text-plane hero-dynamic-card hero-kitt-border hero-aurora-field max-w-4xl relative z-10">
 <span aria-hidden="true" class="hero-fx-ring"></span><span aria-hidden="true" class="hero-fx-orb primary"></span><span aria-hidden="true" class="hero-fx-orb secondary"></span><span aria-hidden="true" class="hero-fx-sheen"></span>
+<span aria-hidden="true" class="hero-aurora-layer layer-a"></span><span aria-hidden="true" class="hero-aurora-layer layer-b"></span><span aria-hidden="true" class="hero-aurora-layer layer-c"></span><span aria-hidden="true" class="hero-grid-overlay"></span><span aria-hidden="true" class="hero-noise-overlay"></span>
 <div class="inline-block mb-6 px-4 py-1 border border-white/10 rounded-full text-[10px] text-gray-300 uppercase tracking-[0.3em] font-bold bg-black/50">
                 Cyber Security • Development • Design
             </div>
