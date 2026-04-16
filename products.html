@@ -205,6 +205,17 @@
       box-shadow: 0 24px 54px rgba(0,0,0,0.38);
       transform: translateY(var(--parallax,0px));
       will-change: transform;
+      transition: transform .45s ease, box-shadow .45s ease, border-color .45s ease;
+    }
+    .preview-frame.main { inset: 16% 10% 12% 10%; z-index: 2; }
+    .preview-frame.secondary {
+      inset: auto 8% 11% auto;
+      width: 30%;
+      height: 38%;
+      z-index: 3;
+      border-radius: 1.1rem;
+      transform: translateY(calc(var(--parallax,0px) * -.35)) rotate(8deg);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.40);
     }
     .preview-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .preview-topbar { position: absolute; top: 0; left: 0; right: 0; height: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.28); display:flex; align-items:center; gap:8px; padding: 0 14px; z-index: 2; }
@@ -261,11 +272,56 @@
     .media-panel::after {
       content: ""; position: absolute; inset: 14px; border-radius: 1.35rem; border: 1px solid rgba(var(--accent-rgb), .18); pointer-events: none;
     }
-    .media-shell { position:absolute; inset: 14% 9% 11% 9%; border-radius: 1.4rem; overflow:hidden; border:1px solid rgba(255,255,255,0.10); box-shadow: 0 26px 60px rgba(0,0,0,0.42); transform: translateY(var(--parallax,0px)); will-change: transform; }
+    .media-shell {
+      position:absolute; inset: 14% 9% 11% 9%; border-radius: 1.4rem; overflow:hidden; border:1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.42); transform: translateY(var(--parallax,0px)); will-change: transform;
+      transition: transform .45s ease, box-shadow .45s ease, border-color .45s ease;
+      z-index: 2;
+    }
+    .media-shell.main { inset: 13% 10% 13% 8%; }
+    .media-shell.secondary {
+      inset: auto 5.2% 6.2% auto;
+      width: 34%;
+      height: 44%;
+      z-index: 3;
+      border-radius: 1.15rem;
+      transform: translateY(calc(var(--parallax,0px) * -.35)) rotate(8deg);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.44);
+    }
+    .media-shell.secondary img { object-position: center top; }
     .media-shell img { width: 100%; height: 100%; object-fit: cover; display:block; }
     .media-topbar { position:absolute; top:0; left:0; right:0; height: 36px; background: rgba(6,8,10,0.78); border-bottom: 1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:8px; padding: 0 14px; z-index: 2; }
+    .media-shell.secondary .media-topbar { height: 30px; padding: 0 10px; }
+    .media-shell.secondary .dot { width: 6px; height: 6px; }
     .accent-line { position:absolute; left:0; top:0; bottom:0; width: 3px; background: linear-gradient(180deg, rgba(var(--accent-rgb), .0), rgba(var(--accent-rgb), .95), rgba(var(--accent-rgb), .0)); }
-    .media-chip { position:absolute; border-radius:1rem; padding:.95rem 1rem; border:1px solid rgba(255,255,255,0.10); background: rgba(8,10,12,0.82); color:#dce8f5; box-shadow: 0 16px 34px rgba(0,0,0,0.30); max-width: 220px; transform: translateY(calc(var(--parallax,0px) * -.35)); will-change: transform; }
+    .media-sheen {
+      position: absolute;
+      top: -34%;
+      left: -28%;
+      width: 40%;
+      height: 180%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 100%);
+      transform: translateX(-220%) rotate(14deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 4;
+      animation: mediaSheen 9.5s ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+    .media-pulse {
+      position: absolute;
+      right: 10%;
+      bottom: 11%;
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(var(--accent-rgb), .20), transparent 68%);
+      filter: blur(14px);
+      opacity: .6;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .media-chip { position:absolute; border-radius:1rem; padding:.95rem 1rem; border:1px solid rgba(255,255,255,0.10); background: rgba(8,10,12,0.82); color:#dce8f5; box-shadow: 0 16px 34px rgba(0,0,0,0.30); max-width: 220px; transform: translateY(calc(var(--parallax,0px) * -.35)); will-change: transform; transition: transform .45s ease, border-color .45s ease, box-shadow .45s ease; z-index: 5; }
     .media-chip strong { display:block; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.4rem; color: rgba(var(--accent-rgb), .95); }
     .media-chip span { display:block; font-size:.85rem; line-height:1.55; color:#d3deea; }
     .media-chip.a { left: 1rem; bottom: 1rem; }
@@ -304,6 +360,23 @@
     .footer-contact-row { display:flex; flex-wrap:wrap; justify-content:center; gap:.8rem; margin-top:1rem; }
     .footer-contact { display:inline-flex; align-items:center; gap:.55rem; padding:.8rem .95rem; border-radius:999px; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color:#dbe6f3; text-decoration:none; font-size:.8rem; }
 
+
+    @keyframes mediaSheen {
+      0%, 66%, 100% { transform: translateX(-220%) rotate(14deg); opacity: 0; }
+      74% { opacity: .16; }
+      84% { transform: translateX(420%) rotate(14deg); opacity: .24; }
+      92% { opacity: 0; }
+    }
+
+
+    @media (hover: hover) and (pointer: fine) {
+      .glass-panel:hover .preview-frame.main { transform: translateY(calc(var(--parallax,0px) - 5px)) scale(1.015); }
+      .glass-panel:hover .preview-frame.secondary { transform: translateY(calc(var(--parallax,0px) * -.35 - 6px)) rotate(7deg) scale(1.03); }
+      .product-card:hover .media-shell.main { transform: translateY(calc(var(--parallax,0px) - 6px)) scale(1.015); box-shadow: 0 30px 68px rgba(0,0,0,0.46); border-color: rgba(var(--accent-rgb), .22); }
+      .product-card:hover .media-shell.secondary { transform: translateY(calc(var(--parallax,0px) * -.35 - 6px)) rotate(7deg) scale(1.03); box-shadow: 0 24px 48px rgba(0,0,0,0.48); border-color: rgba(var(--accent-rgb), .26); }
+      .product-card:hover .media-chip { border-color: rgba(var(--accent-rgb), .20); box-shadow: 0 18px 38px rgba(0,0,0,0.34); }
+    }
+
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
     .reveal.on { opacity: 1; transform: translateY(0); }
 
@@ -315,6 +388,7 @@
       .hero-metrics { grid-template-columns: 1fr; }
       .tier.featured { transform: none; }
       .media-panel, .scene { min-height: 440px; }
+      .preview-frame.secondary { width: 34%; height: 36%; right: 7%; bottom: 10%; }
     }
 
     @media (max-width: 768px) {
@@ -327,6 +401,7 @@
       .nav-menu-btn { display:inline-flex; align-items:center; justify-content:center; min-height: 42px; min-width:42px; border-radius: 999px; border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color:#fff; }
       .page-shell { padding-top: calc(var(--nav-h) + 1.6rem); }
       .hero { padding-top: 1.2rem; }
+      .preview-frame.secondary, .media-sheen { display: none; }
       .hero-copy, .product-copy { padding: 1.25rem; }
       .hero-title { font-size: clamp(2.35rem, 11vw, 3.4rem); }
       .hero-text { font-size: .96rem; line-height: 1.75; }
@@ -393,9 +468,13 @@
                 <div class="scene-grid"></div>
                 <div class="scene-orb a"></div>
                 <div class="scene-orb b"></div>
-                <div class="preview-frame" data-parallax="18">
+                <div class="preview-frame main" data-parallax="18">
                   <div class="preview-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                   <img src="./assets/site/simplibudget-dashboard.png" alt="SH Vertex product overview preview" />
+                </div>
+                <div class="preview-frame secondary" data-parallax="12">
+                  <div class="preview-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                  <img src="./assets/site/strategy-forge.png" alt="SH Vertex product secondary preview" />
                 </div>
                 <div class="float-chip one" data-parallax="10"><i class="fas fa-wallet"></i><span>Finance</span></div>
                 <div class="float-chip two" data-parallax="10"><i class="fas fa-layer-group"></i><span>Tooling</span></div>
@@ -437,9 +516,15 @@
                   <div class="scene-grid"></div>
                   <div class="scene-orb a"></div>
                   <div class="scene-orb b"></div>
-                  <div class="media-shell" data-parallax="16">
+                  <div class="media-pulse"></div>
+                  <div class="media-sheen"></div>
+                  <div class="media-shell main" data-parallax="16">
                     <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <img src="./assets/site/simplibudget-dashboard.png" alt="SimpliBudget preview" />
+                  </div>
+                  <div class="media-shell secondary" data-parallax="12">
+                    <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <img src="./assets/site/simplibudget-transactions.png" alt="SimpliBudget transactions preview" />
                   </div>
                   <div class="media-chip a" data-parallax="10"><strong>Positioning</strong><span>Dark, practical finance flow for everyday users.</span></div>
                   <div class="media-chip b" data-parallax="8"><strong>Focus</strong><span>Fast entry. Clear status. Mobile readability.</span></div>
@@ -470,9 +555,15 @@
                   <div class="scene-grid"></div>
                   <div class="scene-orb a"></div>
                   <div class="scene-orb b"></div>
-                  <div class="media-shell" data-parallax="16">
+                  <div class="media-pulse"></div>
+                  <div class="media-sheen"></div>
+                  <div class="media-shell main" data-parallax="16">
                     <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <img src="./assets/site/strategy-forge.png" alt="Strategy Suite Pro preview" />
+                  </div>
+                  <div class="media-shell secondary" data-parallax="12">
+                    <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <img src="./assets/site/value-ev-checker.png" alt="Strategy Suite Pro analytics preview" />
                   </div>
                   <div class="media-chip a" data-parallax="10"><strong>Edition lane</strong><span>Cleaner language and broader-facing positioning.</span></div>
                   <div class="media-chip b" data-parallax="8"><strong>Visual identity</strong><span>Blue-accent detail page with safer outward framing.</span></div>
@@ -503,9 +594,15 @@
                   <div class="scene-grid"></div>
                   <div class="scene-orb a"></div>
                   <div class="scene-orb b"></div>
-                  <div class="media-shell" data-parallax="16">
+                  <div class="media-pulse"></div>
+                  <div class="media-sheen"></div>
+                  <div class="media-shell main" data-parallax="16">
                     <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <img src="./assets/site/dice-sim-v2.png" alt="Casino Tools Pro preview" />
+                  </div>
+                  <div class="media-shell secondary" data-parallax="12">
+                    <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <img src="./assets/site/blackjack-hub.png" alt="Casino Tools Pro blackjack preview" />
                   </div>
                   <div class="media-chip a" data-parallax="10"><strong>Edition lane</strong><span>Direct product framing with original market fit.</span></div>
                   <div class="media-chip b" data-parallax="8"><strong>Identity</strong><span>Green-accent flagship tied to the original audience.</span></div>
@@ -536,9 +633,15 @@
                   <div class="scene-grid"></div>
                   <div class="scene-orb a"></div>
                   <div class="scene-orb b"></div>
-                  <div class="media-shell" data-parallax="16">
+                  <div class="media-pulse"></div>
+                  <div class="media-sheen"></div>
+                  <div class="media-shell main" data-parallax="16">
                     <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <img src="./assets/site/36686.png" alt="Synapse preview" />
+                  </div>
+                  <div class="media-shell secondary" data-parallax="12">
+                    <div class="media-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <img src="./assets/site/36685.png" alt="Synapse secondary preview" />
                   </div>
                   <div class="media-chip a" data-parallax="10"><strong>Built for</strong><span>Operators, solo founders, Android and Python builders.</span></div>
                   <div class="media-chip b" data-parallax="8"><strong>Core feel</strong><span>Dark, structured, and mobile-ready for real project work.</span></div>
