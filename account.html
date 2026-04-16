@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SH Vertex Account | SH Vertex Tech</title>
+<meta name="description" content="SH Vertex Account portal landing page for customer identity, backup, and device management."/>
+<link href="./assets/site/favicon.png" rel="icon" type="image/png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
+body { background-color:#000; color:#fff; font-family:'Plus Jakarta Sans', sans-serif; overflow-x:hidden; scroll-behavior:smooth; }
+.page-overlay { position:fixed; inset:0; z-index:-1; pointer-events:none; background: radial-gradient(circle at top center, rgba(34,197,94,0.09), transparent 28%), linear-gradient(to bottom, rgba(0,0,0,0.20), rgba(0,0,0,0.52) 28%, rgba(0,0,0,0.76) 100%); }
+.mesh-bg { position:fixed; inset:0; z-index:-2; pointer-events:none; background: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px); background-size:24px 24px; opacity:.55; }
+.nav-blur { background:rgba(0,0,0,.8); backdrop-filter:blur(15px); border-bottom:1px solid rgba(255,255,255,.05); }
+.nav-links { display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; }
+.nav-pill { display:inline-flex; align-items:center; justify-content:center; padding:10px 15px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); color:#9ca3af; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; transition:.25s ease; backdrop-filter:blur(6px); }
+.nav-pill:hover { color:#fff; border-color:rgba(255,255,255,.22); background:rgba(255,255,255,.06); }
+.nav-pill-active { color:#d1fae5; border-color:rgba(34,197,94,.50); background:rgba(34,197,94,.16); box-shadow:0 0 0 1px rgba(34,197,94,.04) inset; }
+.nav-pill-featured { color:#86efac; border-color:rgba(34,197,94,.30); background:rgba(34,197,94,.10); }
+.hero-card, .glass-card, .cta-card, .mini-panel, .form-shell, .portal-chip, .table-shell { background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); border:1px solid rgba(255,255,255,.08); backdrop-filter:blur(10px); border-radius:1.75rem; }
+.hero-card { position:relative; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.45); }
+.hero-orb { position:absolute; border-radius:999px; pointer-events:none; background:radial-gradient(circle, rgba(34,197,94,.28), rgba(34,197,94,.06) 40%, transparent 72%); width:220px; height:220px; right:-60px; top:-40px; opacity:.8; }
+.hero-orb.secondary { width:180px; height:180px; left:-40px; bottom:-60px; opacity:.45; background:radial-gradient(circle, rgba(255,255,255,.16), rgba(34,197,94,.04) 45%, transparent 72%); }
+.kicker, .status-chip { display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:#cbd5e1; }
+.status-chip-green { color:#86efac; border-color:rgba(34,197,94,.25); background:rgba(34,197,94,.08); }
+.status-chip-slate { color:#e5e7eb; border-color:rgba(255,255,255,.15); background:rgba(255,255,255,.05); }
+.section-title { font-size:clamp(2rem,4vw,3.3rem); font-weight:900; letter-spacing:-.03em; }
+.micro-note { font-size:11px; color:#94a3b8; letter-spacing:.14em; text-transform:uppercase; font-weight:800; }
+.btn-green, .btn-dark, .btn-danger { display:inline-flex; align-items:center; justify-content:center; padding:13px 22px; border-radius:999px; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; transition:.25s ease; }
+.btn-green { background:#22c55e; color:#000; }
+.btn-green:hover { background:#fff; color:#000; transform:translateY(-1px); }
+.btn-dark { border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#fff; }
+.btn-dark:hover { background:#fff; color:#000; }
+.btn-danger { border:1px solid rgba(248,113,113,.22); background:rgba(248,113,113,.08); color:#fecaca; }
+.btn-danger:hover { background:#fff; color:#000; }
+.metric { border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); border-radius:1rem; padding:1rem 1.1rem; }
+.metric-number { font-size:1.35rem; font-weight:900; letter-spacing:-.03em; color:#22c55e; }
+.metric-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.16em; color:#9ca3af; }
+.feature-card { background:rgba(0,0,0,.62); border:1px solid rgba(255,255,255,.06); padding:2rem; border-radius:1.25rem; transition:border-color .3s, transform .3s; height:100%; backdrop-filter:blur(4px); }
+.feature-card:hover { border-color:rgba(34,197,94,.4); transform:translateY(-2px); }
+.footer-shell { background:rgba(0,0,0,.65); backdrop-filter:blur(8px); border-top:1px solid rgba(255,255,255,.05); }
+.footer-link { color:#6b7280; text-transform:uppercase; font-weight:800; letter-spacing:.18em; font-size:10px; transition:.25s; }
+.footer-link:hover { color:#22c55e; }
+.footer-contact { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); color:#d1d5db; font-size:12px; transition:.25s; }
+.footer-contact:hover { color:#fff; border-color:rgba(34,197,94,.3); }
+.mobile-nav { display:none; }
+.shv-progress { position:fixed; top:0; left:0; height:2px; width:0; z-index:60; background:linear-gradient(90deg, rgba(34,197,94,.95), rgba(255,255,255,.8)); box-shadow:0 0 12px rgba(34,197,94,.45); }
+.shv-reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+.shv-revealed { opacity:1; transform:none; }
+.portal-nav { display:flex; flex-wrap:wrap; gap:.75rem; }
+.portal-link { display:inline-flex; align-items:center; justify-content:center; gap:.65rem; padding:11px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); color:#cbd5e1; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; transition:.2s ease; }
+.portal-link:hover { color:#fff; border-color:rgba(34,197,94,.25); background:rgba(34,197,94,.08); }
+.portal-link.is-active { color:#d1fae5; border-color:rgba(34,197,94,.34); background:rgba(34,197,94,.10); }
+.form-shell { padding:2rem; }
+.field-label { display:block; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#94a3b8; margin-bottom:.65rem; }
+.field-input { width:100%; padding:14px 16px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:1rem; color:#fff; outline:none; transition:.2s ease; }
+.field-input:focus { border-color:rgba(34,197,94,.4); box-shadow:0 0 0 4px rgba(34,197,94,.08); }
+.field-help { font-size:.85rem; color:#94a3b8; line-height:1.6; }
+.toast { display:none; margin-top:1rem; padding:1rem 1.1rem; border-radius:1rem; border:1px solid rgba(34,197,94,.22); background:rgba(34,197,94,.08); color:#d1fae5; }
+.toast.show { display:block; }
+.account-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.dashboard-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:1.5rem; }
+.list-row { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+.list-row:last-child { border-bottom:none; }
+.badge-soft { display:inline-flex; align-items:center; gap:.45rem; padding:.45rem .7rem; border-radius:999px; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.badge-green { color:#86efac; border:1px solid rgba(34,197,94,.25); background:rgba(34,197,94,.08); }
+.badge-amber { color:#fcd34d; border:1px solid rgba(251,191,36,.25); background:rgba(251,191,36,.08); }
+.badge-sky { color:#7dd3fc; border:1px solid rgba(56,189,248,.25); background:rgba(56,189,248,.08); }
+.badge-slate { color:#e5e7eb; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.05); }
+@media (max-width: 960px) {
+  .mobile-nav { display:block; }
+  .nav-links { display:none; }
+}
+@media (max-width: 1024px) { .account-grid, .dashboard-grid { grid-template-columns:1fr; } }
+.mobile-nav summary { list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); color:#fff; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.mobile-nav summary::-webkit-details-marker { display:none; }
+.mobile-nav-panel { position:absolute; right:0; top:calc(100% + 12px); width:min(320px, calc(100vw - 2rem)); background:rgba(0,0,0,.9); border:1px solid rgba(255,255,255,.08); border-radius:1.25rem; padding:.75rem; box-shadow:0 18px 50px rgba(0,0,0,.45); }
+.mobile-nav-list { display:flex; flex-direction:column; gap:6px; }
+.mobile-nav-link { display:flex; align-items:center; justify-content:space-between; gap:12px; border-radius:1rem; padding:.9rem 1rem; color:#e5e7eb; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.04); font-size:.85rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
+.mobile-nav-link:hover { color:#fff; border-color:rgba(34,197,94,.26); background:rgba(34,197,94,.08); }
+.mobile-nav-link.is-active { color:#d1fae5; border-color:rgba(34,197,94,.34); background:rgba(34,197,94,.10); }
+.mobile-nav-link.is-featured { color:#86efac; }
+</style>
+</head>
+<body>
+<div class="mesh-bg"></div>
+<div class="page-overlay"></div>
+<div class="shv-progress"></div>
+
+<nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10">
+  <div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4 relative">
+    <a href="index.html"><img alt="SH Vertex" class="h-8 md:h-10 grayscale" src="./assets/site/logo.png"/></a>
+    <div class="nav-links">
+      <a class="nav-pill " href="index.html">Base</a>
+      <a class="nav-pill nav-pill-featured " href="products.html">Products</a>
+      <a class="nav-pill " href="future-products.html">Future Products</a>
+      <a class="nav-pill " href="vault.html">Vault</a>
+      <a class="nav-pill nav-pill-active" href="account.html">Account</a>
+      <a class="nav-pill" href="index.html#contact">Inquiry</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a class="text-green-500 text-lg md:text-xl hidden md:inline-flex" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <details class="mobile-nav">
+        <summary><span>Menu</span><i class="fas fa-bars"></i></summary>
+        <div class="mobile-nav-panel">
+          <div class="mobile-nav-list">
+            <a class="mobile-nav-link " href="index.html"><span>Base</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link is-featured " href="products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link " href="future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link " href="vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link is-active" href="account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link" href="index.html#contact"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
+
+
+<main class="pt-36 md:pt-40">
+  <section class="px-4 md:px-6 pb-8">
+    <div class="max-w-6xl mx-auto hero-card p-8 md:p-12 shv-reveal">
+      <div class="hero-orb"></div>
+      <div class="hero-orb secondary"></div>
+      <div class="relative z-10">
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <span class="kicker"><i class="fa-solid fa-id-badge"></i> Shared Identity Layer</span>
+          <span class="status-chip status-chip-green">Portal Phase</span>
+        </div>
+        <div class="micro-note mb-3 text-emerald-300">One profile across SH Vertex apps</div>
+        <h1 class="section-title mb-5">SH Vertex Account</h1>
+        <p class="text-slate-300 text-lg leading-relaxed max-w-3xl mb-8">The account area is now structured as a real portal flow. Customers can enter through a dedicated landing page, sign in, create an account, request a password reset, and later move into backup and device pages once the backend is connected.</p>
+        <div class="grid md:grid-cols-3 gap-4 mb-8 max-w-4xl">
+          <div class="metric"><div class="metric-number">1</div><div class="metric-label">Account Across Apps</div></div>
+          <div class="metric"><div class="metric-number">5</div><div class="metric-label">Portal Entry Points</div></div>
+          <div class="metric"><div class="metric-number">Ready</div><div class="metric-label">Frontend Flow</div></div>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a class="btn-green" href="create-account.html">Create Account</a>
+          <a class="btn-dark" href="sign-in.html">Sign In</a>
+          <a class="btn-dark" href="dashboard.html">View Dashboard</a>
+          <a class="btn-dark" href="SUPABASE_SETUP.md">Setup Guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 md:px-6 py-4">
+    <div class="max-w-6xl mx-auto glass-card p-6 md:p-7 shv-reveal">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="micro-note text-emerald-300 mb-2">Portal navigation</div>
+          <h2 class="text-2xl md:text-3xl font-black tracking-tight">Account pages now added to the site</h2>
+        </div>
+        <span class="status-chip status-chip-slate">Backend-ready portal</span>
+      </div>
+      <div class="mt-5"><div class="portal-nav"><a class="portal-link is-active" href="account.html">Overview</a><a class="portal-link" href="sign-in.html">Sign In</a><a class="portal-link" href="create-account.html">Create Account</a><a class="portal-link" href="forgot-password.html">Reset Email</a><a class="portal-link" href="update-password.html">Update Password</a><a class="portal-link" href="dashboard.html">Dashboard</a></div></div>
+    </div>
+  </section>
+
+  <section class="px-4 md:px-6 py-8" id="overview">
+    <div class="max-w-6xl mx-auto account-grid">
+      <div class="feature-card shv-reveal">
+        <div class="micro-note text-emerald-300 mb-3">Identity</div>
+        <h3 class="text-2xl font-black mb-3">One SH Vertex login</h3>
+        <p class="text-slate-400 leading-relaxed">Customers create one SH Vertex account and use that same identity across SimpliBudget and future SH Vertex software products.</p>
+      </div>
+      <div class="feature-card shv-reveal">
+        <div class="micro-note text-emerald-300 mb-3">Backup</div>
+        <h3 class="text-2xl font-black mb-3">Cloud backup & restore</h3>
+        <p class="text-slate-400 leading-relaxed">App data can be packaged, uploaded under the customer profile, and restored later on the same device or a replacement device.</p>
+      </div>
+      <div class="feature-card shv-reveal">
+        <div class="micro-note text-emerald-300 mb-3">Growth</div>
+        <h3 class="text-2xl font-black mb-3">Future device management</h3>
+        <p class="text-slate-400 leading-relaxed">The same portal can later hold device history, linked products, last backup timestamps, and account-level settings without redesigning the brand experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 md:px-6 py-10">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6">
+      <div class="glass-card p-7 md:p-8 shv-reveal">
+        <div class="micro-note text-emerald-300 mb-3">Version 1 direction</div>
+        <h2 class="text-3xl font-black tracking-tight mb-5">What launches first</h2>
+        <ul class="space-y-4 text-slate-300 leading-relaxed">
+          <li class="flex gap-3"><i class="fa-solid fa-circle text-green-400 text-[10px] mt-2"></i><span>Email/password customer account for SH Vertex.</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-circle text-green-400 text-[10px] mt-2"></i><span>Manual cloud backup and restore for SimpliBudget as the first connected app.</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-circle text-green-400 text-[10px] mt-2"></i><span>Account portal for backup history, connected device visibility, and future expansion.</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-circle text-green-400 text-[10px] mt-2"></i><span>Licensing remains separate so the apps stay operational even when the customer is offline.</span></li>
+        </ul>
+      </div>
+      <div class="glass-card p-7 md:p-8 shv-reveal">
+        <div class="micro-note text-emerald-300 mb-3">Portal structure</div>
+        <h2 class="text-3xl font-black tracking-tight mb-5">Pages now in place</h2>
+        <div class="grid gap-4">
+          <div class="mini-panel p-4 flex items-start justify-between gap-4"><div><div class="font-extrabold uppercase tracking-[0.18em] text-[10px] text-slate-400 mb-2">Sign In</div><div class="text-slate-300 text-sm">Clean login screen for returning SH Vertex customers.</div></div><a class="btn-dark" href="sign-in.html">Open</a></div>
+          <div class="mini-panel p-4 flex items-start justify-between gap-4"><div><div class="font-extrabold uppercase tracking-[0.18em] text-[10px] text-slate-400 mb-2">Create Account</div><div class="text-slate-300 text-sm">New account creation flow for future cloud-enabled apps.</div></div><a class="btn-dark" href="create-account.html">Open</a></div>
+          <div class="mini-panel p-4 flex items-start justify-between gap-4"><div><div class="font-extrabold uppercase tracking-[0.18em] text-[10px] text-slate-400 mb-2">Reset Access</div><div class="text-slate-300 text-sm">Password reset request screen, ready for backend wiring.</div></div><a class="btn-dark" href="forgot-password.html">Open</a></div>
+          <div class="mini-panel p-4 flex items-start justify-between gap-4"><div><div class="font-extrabold uppercase tracking-[0.18em] text-[10px] text-slate-400 mb-2">Dashboard</div><div class="text-slate-300 text-sm">Live portal page for backups, devices, and linked apps once Supabase is configured.</div></div><a class="btn-dark" href="dashboard.html">Open</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 md:px-6 py-10">
+    <div class="max-w-6xl mx-auto glass-card p-8 md:p-10 shv-reveal">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="micro-note text-emerald-300 mb-2">Product rollout</div>
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight">Apps planned for SH Vertex Account</h2>
+        </div>
+        <span class="kicker"><i class="fa-solid fa-cloud-arrow-up"></i> Cloud-ready expansion</span>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="feature-card"><div class="micro-note text-amber-300 mb-3">First Connection</div><h3 class="text-2xl font-black mb-3">SimpliBudget</h3><p class="text-slate-400 leading-relaxed">Best first app for cloud backup because it benefits directly from restore history and profile continuity.</p></div>
+        <div class="feature-card"><div class="micro-note text-sky-300 mb-3">Later Expansion</div><h3 class="text-2xl font-black mb-3">Synapse</h3><p class="text-slate-400 leading-relaxed">Project records, checklist state, and internal structured data can later share the same account layer.</p></div>
+        <div class="feature-card"><div class="micro-note text-emerald-300 mb-3">Future Fit</div><h3 class="text-2xl font-black mb-3">Next SHV apps</h3><p class="text-slate-400 leading-relaxed">Every future app can plug into the same shared profile model instead of building a new account system each time.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="footer-shell py-12 text-center mt-10">
+  <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-6">
+    <img alt="SH Vertex" class="h-8 opacity-80 grayscale" src="./assets/site/logo.png"/>
+    <div class="flex flex-wrap justify-center gap-6">
+      <a class="footer-link" href="index.html">Base</a>
+      <a class="footer-link" href="products.html">Products</a>
+      <a class="footer-link" href="future-products.html">Future Products</a>
+      <a class="footer-link" href="vault.html">Vault</a>
+      <a class="footer-link" href="account.html">Account</a>
+      <a class="footer-link" href="index.html#contact">Inquiry</a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a class="footer-contact" href="mailto:ceo@shvertex.online"><i class="fas fa-envelope text-green-400"></i><span>ceo@shvertex.online</span></a>
+      <a class="footer-contact" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp text-green-400"></i><span>+94 77 136 3462</span></a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-6">
+      <a class="footer-link" href="privacy.html">Privacy Policy</a>
+      <a class="footer-link" href="terms.html">Terms of Service</a>
+    </div>
+    <p class="text-[10px] text-gray-600 font-extrabold uppercase tracking-[0.35em]">© 2026 SH VERTEX TECHNOLOGIES</p>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="shv-supabase-config.js"></script>
+<script src="shv-account-common.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async function(){
+  const configured = window.shvPortal && shvPortal.isConfigured();
+  const setupCard = document.createElement('div');
+  setupCard.className = 'max-w-6xl mx-auto px-4 md:px-6 pb-2';
+  setupCard.innerHTML = `
+    <div class="glass-card p-5 shv-reveal">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="micro-note text-emerald-300 mb-2">Backend status</div>
+          <h2 class="text-2xl font-black tracking-tight mb-2">${configured ? 'Supabase client details detected' : 'Supabase config still needs your project details'}</h2>
+          <p class="text-slate-400 leading-relaxed">${configured ? 'The account pages are ready to talk to your live Supabase project. Next step is running the SQL schema and testing signup, sign-in, and password reset.' : 'Edit shv-supabase-config.js with your real project URL and publishable key, then run the SQL file in Supabase.'}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a class="btn-dark" href="shv-supabase-config.js">Config File</a>
+          <a class="btn-green" href="shvertex_supabase_schema.sql">SQL Schema</a>
+        </div>
+      </div>
+    </div>`;
+  const main = document.querySelector('main');
+  const firstSection = main && main.querySelector('section');
+  if (main && firstSection) main.insertBefore(setupCard, firstSection.nextSibling);
+  try {
+    await shvPortal.exchangeCodeIfPresent();
+  } catch (error) {
+    console.warn(error);
+  }
+});
+</script>
+
+</body>
+</html>
