@@ -81,7 +81,295 @@
     .footer-contact {display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#d1d5db;font-size:12px;transition:.25s}
     .footer-contact:hover {color:#fff;border-color:rgba(34,197,94,.3)}
     @media (max-width:768px){.nav-pill{padding:9px 12px;font-size:10px;letter-spacing:.10em}}
-  </style>
+  /* Casino Tools Pro presentation cleanup */
+.casino-showcase-shell {
+    display: block;
+    margin-bottom: 1rem;
+}
+.casino-showcase-card,
+.casino-summary-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(9,12,18,0.92), rgba(4,6,11,0.88));
+    box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+    backdrop-filter: blur(10px);
+}
+.casino-showcase-card {
+    padding: 1.25rem;
+}
+.casino-summary-card {
+    padding: 1.5rem;
+}
+.casino-showcase-kicker,
+.casino-summary-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(125,211,252,0.22);
+    background: rgba(56,189,248,0.08);
+    color: #bae6fd;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+.casino-showcase-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+.casino-showcase-image {
+    border-radius: 1.35rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.58);
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem;
+}
+.casino-showcase-image img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 540px;
+    object-fit: contain;
+    display: block;
+    border-radius: 1rem;
+}
+.casino-showcase-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 60rem;
+}
+.casino-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+.casino-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #cbd5e1;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.casino-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.casino-summary-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #dbeafe;
+    font-size: 12px;
+    font-weight: 700;
+}
+.casino-thumb-rail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 0.9rem;
+    margin: 1.15rem 0 1.5rem;
+}
+.casino-thumb-card {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(6,10,18,0.86);
+}
+.casino-thumb-card img {
+    width: 100%;
+    height: 145px;
+    object-fit: cover;
+    display: block;
+}
+.casino-thumb-label {
+    padding: 0.8rem 0.9rem;
+    color: #e2e8f0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.inventory-anchor {
+    scroll-margin-top: 105px;
+}
+.inventory-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.inventory-group {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(7,10,16,0.92), rgba(3,5,9,0.88));
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+.inventory-group summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+}
+.inventory-group summary::-webkit-details-marker {
+    display: none;
+}
+.inventory-group-title {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.2rem;
+}
+.inventory-group-subtitle {
+    color: #94a3b8;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    max-width: 58rem;
+}
+.inventory-group-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+.inventory-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(125,211,252,0.2);
+    background: rgba(56,189,248,0.08);
+    color: #bae6fd;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.inventory-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #e5e7eb;
+    transition: transform 0.25s ease;
+}
+.inventory-group[open] .inventory-chevron {
+    transform: rotate(45deg);
+}
+.inventory-group-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.95rem;
+    padding: 0 1.1rem 1.1rem;
+}
+.inventory-compact-card {
+    display: grid;
+    grid-template-columns: 140px minmax(0,1fr);
+    gap: 1rem;
+    align-items: stretch;
+    padding: 0.95rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+}
+.inventory-compact-thumb {
+    overflow: hidden;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+}
+.inventory-compact-thumb img {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.inventory-compact-copy {
+    min-width: 0;
+}
+@media (min-width: 768px) {
+    .casino-thumb-rail {
+        grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    .inventory-group-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+}
+@media (min-width: 1100px) {
+    .casino-thumb-rail {
+        grid-template-columns: repeat(6, minmax(0,1fr));
+    }
+}
+@media (max-width: 1024px) {
+    .casino-showcase-main {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 767px) {
+    .casino-showcase-card,
+    .casino-summary-card {
+        padding: 0.95rem;
+        border-radius: 1.35rem;
+    }
+    .casino-showcase-image {
+        padding: 0.55rem;
+    }
+    .casino-showcase-image img {
+        max-height: 420px;
+    }
+    .casino-thumb-card img {
+        height: 120px;
+    }
+    .inventory-group summary {
+        padding: 1rem;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .inventory-group-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .inventory-compact-card {
+        grid-template-columns: 1fr;
+        padding: 0.8rem;
+    }
+    .inventory-compact-thumb img {
+        height: 180px;
+    }
+    .inventory-anchor {
+        scroll-margin-top: 95px;
+    }
+}
+
+</style>
 </head>
 <body>
   <div class="mesh-bg"></div>
@@ -155,22 +443,362 @@
       </div>
     </section>
 
-    <section class="px-4 md:px-6 py-10">
-      <div class="max-w-6xl mx-auto">
-        <div class="mb-8">
-          <div class="kicker mb-4"><i class="fa-solid fa-cubes"></i> Module posture</div>
-          <h2 class="section-title mb-3">Core capability profile</h2>
-          <p class="text-slate-400 max-w-3xl leading-relaxed">Casino Tools Pro remains the original edition with the direct-facing module framing. This page should use original screenshots and original naming if you later add deep visual product content here.</p>
+    <section class="py-32 px-6 bg-[rgba(0,0,0,0.42)] backdrop-blur-[3px] border-t border-white/5" id="casino-features">
+<div class="max-w-7xl mx-auto">
+<h3 class="text-4xl font-extrabold text-center mb-6 tracking-tight italic uppercase">Full Feature Inventory</h3>
+<div class="micro-note text-center mb-4">Original Casino Tools Pro features • Each module shown with its matching screenshot</div>
+<p class="text-center text-slate-400 max-w-3xl mx-auto mb-12 italic">
+      Full original-edition module inventory for Casino Tools Pro. Every feature block below keeps the matching visual preview so the standalone product page reflects the complete app depth again.
+</p>
+<div class="casino-showcase-shell">
+<div class="casino-showcase-card">
+<div class="casino-showcase-kicker">
+<i class="fas fa-layer-group text-sky-400"></i>
+          Featured Interface Preview
         </div>
-        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-          <div class="feature-card p-7 transition duration-300"><div class="micro-note text-emerald-300 mb-3">Core</div><h3 class="text-2xl font-black mb-3">Simulation tools</h3><p class="text-slate-400 leading-relaxed">Original edition access to the same main simulation and calculation foundation that powers the broader ecosystem.</p></div>
-          <div class="feature-card p-7 transition duration-300"><div class="micro-note text-emerald-300 mb-3">Research</div><h3 class="text-2xl font-black mb-3">Optimization stack</h3><p class="text-slate-400 leading-relaxed">Keeps the original product presentation for strategy generation, testing, and evaluation workflows.</p></div>
-          <div class="feature-card p-7 transition duration-300"><div class="micro-note text-emerald-300 mb-3">Commercial</div><h3 class="text-2xl font-black mb-3">Licensing ready</h3><p class="text-slate-400 leading-relaxed">Built to live inside the same licensing package, manager tooling, and buyer-facing ecosystem bundle.</p></div>
-        </div>
-      </div>
-    </section>
+<div class="casino-showcase-main">
+<div class="casino-showcase-image">
+<img alt="RNG Variance Engine (Dice Simulator V2)" src="./assets/site/dice-sim-v2.png"/>
+</div>
+<div class="casino-showcase-copy">
+<div class="casino-chip-row">
+<span class="casino-chip">23 Integrated Modules</span>
+<span class="casino-chip">All Screens Retained</span>
+<span class="casino-chip">Cleaner Product Presentation</span>
+</div>
+<h4 class="text-2xl md:text-3xl font-black tracking-tight text-white mb-3">RNG Variance Engine</h4>
+<div class="original-module mb-3">Original module: Dice Simulator V2</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-5">Interactive variance simulator with session tracking and performance visualization. Tracks balance, session result, turnover, and win/loss counts.</p>
+<div class="casino-chip-row mt-1"><span class="casino-chip">Featured Preview</span><span class="casino-chip">Thumbnail Rail</span><span class="casino-chip">Full Inventory Below</span></div>
+</div>
+</div>
+</div>
 
-    <section class="px-4 md:px-6 py-10">
+</div>
+<div class="casino-thumb-rail">
+<div class="casino-thumb-card">
+<img alt="Logic Templates (Strategies Library)" src="./assets/site/library-vault.png"/>
+<div class="casino-thumb-label">Logic Templates</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="RNG Variance Engine (Dice Simulator V2)" src="./assets/site/dice-sim-v2.png"/>
+<div class="casino-thumb-label">RNG Variance Engine</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Model Efficiency Lab (Dice Strategy Optimizer)" src="./assets/site/dice-optimizer.png"/>
+<div class="casino-thumb-label">Model Efficiency Lab</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Probability Evolution (Dice Evolution Engine)" src="./assets/site/dice-evo-engine.png"/>
+<div class="casino-thumb-label">Probability Evolution</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Statistical Deck Engine (Blackjack Strategy Hub)" src="./assets/site/blackjack-hub.png"/>
+<div class="casino-thumb-label">Statistical Deck Engine</div>
+</div>
+<div class="casino-thumb-card">
+<img alt="Market Convergence Calc (Arbitrage Calculator)" src="./assets/site/arbitrage-calc.png"/>
+<div class="casino-thumb-label">Market Convergence Calc</div>
+</div>
+</div>
+<div class="inventory-anchor" id="casino-inventory"></div>
+<div class="inventory-stack">
+<details class="inventory-group" open="">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Core Discovery &amp; Simulation</div>
+<div class="inventory-group-subtitle">Template vaults, live simulators, parameter sweeps, and structured system generation.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">7 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Logic Templates (Strategies Library)" src="./assets/site/library-vault.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Logic Templates</h4>
+<div class="original-module mb-2">Original module: Strategies Library</div>
+<p class="text-slate-400 text-xs leading-relaxed">A centralized template vault for saving, naming, filtering, and reusing discovered systems. Logic Templates stores source, risk profile, configuration settings, and notes.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="RNG Variance Engine (Dice Simulator V2)" src="./assets/site/dice-sim-v2.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">RNG Variance Engine</h4>
+<div class="original-module mb-2">Original module: Dice Simulator V2</div>
+<p class="text-slate-400 text-xs leading-relaxed">Interactive variance simulator with session tracking and performance visualization. Tracks balance, session result, turnover, and win/loss counts.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Threshold Multiplier (Dice/Limbo Calculator)" src="./assets/site/dice-limbo-calc.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Threshold Multiplier</h4>
+<div class="original-module mb-2">Original module: Dice/Limbo Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Progression sizing calculator for capital planning. Threshold Multiplier translates base size, multipliers, and hit probability into a step-by-step recovery ladder.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Monte Carlo Simulator (Monte Carlo Simulator)" src="./assets/site/dice-monte-carlo.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Monte Carlo Simulator</h4>
+<div class="original-module mb-2">Original module: Monte Carlo Simulator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Batch simulation engine for validating behavior across thousands of sessions. Reports average profit, win rate, and bust rate.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Model Efficiency Lab (Dice Strategy Optimizer)" src="./assets/site/dice-optimizer.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Model Efficiency Lab</h4>
+<div class="original-module mb-2">Original module: Dice Strategy Optimizer</div>
+<p class="text-slate-400 text-xs leading-relaxed">Parameter search engine that sweeps through sizing and multiplier ranges to rank configurations for a specific goal.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Sequence Automator (Dice Auto Generator)" src="./assets/site/dice-auto-gen.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Sequence Automator</h4>
+<div class="original-module mb-2">Original module: Dice Auto Generator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Random discovery tool that generates large batches of candidate systems and surfaces the strongest performers.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Logic Builder (Strategy Forge)" src="./assets/site/strategy-forge.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Logic Builder</h4>
+<div class="original-module mb-2">Original module: Strategy Forge</div>
+<p class="text-slate-400 text-xs leading-relaxed">Controlled discovery engine blending population-based search with ranked output to surface new logical systems.</p>
+</div>
+</article>
+</div>
+</details>
+<details class="inventory-group">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Evolution &amp; Stress Labs</div>
+<div class="inventory-group-subtitle">Evolutionary searches, endurance testing, and distribution-focused modeling engines.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">7 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Probability Evolution (Dice Evolution Engine)" src="./assets/site/dice-evo-engine.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Probability Evolution</h4>
+<div class="original-module mb-2">Original module: Dice Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Evolutionary search system that mutates and selects best-performing probability models across thousands of generations.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Exponential Growth Lab (Limbo Evolution Engine)" src="./assets/site/limbo-evolution.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Exponential Growth Lab</h4>
+<div class="original-module mb-2">Original module: Limbo Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Target-based evolution engine for exponential-outcome play. Searches base size, target multiplier, and progression settings.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Pattern Evolution (Keno Evolution Engine)" src="./assets/site/keno-evolution.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Pattern Evolution</h4>
+<div class="original-module mb-2">Original module: Keno Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Advanced system exploring combinations of tiles, target hits, and progression to find standout distribution models.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Grid-Risk Evolution (Mines Evolution Engine)" src="./assets/site/mines-evolution.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Grid-Risk Evolution</h4>
+<div class="original-module mb-2">Original module: Mines Evolution Engine</div>
+<p class="text-slate-400 text-xs leading-relaxed">Searches combinations of grid count, safe picks, and payout profiles to rank strong grid-risk systems.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Stress Test (Strategy Stress Test)" src="./assets/site/stress-test-lab.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Stress Test</h4>
+<div class="original-module mb-2">Original module: Strategy Stress Test</div>
+<p class="text-slate-400 text-xs leading-relaxed">Direct stability check pushing one setup through many sessions to analyze downside and volatility.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Capital Sustainability (Bankroll Survival Lab)" src="./assets/site/survival-lab.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Capital Sustainability</h4>
+<div class="original-module mb-2">Original module: Bankroll Survival Lab</div>
+<p class="text-slate-400 text-xs leading-relaxed">Probability-focused endurance simulator. Capital Sustainability reports survival chance, bust chance, and expected ROI.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Spatial Distribution Lab (Keno Monte Carlo)" src="./assets/site/keno-monte-carlo.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Spatial Distribution Lab</h4>
+<div class="original-module mb-2">Original module: Keno Monte Carlo</div>
+<p class="text-slate-400 text-xs leading-relaxed">Multi-outcome model estimating performance across weighted payout ladders and result distributions.</p>
+</div>
+</article>
+</div>
+</details>
+<details class="inventory-group">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Analytics &amp; Decision Models</div>
+<div class="inventory-group-subtitle">Fast analysis layers for path decisions, table support, edge checks, and compounded risk review.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">5 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Probability Path Analysis (Mines Analytics)" src="./assets/site/mines-analytics.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Probability Path Analysis</h4>
+<div class="original-module mb-2">Original module: Mines Analytics</div>
+<p class="text-slate-400 text-xs leading-relaxed">Quick success-probability and multiplier calculator for grid-path decision-making.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Statistical Deck Engine (Blackjack Strategy Hub)" src="./assets/site/blackjack-hub.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Statistical Deck Engine</h4>
+<div class="original-module mb-2">Original module: Blackjack Strategy Hub</div>
+<p class="text-slate-400 text-xs leading-relaxed">Fast decision assistant providing basic-strategy recommendations for visible deck states.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Kelly Criterion Tool (Kelly Bet Calculator)" src="./assets/site/kelly-calc.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Kelly Criterion Tool</h4>
+<div class="original-module mb-2">Original module: Kelly Bet Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Capital sizing tool for positive-EV scenarios across full, half, and quarter Kelly stakes.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Compounded Risk Analyst (Parlay Analyzer)" src="./assets/site/parlay-analyzer.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Compounded Risk Analyst</h4>
+<div class="original-module mb-2">Original module: Parlay Analyzer</div>
+<p class="text-slate-400 text-xs leading-relaxed">Multi-leg compounded-risk evaluator quantifying ticket value, edge, EV, ROI, and hit rates.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Edge Discovery Tool (Value Bet Calculator)" src="./assets/site/value-ev-checker.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Edge Discovery Tool</h4>
+<div class="original-module mb-2">Original module: Value Bet Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Edge checker comparing market odds against estimated true probability.</p>
+</div>
+</article>
+</div>
+</details>
+<details class="inventory-group">
+<summary>
+<div class="inventory-group-title-wrap">
+<div class="inventory-group-title">Markets, Growth &amp; Utility Tools</div>
+<div class="inventory-group-subtitle">Arbitrage, compounding, structured planning, and live conversion utilities.</div>
+</div>
+<div class="inventory-group-meta">
+<span class="inventory-count">4 Modules</span>
+<span class="inventory-chevron"><i class="fas fa-plus"></i></span>
+</div>
+</summary>
+<div class="inventory-group-grid">
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Market Convergence Calc (Arbitrage Calculator)" src="./assets/site/arbitrage-calc.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Market Convergence Calc</h4>
+<div class="original-module mb-2">Original module: Arbitrage Calculator</div>
+<p class="text-slate-400 text-xs leading-relaxed">Market convergence calculator for locking in margins across opposite outcomes.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Compound Growth Pro (Compound Growth Pro)" src="./assets/site/compound-growth-pro.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Compound Growth Pro</h4>
+<div class="original-module mb-2">Original module: Compound Growth Pro</div>
+<p class="text-slate-400 text-xs leading-relaxed">Compounding planner for target-driven capital growth over fixed periods.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Pattern Sequence Master (Pattern Sequence Master)" src="./assets/site/pattern-sequence-master.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Pattern Sequence Master</h4>
+<div class="original-module mb-2">Original module: Pattern Sequence Master</div>
+<p class="text-slate-400 text-xs leading-relaxed">Sequence generator for structured repeated patterns and progression planning.</p>
+</div>
+</article>
+<article class="inventory-compact-card">
+<div class="inventory-compact-thumb">
+<img alt="Live Crypto Converter (Live Crypto Converter)" src="./assets/site/crypto-converter-live.png"/>
+</div>
+<div class="inventory-compact-copy">
+<h4 class="text-base md:text-lg font-black italic uppercase text-white mb-1">Live Crypto Converter</h4>
+<div class="original-module mb-2">Original module: Live Crypto Converter</div>
+<p class="text-slate-400 text-xs leading-relaxed">On-device utility for translating crypto denominations into units or fiat currency.</p>
+</div>
+</article>
+</div>
+</details>
+</div>
+<div class="mt-16 text-center">
+<a class="btn-sky-active" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20more%20about%20the%20Casino%20Tools%20Pro%20Ecosystem%20and%20its%20two%20editions." target="_blank">Inquire About Both Editions</a>
+</div>
+</div>
+</section>
+
+
+
+<section class="px-4 md:px-6 py-10">
       <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6">
         <div class="cta-card p-8">
           <div class="micro-note text-emerald-300 mb-3">Positioning</div>
