@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SimpliBudget | SH Vertex Tech</title>
+  <meta name="description" content="SimpliBudget by SH Vertex. Mobile-first budgeting workspace for daily finance control." />
+  <link rel="icon" type="image/png" href="./assets/site/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700;800;900&display=swap');
+
+    :root {
+      --bg: #030405;
+      --bg-soft: #0a0d0f;
+      --panel: rgba(12, 16, 18, 0.82);
+      --panel-2: rgba(17, 22, 25, 0.92);
+      --line: rgba(255,255,255,0.10);
+      --line-strong: rgba(255,255,255,0.16);
+      --text-soft: #cbd5e1;
+      --text-dim: #8ea0b5;
+      --accent: #fbbf24;
+      --accent-rgb: 251, 191, 36;
+      --accent-soft: rgba(251, 191, 36, 0.16);
+      --accent-soft-2: rgba(251, 191, 36, 0.28);
+      --glow: 0 24px 80px rgba(0,0,0,0.42);
+      --radius-xl: 1.9rem;
+      --radius-lg: 1.4rem;
+      --radius-md: 1rem;
+      --nav-h: 92px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(var(--accent-rgb), 0.14), transparent 24%),
+        radial-gradient(circle at 100% 10%, rgba(255,255,255,0.05), transparent 20%),
+        linear-gradient(180deg, #020304 0%, #050709 100%);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.70), rgba(0,0,0,0.18));
+      opacity: .5;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(var(--accent-rgb), 0.08), transparent 18%),
+        radial-gradient(circle at 82% 75%, rgba(var(--accent-rgb), 0.06), transparent 18%);
+    }
+
+    .nav-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 60;
+      background: rgba(0,0,0,0.76);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-wrap {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-brand { display: inline-flex; align-items: center; gap: .9rem; text-decoration: none; color: #fff; }
+    .nav-brand img { height: 36px; width: auto; display: block; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; justify-content: center; }
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: .72rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: #9ca3af;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: .25s ease;
+    }
+    .nav-pill:hover { color: #fff; border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); }
+    .nav-pill-active { color: #fff; border-color: rgba(var(--accent-rgb), .48); background: rgba(var(--accent-rgb), .16); box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .04); }
+    .nav-pill-featured { color: #fff; border-color: rgba(var(--accent-rgb), .34); background: rgba(var(--accent-rgb), .12); }
+    .nav-menu-btn { display: none; }
+
+    .page-shell { padding-top: calc(var(--nav-h) + 2rem); }
+    .container { max-width: 1220px; margin: 0 auto; padding: 0 1rem; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .75rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-soft);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .hero { padding: 3rem 0 2rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      gap: 1.35rem;
+      align-items: stretch;
+    }
+    .glass-panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+      backdrop-filter: blur(12px) saturate(120%);
+      box-shadow: var(--glow);
+    }
+    .glass-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      pointer-events: none;
+    }
+    .hero-copy { padding: 2rem; }
+    .hero-title { font-size: clamp(2.85rem, 5vw, 5.65rem); line-height: .96; letter-spacing: -.06em; font-weight: 900; margin: 1rem 0; }
+    .hero-text { color: var(--text-soft); line-height: 1.8; max-width: 60ch; font-size: 1.02rem; }
+    .hero-subline { color: rgba(var(--accent-rgb), .86); letter-spacing: .18em; text-transform: uppercase; font-size: .76rem; font-weight: 800; margin-top: 1.2rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 1.5rem; }
+    .btn-solid, .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: .7rem;
+      min-height: 46px; padding: .9rem 1.2rem; border-radius: 999px; text-decoration: none;
+      font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+      transition: .25s ease;
+      position: relative; overflow: hidden;
+    }
+    .btn-solid { background: var(--accent); color: #000; box-shadow: 0 18px 34px rgba(var(--accent-rgb), .20); }
+    .btn-solid:hover { background: #fff; color: #000; transform: translateY(-1px); }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.14); color: #fff; background: rgba(255,255,255,0.03); }
+    .btn-ghost:hover { background: #fff; color: #000; }
+    .hero-metrics { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .8rem; margin-top: 1.6rem; }
+    .metric { padding: 1rem 1rem 1rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); }
+    .metric strong { display: block; color: var(--accent); font-size: 1.28rem; letter-spacing: -.03em; font-weight: 900; }
+    .metric span { display: block; margin-top: .3rem; color: #9ca3af; font-size: .66rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+
+    .hero-visual { padding: 1.25rem; display: flex; align-items: stretch; justify-content: center; min-height: 100%; }
+    .scene {
+      position: relative;
+      border-radius: 1.65rem;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: radial-gradient(circle at 18% 10%, rgba(var(--accent-rgb), 0.24), transparent 32%), linear-gradient(180deg, rgba(9,11,13,0.94), rgba(4,6,8,0.98));
+      overflow: hidden;
+      width: 100%;
+      min-height: 100%;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(var(--accent-rgb), 0.18);
+      pointer-events: none;
+    }
+    .scene-grid { position: absolute; inset: 0; opacity: .24; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 28px 28px; mask-image: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.1)); }
+    .scene-orb { position: absolute; border-radius: 999px; pointer-events: none; filter: blur(16px); opacity: .65; }
+    .scene-orb.a { width: 180px; height: 180px; right: -38px; top: -42px; background: radial-gradient(circle, rgba(var(--accent-rgb), .38), rgba(var(--accent-rgb), .06) 52%, transparent 70%); }
+    .scene-orb.b { width: 140px; height: 140px; left: -30px; bottom: -44px; background: radial-gradient(circle, rgba(255,255,255,.20), rgba(var(--accent-rgb), .04) 48%, transparent 70%); }
+    .preview-frame {
+      position: absolute; inset: 16% 10% 12% 10%;
+      border-radius: 1.45rem; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      box-shadow: 0 24px 54px rgba(0,0,0,0.38);
+      transform: translateY(var(--parallax,0px));
+      will-change: transform;
+    }
+    .preview-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-topbar { position: absolute; top: 0; left: 0; right: 0; height: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.28); display:flex; align-items:center; gap:8px; padding: 0 14px; z-index: 2; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,0.18); }
+    .float-chip {
+      position: absolute; display: inline-flex; align-items: center; gap: .45rem; padding: .72rem .85rem;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,0.10); background: rgba(8,10,12,0.82); color: #e5eef9;
+      font-size: .65rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.30);
+      transform: translateY(calc(var(--parallax,0px) * -.35));
+      will-change: transform;
+    }
+    .float-chip.one { left: 1rem; bottom: 1rem; }
+    .float-chip.two { right: 1rem; top: 1rem; }
+
+    .section { padding: 1.4rem 0 0; }
+    .section-head { max-width: 760px; margin: 0 auto 1.35rem; text-align: center; }
+    .section-head h2 { font-size: clamp(2rem, 3.8vw, 3.3rem); letter-spacing: -.04em; line-height: 1; font-weight: 900; margin: .8rem 0; }
+    .section-head p { color: var(--text-soft); line-height: 1.8; }
+
+    .stack { display: grid; gap: 1.3rem; }
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+      box-shadow: var(--glow);
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(360px, .98fr);
+      gap: 0;
+    }
+    .product-card:nth-child(even) { grid-template-columns: minmax(360px, .98fr) minmax(0, 1.02fr); }
+    .product-card:nth-child(even) .product-copy { order: 2; }
+    .product-card:nth-child(even) .product-media { order: 1; }
+    .product-copy { padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2; }
+    .product-kicker { font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(var(--accent-rgb), .90); }
+    .product-copy h3 { font-size: clamp(2.25rem, 4vw, 4rem); line-height: .96; letter-spacing: -.06em; font-weight: 900; margin: .9rem 0 .4rem; }
+    .product-sub { color: #95a6ba; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 800; margin-bottom: 1rem; }
+    .product-copy p { color: var(--text-soft); font-size: 1rem; line-height: 1.85; max-width: 56ch; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.35rem; }
+    .tag { display:inline-flex; align-items:center; gap:.45rem; padding:.72rem .9rem; border-radius:999px; border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.03); color:#dbe6f3; font-size:.68rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .product-actions { margin-top: 1.35rem; display: flex; flex-wrap: wrap; gap: .85rem; }
+    .product-media { position: relative; padding: 1.25rem; display: flex; align-items: stretch; justify-content: center; }
+    .media-panel {
+      width: 100%;
+      border-radius: 1.65rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      background: radial-gradient(circle at 15% 15%, rgba(var(--accent-rgb),0.24), transparent 30%), linear-gradient(180deg, rgba(8,10,12,0.96), rgba(2,4,6,0.98));
+      position: relative;
+    }
+    .media-panel::after {
+      content: ""; position: absolute; inset: 14px; border-radius: 1.35rem; border: 1px solid rgba(var(--accent-rgb), .18); pointer-events: none;
+    }
+    .media-shell { position:absolute; inset: 14% 9% 11% 9%; border-radius: 1.4rem; overflow:hidden; border:1px solid rgba(255,255,255,0.10); box-shadow: 0 26px 60px rgba(0,0,0,0.42); transform: translateY(var(--parallax,0px)); will-change: transform; }
+    .media-shell img { width: 100%; height: 100%; object-fit: cover; display:block; }
+    .media-topbar { position:absolute; top:0; left:0; right:0; height: 36px; background: rgba(6,8,10,0.78); border-bottom: 1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:8px; padding: 0 14px; z-index: 2; }
+    .accent-line { position:absolute; left:0; top:0; bottom:0; width: 3px; background: linear-gradient(180deg, rgba(var(--accent-rgb), .0), rgba(var(--accent-rgb), .95), rgba(var(--accent-rgb), .0)); }
+    .media-chip { position:absolute; border-radius:1rem; padding:.95rem 1rem; border:1px solid rgba(255,255,255,0.10); background: rgba(8,10,12,0.82); color:#dce8f5; box-shadow: 0 16px 34px rgba(0,0,0,0.30); max-width: 220px; transform: translateY(calc(var(--parallax,0px) * -.35)); will-change: transform; }
+    .media-chip strong { display:block; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.4rem; color: rgba(var(--accent-rgb), .95); }
+    .media-chip span { display:block; font-size:.85rem; line-height:1.55; color:#d3deea; }
+    .media-chip.a { left: 1rem; bottom: 1rem; }
+    .media-chip.b { right: 1rem; top: 1rem; }
+
+    .gallery { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .shot { position:relative; overflow:hidden; border-radius: 1.35rem; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); box-shadow: var(--glow); }
+    .shot img { width:100%; height:100%; display:block; object-fit:cover; }
+    .shot-label { position:absolute; left: .95rem; bottom: .95rem; padding:.6rem .8rem; border-radius:999px; background: rgba(0,0,0,0.72); border:1px solid rgba(255,255,255,0.10); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#fff; }
+
+    .grid-3 { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .grid-2 { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .feature-card, .info-card { position:relative; overflow:hidden; border-radius: 1.3rem; border:1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)); box-shadow: var(--glow); padding: 1.4rem; }
+    .feature-card i, .info-card i { color: var(--accent); font-size: 1.1rem; }
+    .feature-card h4, .info-card h4 { margin: .9rem 0 .65rem; font-size: 1.05rem; font-weight: 800; letter-spacing: -.02em; }
+    .feature-card p, .info-card p, .info-card li { color: var(--text-soft); line-height: 1.8; font-size: .94rem; }
+    .info-card ul { margin: 0; padding-left: 1rem; }
+
+    .pricing-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .pricing-grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .tier { position:relative; overflow:hidden; border-radius: 1.55rem; border:1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018)); box-shadow: var(--glow); padding: 1.65rem; display:flex; flex-direction:column; justify-content:space-between; gap:1.4rem; }
+    .tier.featured { border-color: rgba(var(--accent-rgb), .28); box-shadow: 0 28px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(var(--accent-rgb), .04) inset; transform: translateY(-8px); }
+    .tier-kicker { color: rgba(var(--accent-rgb), .86); font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 800; }
+    .tier-title { font-size: 2rem; line-height: 1; letter-spacing: -.05em; font-weight: 900; margin-top: .45rem; }
+    .tier p { color: var(--text-soft); line-height: 1.8; font-size: .95rem; }
+    .tier small { color: #91a2b6; display:block; line-height:1.7; }
+    .tier ul { list-style:none; padding:0; margin:0; display:grid; gap:.65rem; color:#d7e2ee; font-size:.9rem; }
+    .tier li { display:flex; gap:.65rem; align-items:flex-start; line-height:1.65; }
+    .tier li i { color: var(--accent); margin-top: .35rem; font-size: .7rem; }
+
+    .footer { margin-top: 2.2rem; padding: 2rem 0 3rem; }
+    .footer-shell { border-radius: 1.8rem; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); padding: 1.5rem; box-shadow: var(--glow); }
+    .footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; margin-top:1rem; }
+    .footer-links a { color:#91a2b6; text-decoration:none; font-size:.68rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    .footer-links a:hover { color:#fff; }
+    .footer-contact-row { display:flex; flex-wrap:wrap; justify-content:center; gap:.8rem; margin-top:1rem; }
+    .footer-contact { display:inline-flex; align-items:center; gap:.55rem; padding:.8rem .95rem; border-radius:999px; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color:#dbe6f3; text-decoration:none; font-size:.8rem; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1040px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .product-card, .product-card:nth-child(even) { grid-template-columns: 1fr; min-height: initial; }
+      .product-card:nth-child(even) .product-copy, .product-card:nth-child(even) .product-media { order: initial; }
+      .pricing-grid, .pricing-grid.two, .grid-3, .grid-2, .gallery { grid-template-columns: 1fr; }
+      .hero-metrics { grid-template-columns: 1fr; }
+      .tier.featured { transform: none; }
+      .media-panel, .scene { min-height: 440px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-h: 84px; }
+      .nav-wrap { padding: .85rem .9rem; }
+      .nav-brand img { height: 32px; }
+      .nav-links { display:none; position:absolute; top: calc(100% + 10px); right: .9rem; left: .9rem; background: rgba(6,8,10,0.96); border:1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: .8rem; box-shadow: 0 20px 46px rgba(0,0,0,0.44); }
+      .nav-links.open { display:grid; grid-template-columns: 1fr; }
+      .nav-pill { width:100%; justify-content:space-between; padding: .9rem 1rem; font-size: .68rem; letter-spacing: .12em; }
+      .nav-menu-btn { display:inline-flex; align-items:center; justify-content:center; min-height: 42px; min-width:42px; border-radius: 999px; border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); color:#fff; }
+      .page-shell { padding-top: calc(var(--nav-h) + 1.6rem); }
+      .hero { padding-top: 1.2rem; }
+      .hero-copy, .product-copy { padding: 1.25rem; }
+      .hero-title { font-size: clamp(2.35rem, 11vw, 3.4rem); }
+      .hero-text { font-size: .96rem; line-height: 1.75; }
+      .hero-actions, .product-actions { flex-direction: column; align-items: stretch; }
+      .btn-solid, .btn-ghost { width: 100%; }
+      .product-card { border-radius: 1.55rem; }
+      .product-copy h3 { font-size: clamp(2rem, 10vw, 2.9rem); }
+      .product-copy p { font-size: .95rem; line-height: 1.8; }
+      .product-media, .hero-visual { padding: 1rem; }
+      .media-shell { inset: 15% 7% 11% 7%; }
+      .preview-frame { inset: 15% 7% 11% 7%; }
+      .media-chip, .float-chip { position: relative; left: auto; right: auto; top: auto; bottom: auto; margin: .8rem 1rem 0; max-width: none; transform:none !important; }
+      .media-panel, .scene { min-height: 390px; }
+      .footer-shell { padding: 1.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+      .reveal { opacity:1 !important; transform:none !important; }
+      .preview-frame, .media-shell, .media-chip, .float-chip { transform:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-blur">
+    <div class="nav-wrap">
+      <a class="nav-brand" href="./index.html">
+        <img src="./assets/site/logo.png" alt="SH Vertex" />
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-pill " href="./index.html">Base</a>
+        <a class="nav-pill nav-pill-active" href="./products.html">Products</a>
+        <a class="nav-pill" href="./future-products.html">Future Products</a>
+        <a class="nav-pill" href="./vault.html">Vault</a>
+        <a class="nav-pill" href="./account.html">Account</a>
+        <a class="nav-pill nav-pill-featured" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
+      </div>
+      <button class="nav-menu-btn" id="navMenuBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+  <div class="page-shell">
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="glass-panel hero-copy reveal">
+              <div class="eyebrow"><i class="fas fa-layer-group"></i> Finance workspace</div>
+              <div class="hero-subline">SimpliBudget by SHV</div>
+              <h1 class="hero-title">SimpliBudget</h1>
+              <p class="hero-text">A clean mobile budgeting workspace built for daily money tracking without clutter. SimpliBudget combines income tracking, expense logging, bill monitoring, category management, and dashboard-level visibility in a dark interface designed for real everyday use.</p>
+              <div class="hero-actions">
+                <a class="btn-solid" href="#access-paths"><i class="fas fa-wallet"></i><span>View Access Paths</span></a>
+                <a class="btn-ghost" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20know%20more%20about%20SimpliBudget." target="_blank"><i class="fab fa-whatsapp"></i><span>Ask About SimpliBudget</span></a>
+              </div>
+              <div class="hero-metrics"><div class="metric"><strong>Daily</strong><span>Finance Flow</span></div><div class="metric"><strong>Clean</strong><span>Dashboarding</span></div><div class="metric"><strong>Android</strong><span>Mobile-First UI</span></div></div>
+            </div>
+            <div class="glass-panel hero-visual reveal">
+              <div class="scene">
+                <div class="scene-grid"></div>
+                <div class="scene-orb a"></div>
+                <div class="scene-orb b"></div>
+                <div class="preview-frame" data-parallax="16">
+                  <div class="preview-topbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                  <img src="./assets/site/simplibudget-dashboard.png" alt="SimpliBudget dashboard preview" />
+                </div>
+                <div class="float-chip one" data-parallax="10"><i class="fas fa-file-invoice-dollar"></i><span>Bills</span></div>
+                <div class="float-chip two" data-parallax="10"><i class="fas fa-arrow-trend-up"></i><span>Income</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="eyebrow"><i class="fas fa-wallet"></i> Finance workflow overview</div>
+            <h2>Made for real day-to-day budgeting.</h2>
+            <p>SimpliBudget is positioned as a clean daily finance workspace: fast entry, practical bill control, readable logs, and enough structure to keep money movement understandable without feeling bloated.</p>
+          </div>
+          <div class="gallery reveal">
+            <figure class="shot"><img src="./assets/site/simplibudget-dashboard.png" alt="SimpliBudget dashboard" /><figcaption class="shot-label">Dashboard</figcaption></figure>
+            <figure class="shot"><img src="./assets/site/simplibudget-transactions.png" alt="SimpliBudget transactions" /><figcaption class="shot-label">Transactions</figcaption></figure>
+            <figure class="shot"><img src="./assets/site/simplibudget-bills.png" alt="SimpliBudget bills" /><figcaption class="shot-label">Bills & Categories</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="grid-3 reveal">
+            <div class="info-card"><i class="fas fa-user"></i><h4>Personal budget users</h4><p>Built for people who want a straightforward daily finance dashboard without unnecessary complexity or spreadsheet-like friction.</p></div>
+            <div class="info-card"><i class="fas fa-house"></i><h4>Expense-conscious households</h4><p>Especially useful for tracking housing, essentials, bills, salary, recurring obligations, and category-level spending visibility.</p></div>
+            <div class="info-card"><i class="fas fa-mobile-screen-button"></i><h4>Mobile-first users</h4><p>Designed around real phone use, quick entry, dark styling, and readable day-to-day interaction on Android screens.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="eyebrow"><i class="fas fa-list-check"></i> Core capabilities</div>
+            <h2>Fast entry, clear visibility, practical structure.</h2>
+            <p>The feature set stays focused on everyday financial control rather than complexity for complexity’s sake.</p>
+          </div>
+          <div class="grid-3 reveal">
+            <div class="feature-card"><i class="fas fa-chart-pie"></i><h4>Budget Dashboard</h4><p>A clean home-screen snapshot of balances, totals, and overall financial movement.</p></div>
+            <div class="feature-card"><i class="fas fa-arrow-trend-up"></i><h4>Income Tracking</h4><p>Record salary, side income, and one-off credits with quick entry and immediate reflection.</p></div>
+            <div class="feature-card"><i class="fas fa-receipt"></i><h4>Expense Logging</h4><p>Capture spending across common categories and keep a running view of outgoing money.</p></div>
+            <div class="feature-card"><i class="fas fa-file-invoice-dollar"></i><h4>Bills & Due Tracking</h4><p>Add bills, mark them paid, and keep recurring obligations visible inside the finance workflow.</p></div>
+            <div class="feature-card"><i class="fas fa-layer-group"></i><h4>Essentials Categories</h4><p>Track housing and other essentials separately so core spending stays visible at a glance.</p></div>
+            <div class="feature-card"><i class="fas fa-clock-rotate-left"></i><h4>Transaction History</h4><p>Review a clean log of entries and status changes so daily money flow stays auditable.</p></div>
+            <div class="feature-card"><i class="fas fa-folder-tree"></i><h4>Category Structure</h4><p>Keep financial activity grouped into understandable categories instead of one flat stream.</p></div>
+            <div class="feature-card"><i class="fas fa-moon"></i><h4>Dark Mobile UI</h4><p>Built for real phone screens with dark styling, quick access, and practical readability.</p></div>
+            <div class="feature-card"><i class="fas fa-key"></i><h4>License-Ready Release Flow</h4><p>Structured to support controlled release paths as the product matures into a distributable app.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="access-paths">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="eyebrow"><i class="fas fa-download"></i> Access paths</div>
+            <h2>Ready for future rollout without redesign.</h2>
+            <p>The access structure stays flexible so you can support preview builds, standard releases, and custom deployment paths later without rebuilding the whole page.</p>
+          </div>
+          <div class="pricing-grid reveal">
+            <div class="tier">
+              <div>
+                <div class="tier-kicker">Preview access</div>
+                <div class="tier-title">Demo</div>
+                <p>A lightweight way to test the dashboard, transaction flow, and financial layout before a full release decision.</p>
+                <small>Ideal for first-time users who want to understand the workflow and overall interface.</small>
+              </div>
+              <a class="btn-ghost" href="REPLACE_WITH_SIMPLIBUDGET_DEMO_LINK" target="_blank"><i class="fas fa-download"></i><span>Demo Download</span></a>
+            </div>
+            <div class="tier featured">
+              <div>
+                <div class="tier-kicker">Full app access</div>
+                <div class="tier-title">Standard</div>
+                <p>The complete budgeting workspace for active personal finance tracking, bill visibility, categories, and day-to-day money management.</p>
+                <small>Best fit for real daily use once the release path is finalized.</small>
+              </div>
+              <a class="btn-solid" href="REPLACE_WITH_SIMPLIBUDGET_STANDARD_LINK" target="_blank"><i class="fas fa-wallet"></i><span>Standard Download</span></a>
+            </div>
+            <div class="tier">
+              <div>
+                <div class="tier-kicker">Custom rollout</div>
+                <div class="tier-title">Premium</div>
+                <p>Reserved for branded deployments, tailored builds, or future advanced packaging options.</p>
+                <small>Useful if you later want a more customized release path or a private distribution model.</small>
+              </div>
+              <a class="btn-ghost" href="https://wa.me/94771363462?text=Hi%20SH%20Vertex%2C%20I%20want%20to%20ask%20about%20SimpliBudget%20premium%20or%20custom%20rollout%20options." target="_blank"><i class="fab fa-whatsapp"></i><span>Ask About Premium</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-shell">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center;">
+            <img src="./assets/site/logo.png" alt="SH Vertex" style="height:34px; width:auto; opacity:.88;" />
+            <div style="color:#9cb0c6; font-size:.92rem; line-height:1.8; max-width:720px;">Clean product presentation in front. Full product depth behind each individual page.</div>
+            <div class="footer-links">
+              <a href="./index.html">Base</a>
+              <a href="./products.html">Products</a>
+              <a href="./future-products.html">Future Products</a>
+              <a href="./vault.html">Vault</a>
+              <a href="./account.html">Account</a>
+            </div>
+            <div class="footer-contact-row">
+              <a class="footer-contact" href="mailto:ceo@shvertex.online"><i class="fas fa-envelope"></i><span>ceo@shvertex.online</span></a>
+              <a class="footer-contact" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i><span>WhatsApp Inquiry</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const btn = document.getElementById('navMenuBtn');
+    const links = document.getElementById('navLinks');
+    if (btn && links) {
+      btn.addEventListener('click', () => links.classList.toggle('open'));
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+    }
+
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('on');
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      reveals.forEach(el => io.observe(el));
+    } else {
+      reveals.forEach(el => el.classList.add('on'));
+    }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const media = Array.from(document.querySelectorAll('[data-parallax]'));
+    if (!reduced && media.length) {
+      let ticking = false;
+      const updateParallax = () => {
+        media.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const vh = window.innerHeight || 1;
+          const center = rect.top + rect.height / 2;
+          const progress = (center - vh / 2) / vh;
+          const depth = parseFloat(el.dataset.parallax || '18');
+          const move = Math.max(Math.min(progress * depth * -1, depth), -depth);
+          el.style.setProperty('--parallax', move.toFixed(2) + 'px');
+        });
+        ticking = false;
+      };
+      const requestTick = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      };
+      updateParallax();
+      window.addEventListener('scroll', requestTick, { passive: true });
+      window.addEventListener('resize', requestTick);
+    }
+  </script>
+</body>
+</html>
