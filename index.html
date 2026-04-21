@@ -844,32 +844,99 @@
 }
 
 
-/* SHV K.I.T.T. Scanner Animation */
-.shv-scanner-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.03);
-  overflow: hidden;
-  z-index: 50;
+/* SHV K.I.T.T. Border Tracing for Hero Section */
+.shv-hero-border-wrapper {
+  position: relative; /* Hero already has this but ensuring the container works */
 }
 
-.shv-scanner-glow {
+.shv-border-scanner-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
+  inset: -1px; /* Offset to sit right on the border-wrapper edge */
+  pointer-events: none;
+  overflow: visible; /* Need the glow to spill out */
+  z-index: 5; /* Sit below nav but above content background */
+}
+
+.shv-scan-segment {
+  position: absolute;
   background: linear-gradient(90deg, transparent, #00BFA5, transparent);
   box-shadow: 0 0 12px rgba(0, 191, 165, 0.8), 0 0 4px rgba(0, 191, 165, 1);
-  animation: shv-scan 3s ease-in-out infinite alternate;
+  opacity: 0; /* Hidden by default, lit by animation sequence */
 }
 
-@keyframes shv-scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(250%); }
+/* Base styles for each segment orientation */
+.shv-scan-segment.t,
+.shv-scan-segment.b {
+  height: 2px;
+  width: 30%; /* Width of the laser beam on top/bottom */
+}
+
+.shv-scan-segment.r,
+.shv-scan-segment.l {
+  width: 2px;
+  height: 30%; /* Height of the laser beam on right/left */
+  background: linear-gradient(180deg, transparent, #00BFA5, transparent); /* Vertical gradient */
+}
+
+/* Positioning and unique animations with delays for chaining */
+.shv-scan-segment.t {
+  top: 0;
+  left: 0;
+  animation: scan-t-lr 4s linear infinite;
+}
+
+.shv-scan-segment.r {
+  top: 0;
+  right: 0;
+  animation: scan-r-tb 4s linear infinite;
+  animation-delay: 1s; /* Starts after top segment reaches end */
+}
+
+.shv-scan-segment.b {
+  bottom: 0;
+  right: 0;
+  animation: scan-b-rl 4s linear infinite;
+  animation-delay: 2s; /* Starts after right segment reaches end */
+}
+
+.shv-scan-segment.l {
+  bottom: 0;
+  left: 0;
+  animation: scan-l-bt 4s linear infinite;
+  animation-delay: 3s; /* Starts after bottom segment reaches end */
+}
+
+/* Keyframes - Using hardware accelerated translation */
+@keyframes scan-t-lr {
+  0% { transform: translateX(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateX(233%); opacity: 0; } /* 30% width * 233% approx perimeter end */
+  100% { transform: translateX(233%); opacity: 0; }
+}
+
+@keyframes scan-r-tb {
+  0% { transform: translateY(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateY(233%); opacity: 0; }
+  100% { transform: translateY(233%); opacity: 0; }
+}
+
+@keyframes scan-b-rl {
+  0% { transform: translateX(100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateX(-233%); opacity: 0; }
+  100% { transform: translateX(-233%); opacity: 0; }
+}
+
+@keyframes scan-l-bt {
+  0% { transform: translateY(100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateY(-233%); opacity: 0; }
+  100% { transform: translateY(-233%); opacity: 0; }
 }
 
 </style>
@@ -1288,32 +1355,99 @@ body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
 }
 
 
-/* SHV K.I.T.T. Scanner Animation */
-.shv-scanner-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.03);
-  overflow: hidden;
-  z-index: 50;
+/* SHV K.I.T.T. Border Tracing for Hero Section */
+.shv-hero-border-wrapper {
+  position: relative; /* Hero already has this but ensuring the container works */
 }
 
-.shv-scanner-glow {
+.shv-border-scanner-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
+  inset: -1px; /* Offset to sit right on the border-wrapper edge */
+  pointer-events: none;
+  overflow: visible; /* Need the glow to spill out */
+  z-index: 5; /* Sit below nav but above content background */
+}
+
+.shv-scan-segment {
+  position: absolute;
   background: linear-gradient(90deg, transparent, #00BFA5, transparent);
   box-shadow: 0 0 12px rgba(0, 191, 165, 0.8), 0 0 4px rgba(0, 191, 165, 1);
-  animation: shv-scan 3s ease-in-out infinite alternate;
+  opacity: 0; /* Hidden by default, lit by animation sequence */
 }
 
-@keyframes shv-scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(250%); }
+/* Base styles for each segment orientation */
+.shv-scan-segment.t,
+.shv-scan-segment.b {
+  height: 2px;
+  width: 30%; /* Width of the laser beam on top/bottom */
+}
+
+.shv-scan-segment.r,
+.shv-scan-segment.l {
+  width: 2px;
+  height: 30%; /* Height of the laser beam on right/left */
+  background: linear-gradient(180deg, transparent, #00BFA5, transparent); /* Vertical gradient */
+}
+
+/* Positioning and unique animations with delays for chaining */
+.shv-scan-segment.t {
+  top: 0;
+  left: 0;
+  animation: scan-t-lr 4s linear infinite;
+}
+
+.shv-scan-segment.r {
+  top: 0;
+  right: 0;
+  animation: scan-r-tb 4s linear infinite;
+  animation-delay: 1s; /* Starts after top segment reaches end */
+}
+
+.shv-scan-segment.b {
+  bottom: 0;
+  right: 0;
+  animation: scan-b-rl 4s linear infinite;
+  animation-delay: 2s; /* Starts after right segment reaches end */
+}
+
+.shv-scan-segment.l {
+  bottom: 0;
+  left: 0;
+  animation: scan-l-bt 4s linear infinite;
+  animation-delay: 3s; /* Starts after bottom segment reaches end */
+}
+
+/* Keyframes - Using hardware accelerated translation */
+@keyframes scan-t-lr {
+  0% { transform: translateX(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateX(233%); opacity: 0; } /* 30% width * 233% approx perimeter end */
+  100% { transform: translateX(233%); opacity: 0; }
+}
+
+@keyframes scan-r-tb {
+  0% { transform: translateY(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateY(233%); opacity: 0; }
+  100% { transform: translateY(233%); opacity: 0; }
+}
+
+@keyframes scan-b-rl {
+  0% { transform: translateX(100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateX(-233%); opacity: 0; }
+  100% { transform: translateX(-233%); opacity: 0; }
+}
+
+@keyframes scan-l-bt {
+  0% { transform: translateY(100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateY(-233%); opacity: 0; }
+  100% { transform: translateY(-233%); opacity: 0; }
 }
 
 </style>
@@ -1574,32 +1708,99 @@ body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
     }
 }
 
-/* SHV K.I.T.T. Scanner Animation */
-.shv-scanner-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.03);
-  overflow: hidden;
-  z-index: 50;
+/* SHV K.I.T.T. Border Tracing for Hero Section */
+.shv-hero-border-wrapper {
+  position: relative; /* Hero already has this but ensuring the container works */
 }
 
-.shv-scanner-glow {
+.shv-border-scanner-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
+  inset: -1px; /* Offset to sit right on the border-wrapper edge */
+  pointer-events: none;
+  overflow: visible; /* Need the glow to spill out */
+  z-index: 5; /* Sit below nav but above content background */
+}
+
+.shv-scan-segment {
+  position: absolute;
   background: linear-gradient(90deg, transparent, #00BFA5, transparent);
   box-shadow: 0 0 12px rgba(0, 191, 165, 0.8), 0 0 4px rgba(0, 191, 165, 1);
-  animation: shv-scan 3s ease-in-out infinite alternate;
+  opacity: 0; /* Hidden by default, lit by animation sequence */
 }
 
-@keyframes shv-scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(250%); }
+/* Base styles for each segment orientation */
+.shv-scan-segment.t,
+.shv-scan-segment.b {
+  height: 2px;
+  width: 30%; /* Width of the laser beam on top/bottom */
+}
+
+.shv-scan-segment.r,
+.shv-scan-segment.l {
+  width: 2px;
+  height: 30%; /* Height of the laser beam on right/left */
+  background: linear-gradient(180deg, transparent, #00BFA5, transparent); /* Vertical gradient */
+}
+
+/* Positioning and unique animations with delays for chaining */
+.shv-scan-segment.t {
+  top: 0;
+  left: 0;
+  animation: scan-t-lr 4s linear infinite;
+}
+
+.shv-scan-segment.r {
+  top: 0;
+  right: 0;
+  animation: scan-r-tb 4s linear infinite;
+  animation-delay: 1s; /* Starts after top segment reaches end */
+}
+
+.shv-scan-segment.b {
+  bottom: 0;
+  right: 0;
+  animation: scan-b-rl 4s linear infinite;
+  animation-delay: 2s; /* Starts after right segment reaches end */
+}
+
+.shv-scan-segment.l {
+  bottom: 0;
+  left: 0;
+  animation: scan-l-bt 4s linear infinite;
+  animation-delay: 3s; /* Starts after bottom segment reaches end */
+}
+
+/* Keyframes - Using hardware accelerated translation */
+@keyframes scan-t-lr {
+  0% { transform: translateX(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateX(233%); opacity: 0; } /* 30% width * 233% approx perimeter end */
+  100% { transform: translateX(233%); opacity: 0; }
+}
+
+@keyframes scan-r-tb {
+  0% { transform: translateY(-100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateY(233%); opacity: 0; }
+  100% { transform: translateY(233%); opacity: 0; }
+}
+
+@keyframes scan-b-rl {
+  0% { transform: translateX(100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateX(-233%); opacity: 0; }
+  100% { transform: translateX(-233%); opacity: 0; }
+}
+
+@keyframes scan-l-bt {
+  0% { transform: translateY(100%); opacity: 0; }
+  5% { opacity: 1; }
+  20% { opacity: 1; }
+  25% { transform: translateY(-233%); opacity: 0; }
+  100% { transform: translateY(-233%); opacity: 0; }
 }
 
 </style>
@@ -1607,9 +1808,9 @@ body.shv-phase2 > div.max-w-7xl.mx-auto.px-4.md\:px-6.py-16::after {
 </head>
 <body class="overflow-x-hidden bg-dot-pattern shv-phase2"><div class="shv-progress"></div>
 <div class="vanta-static-bg" id="vanta-static-bg"></div>
-<nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10"><div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4"><a href="#home"><img alt="SH Vertex" class="h-8 md:h-10" src="./assets/site/logo.png"/></a><div class="nav-links"><a class="nav-pill nav-pill-active" href="#home">Base</a><a class="nav-pill nav-pill-featured" href="products.html">Products</a><a class="nav-pill" href="store.html">Store</a><a class="nav-pill" href="future-products.html">Future Products</a><a class="nav-pill" href="vault.html">Vault</a><a class="nav-pill" href="account.html">Account</a><a class="nav-pill nav-pill-outline" href="#contact">Inquiry</a></div><div class="nav-actions"><a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a><details class="mobile-nav"><summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary><div class="mobile-nav-panel"><div class="mobile-nav-list"><a class="mobile-nav-link is-active" href="#home"><span>Base</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link is-featured" href="products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="store.html"><span>Store</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="#contact"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a></div></div></details></div></div><div class="shv-scanner-track"><div class="shv-scanner-glow"></div></div>
-</nav>
+<nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10"><div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4"><a href="#home"><img alt="SH Vertex" class="h-8 md:h-10" src="./assets/site/logo.png"/></a><div class="nav-links"><a class="nav-pill nav-pill-active" href="#home">Base</a><a class="nav-pill nav-pill-featured" href="products.html">Products</a><a class="nav-pill" href="store.html">Store</a><a class="nav-pill" href="future-products.html">Future Products</a><a class="nav-pill" href="vault.html">Vault</a><a class="nav-pill" href="account.html">Account</a><a class="nav-pill nav-pill-outline" href="#contact">Inquiry</a></div><div class="nav-actions"><a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a><details class="mobile-nav"><summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary><div class="mobile-nav-panel"><div class="mobile-nav-list"><a class="mobile-nav-link is-active" href="#home"><span>Base</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link is-featured" href="products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="store.html"><span>Store</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link" href="#contact"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a><a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a></div></div></details></div></div></nav>
 <section class="relative pt-64 pb-24 px-6 max-w-7xl mx-auto flex flex-col justify-center border-b border-white/10 min-h-[85vh] shv-hero-layout" id="home">
+<!-- K.I.T.T. Border Tracing --><div class="shv-border-scanner-container"><div class="shv-scan-segment t"></div><div class="shv-scan-segment r"></div><div class="shv-scan-segment b"></div><div class="shv-scan-segment l"></div></div>
 <div class="hero-text-plane hero-dynamic-card hero-kitt-border hero-aurora-field max-w-4xl relative z-10">
 <span aria-hidden="true" class="hero-fx-ring"></span><span aria-hidden="true" class="hero-fx-orb primary"></span><span aria-hidden="true" class="hero-fx-orb secondary"></span><span aria-hidden="true" class="hero-fx-sheen"></span>
 <span aria-hidden="true" class="hero-aurora-layer layer-a"></span><span aria-hidden="true" class="hero-aurora-layer layer-b"></span><span aria-hidden="true" class="hero-aurora-layer layer-c"></span><span aria-hidden="true" class="hero-grid-overlay"></span><span aria-hidden="true" class="hero-noise-overlay"></span>
