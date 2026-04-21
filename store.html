@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHV Store | SH Vertex Tech</title>
+  <meta name="description" content="Download the official SH Vertex Store app for Android." />
+  <link rel="icon" type="image/png" href="./assets/site/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700;800;900&display=swap');
+
+    :root {
+      --bg: #030405;
+      --accent: #00BFA5;
+      --accent-rgb: 0, 191, 165;
+      --text-soft: #cbd5e1;
+      --nav-h: 92px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #000000;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .bg-dot-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .nav-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 60;
+      background: rgba(0,0,0,0.76);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    .nav-wrap {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    
+    .nav-brand { display: inline-flex; align-items: center; gap: .9rem; text-decoration: none; color: #fff; }
+    .nav-brand img { height: 36px; width: auto; display: block; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; justify-content: center; }
+    
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: .72rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: #9ca3af;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: .25s ease;
+    }
+    
+    .nav-pill:hover { color: #fff; border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); }
+    .nav-pill-active { color: #fff; border-color: rgba(var(--accent-rgb), .48); background: rgba(var(--accent-rgb), .16); box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .04); }
+    .nav-pill-featured { color: #86efac; border-color: rgba(34,197,94,0.30); background: rgba(34,197,94,0.10); }
+
+    .page-shell { padding-top: calc(var(--nav-h) + 2rem); }
+    .container { max-width: 1220px; margin: 0 auto; padding: 0 1rem; }
+
+    .section-shell {
+      background: rgba(0,0,0,0.46);
+      backdrop-filter: blur(3px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .shv-reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .shv-reveal.shv-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-dot-pattern">
+
+  <!-- Navigation -->
+  <nav class="nav-blur">
+    <div class="nav-wrap">
+      <a class="nav-brand" href="./index.html">
+        <img src="./assets/site/logo.png" alt="SH Vertex" />
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-pill" href="./index.html">Base</a>
+        <a class="nav-pill" href="./products.html">Products</a>
+        <a class="nav-pill nav-pill-active" href="./store.html">Store</a>
+        <a class="nav-pill" href="./future-products.html">Future Products</a>
+        <a class="nav-pill" href="./vault.html">Vault</a>
+        <a class="nav-pill" href="./account.html">Account</a>
+        <a class="nav-pill nav-pill-featured" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-shell">
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 overflow-hidden">
+      <!-- Glow -->
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00BFA5]/10 rounded-full blur-[150px] pointer-events-none"></div>
+      
+      <div class="container relative z-10 text-center shv-reveal">
+        <div class="inline-block border border-[#00BFA5]/30 bg-[#00BFA5]/10 text-[#00BFA5] text-[10px] font-extrabold px-4 py-2 rounded-full uppercase tracking-[0.2em] mb-6 shadow-[0_0_20px_rgba(0,191,165,0.2)]">
+          Official Ecosystem Hub
+        </div>
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-tight">
+          SH Vertex <span class="text-[#00BFA5]">Store</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
+          Bypass third-party limitations. Download our official Android hub to get secure, direct access to all SH Vertex applications, integrated cloud licensing, and real-time roadmap updates.
+        </p>
+        
+        <a href="YOUR_DROPBOX_LINK_HERE" class="inline-flex items-center justify-center bg-[#00BFA5] text-black font-extrabold text-lg py-5 px-12 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(0,191,165,0.3)] hover:shadow-[0_0_50px_rgba(255,255,255,0.5)]">
+          <i class="fa-brands fa-android text-2xl mr-3"></i>
+          Download APK (v1.0.0)
+        </a>
+        <p class="text-[11px] text-gray-500 mt-6 uppercase tracking-[0.15em] font-bold">
+          Requires Android 8.0+ • Secure Direct Install
+        </p>
+      </div>
+    </section>
+
+    <!-- Why a standalone store? -->
+    <section class="py-24 section-shell">
+      <div class="container">
+        <div class="text-center mb-16 shv-reveal">
+          <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4">Why a Dedicated Store?</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">We built our own distribution network to guarantee security, maintain total control over licensing, and deliver uncompromised updates.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card p-8 shv-reveal text-center">
+            <i class="fa-solid fa-shield-halved text-[#00BFA5] text-4xl mb-6"></i>
+            <h3 class="text-xl font-bold mb-3">Direct Delivery</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">No third-party tracking or interference. You get the exact, unaltered, securely encrypted APK compiled straight from our build servers.</p>
+          </div>
+          <div class="glass-card p-8 shv-reveal text-center" style="transition-delay: 100ms;">
+            <i class="fa-solid fa-cloud text-[#00BFA5] text-4xl mb-6"></i>
+            <h3 class="text-xl font-bold mb-3">Cloud Licensing</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Seamlessly integrates with your Supabase account. Buy a license once, and access your authorized applications anywhere, instantly.</p>
+          </div>
+          <div class="glass-card p-8 shv-reveal text-center" style="transition-delay: 200ms;">
+            <i class="fa-solid fa-rss text-[#00BFA5] text-4xl mb-6"></i>
+            <h3 class="text-xl font-bold mb-3">Live Ecosystem</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Stay constantly updated with the integrated SHV News feed and live roadmap tracker. See what's currently in progress and what's dropping next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation Guide -->
+    <section class="py-24">
+      <div class="container max-w-4xl">
+        <div class="glass-card p-8 md:p-12 shv-reveal">
+          <div class="flex items-center gap-4 mb-8 border-b border-white/10 pb-6">
+            <div class="w-12 h-12 rounded-full bg-[#00BFA5]/20 flex items-center justify-center">
+              <i class="fa-solid fa-wrench text-[#00BFA5] text-xl"></i>
+            </div>
+            <div>
+              <h2 class="text-2xl font-black">Installation Guide</h2>
+              <p class="text-gray-400 text-sm">How to install the SHV Store APK natively on Android</p>
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            <div class="flex gap-6">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">1</div>
+              <div>
+                <h4 class="text-lg font-bold mb-2">Download the file</h4>
+                <p class="text-gray-400 text-sm">Tap the download button above. Your browser will save the <code class="bg-black/50 px-2 py-1 rounded text-[#00BFA5]">SHV_Store.apk</code> file to your device.</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-6">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">2</div>
+              <div>
+                <h4 class="text-lg font-bold mb-2">Open the APK</h4>
+                <p class="text-gray-400 text-sm">Tap the "Download Complete" notification, or open your phone's <strong>File Manager</strong> app and navigate to your <strong>Downloads</strong> folder to find the file.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-6">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">3</div>
+              <div>
+                <h4 class="text-lg font-bold mb-2">Allow Unknown Sources</h4>
+                <p class="text-gray-400 text-sm mb-3">Because we distribute directly instead of through Google Play, Android will ask you for security permission.</p>
+                <div class="bg-black/40 border border-white/5 rounded-lg p-4 text-sm text-gray-300">
+                  <ul class="list-disc pl-4 space-y-2">
+                    <li>Tap <strong class="text-white">Settings</strong> on the security popup.</li>
+                    <li>Toggle the switch to <strong class="text-[#00BFA5]">Allow from this source</strong>.</li>
+                    <li>Tap your back button to return to the installation.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-6">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">4</div>
+              <div>
+                <h4 class="text-lg font-bold mb-2">Install & Login</h4>
+                <p class="text-gray-400 text-sm">Tap <strong>Install</strong>. Once finished, open the SHV Store app and log in with your SH Vertex account (or register directly inside the app) to access your ecosystem!</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center border-t border-white/5 bg-[#030405]">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-6">
+      <img src="./assets/site/logo.png" alt="SH Vertex" class="h-8 opacity-80 grayscale" />
+      <div class="flex flex-wrap justify-center gap-6">
+        <a href="./index.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Base</a>
+        <a href="./products.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Products</a>
+        <a href="./store.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Store</a>
+        <a href="./future-products.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Future Products</a>
+      </div>
+      <p class="text-[10px] text-gray-600 font-extrabold uppercase tracking-[0.35em] mt-4">© 2026 SH VERTEX TECHNOLOGIES</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple reveal animation script
+    const reveals = document.querySelectorAll('.shv-reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('shv-revealed');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(el => io.observe(el));
+    } else {
+      reveals.forEach(el => el.classList.add('shv-revealed'));
+    }
+  </script>
+</body>
+</html>
