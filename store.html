@@ -108,32 +108,100 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-    }
-  </style>
+    
+  
+/* Phase 2.1 hybrid navigation */
+.nav-wrap { position: relative; }
+.nav-actions { display: flex; align-items: center; gap: .75rem; }
+.nav-desktop-whatsapp { display: none; }
+.mobile-nav { position: relative; }
+.mobile-nav summary { list-style: none; }
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav-toggle {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  min-height: 44px; padding: .78rem 1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04); color: #ffffff; font-size: .7rem; font-weight: 900;
+  letter-spacing: .18em; text-transform: uppercase; backdrop-filter: blur(10px);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease; cursor: pointer;
+}
+.mobile-nav-toggle:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+.mobile-nav[open] .mobile-nav-toggle {
+  background: rgba(0,191,165,0.12); border-color: rgba(0,191,165,0.28); color: #00BFA5;
+}
+.mobile-nav-panel {
+  position: absolute; top: calc(100% + 12px); right: 0; width: min(330px, calc(100vw - 2rem));
+  padding: .95rem; border-radius: 1.3rem; border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(10,10,10,0.96), rgba(4,4,4,0.94));
+  box-shadow: 0 22px 48px rgba(0,0,0,0.48); backdrop-filter: blur(16px);
+}
+.mobile-nav-list { display: grid; gap: .6rem; }
+.mobile-nav-link {
+  display: flex; align-items: center; justify-content: space-between; gap: .9rem;
+  padding: .92rem 1rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03); color: #e5e7eb; font-size: .76rem; font-weight: 800;
+  letter-spacing: .08em; text-transform: uppercase; transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.mobile-nav-link:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); transform: translateY(-1px); }
+.mobile-nav-link.is-active {
+  color: #00BFA5; border-color: rgba(0,191,165,0.35); background: rgba(0,191,165,0.13);
+}
+.mobile-nav-link.is-featured { color: #86efac; border-color: rgba(34,197,94,0.24); background: rgba(34,197,94,0.08); }
+.mobile-nav-link.mobile-nav-whatsapp { color: #bbf7d0; border-color: rgba(34,197,94,0.24); background: rgba(34,197,94,0.08); }
+.mobile-nav-link i { font-size: .88rem; }
+@media (max-width: 767px) {
+  .nav-links { display: none !important; }
+  .nav-wrap { min-height: 56px; }
+}
+@media (min-width: 768px) {
+  .nav-links { display: flex !important; }
+  .mobile-nav { display: none; }
+  .nav-desktop-whatsapp { display: inline-flex; }
+}
+
+</style>
 </head>
 <body class="bg-dot-pattern">
 
-  <nav class="nav-blur">
-    <div class="nav-wrap">
-      <a class="nav-brand" href="./index.html">
-        <img src="./assets/site/logo.png" alt="SH Vertex" />
-      </a>
-      <div class="nav-links" id="navLinks">
-        <a class="nav-pill" href="./index.html">Base</a>
-        <a class="nav-pill" href="./products.html">Products</a>
-        <a class="nav-pill nav-pill-active" href="./store.html">Store</a>
-        <a class="nav-pill" href="./future-products.html">Future Products</a>
-        <a class="nav-pill" href="./vault.html">Vault</a>
-        <a class="nav-pill" href="./account.html">Account</a>
-        <a class="nav-pill nav-pill-featured" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
-      </div>
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10">
+  <div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4">
+    <a class="nav-brand" href="./index.html">
+      <img src="./assets/site/logo.png" alt="SH Vertex" />
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-pill" href="./index.html">Base</a>
+      <a class="nav-pill" href="./products.html">Products</a>
+      <a class="nav-pill nav-pill-active" href="./store.html">Store</a>
+      <a class="nav-pill" href="./future-products.html">Future Products</a>
+      <a class="nav-pill" href="./vault.html">Vault</a>
+      <a class="nav-pill" href="./account.html">Account</a>
+      <a class="nav-pill nav-pill-featured" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
     </div>
-  </nav>
+    <div class="nav-actions">
+      <a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <details class="mobile-nav">
+        <summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary>
+        <div class="mobile-nav-panel">
+          <div class="mobile-nav-list">
+            <a class="mobile-nav-link" href="./index.html"><span>Base</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link" href="./products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link is-active" href="./store.html"><span>Store</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link" href="./future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link" href="./vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link" href="./account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link is-featured" href="https://wa.me/94771363462" target="_blank"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a>
+            <a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
 
   <div class="page-shell">
+    <!-- Hero Section -->
     <section class="relative pt-20 pb-32 overflow-hidden">
+      <!-- Glow -->
       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00BFA5]/10 rounded-full blur-[150px] pointer-events-none"></div>
       
       <div class="container relative z-10 text-center shv-reveal">
@@ -157,6 +225,7 @@
       </div>
     </section>
 
+    <!-- Why a standalone store? -->
     <section class="py-24 section-shell">
       <div class="container">
         <div class="text-center mb-16 shv-reveal">
@@ -184,61 +253,7 @@
       </div>
     </section>
 
-    <section class="py-32 border-b border-white/5 bg-[#050709] overflow-hidden">
-      <div class="container max-w-6xl">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          <div class="order-2 lg:order-1 relative shv-reveal">
-             <div class="absolute inset-0 bg-gradient-to-tr from-[#00BFA5]/10 to-transparent rounded-2xl blur-2xl"></div>
-             
-             <div class="relative glass-card p-6 border-l-4 border-l-[#00BFA5] bg-black/40 shadow-2xl z-20">
-                <div class="flex items-center gap-3 mb-4">
-                   <div class="w-2 h-2 rounded-full bg-[#00BFA5] animate-pulse"></div>
-                   <span class="text-xs font-bold tracking-widest text-[#00BFA5] uppercase">Live News Feed</span>
-                </div>
-                <h4 class="text-white text-lg font-bold mb-2">SimpliBudget Update Deployed</h4>
-                <p class="text-gray-400 text-sm mb-4 leading-relaxed">New UI enhancements and background sync fixes are now live. Open the Store to download the latest APK.</p>
-                <div class="text-[10px] text-gray-500 uppercase tracking-widest">Posted recently</div>
-             </div>
-             
-             <div class="relative glass-card p-6 mt-4 border-l-4 border-l-gray-600 bg-black/20 opacity-60 transform translate-x-6 z-10">
-                <h4 class="text-white font-bold mb-2">Upcoming: Strategy Suite Pro</h4>
-                <p class="text-gray-400 text-sm">Our roadmap has been updated. The dual-edition ecosystem migration is scheduled for this weekend...</p>
-             </div>
-          </div>
-
-          <div class="order-1 lg:order-2 shv-reveal">
-            <h2 class="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">Never Miss an <span class="text-[#00BFA5]">Update</span></h2>
-            <p class="text-gray-400 text-lg leading-relaxed mb-8">
-              The SH Vertex Store isn't just a download hub—it is your direct connection to our engineering floor. Stay fully informed without ever leaving the app.
-            </p>
-            
-            <ul class="space-y-6">
-              <li class="flex items-start">
-                <div class="w-10 h-10 rounded-full bg-[#00BFA5]/10 flex items-center justify-center flex-shrink-0 mt-1 mr-4 border border-[#00BFA5]/20">
-                  <i class="fa-solid fa-bolt text-[#00BFA5]"></i>
-                </div>
-                <div>
-                  <h4 class="text-white text-lg font-bold">Real-Time News</h4>
-                  <p class="text-gray-500 text-sm mt-1 leading-relaxed">Get instant patch notes, server status updates, and new feature announcements natively inside the store.</p>
-                </div>
-              </li>
-              <li class="flex items-start">
-                <div class="w-10 h-10 rounded-full bg-[#00BFA5]/10 flex items-center justify-center flex-shrink-0 mt-1 mr-4 border border-[#00BFA5]/20">
-                  <i class="fa-solid fa-map-location-dot text-[#00BFA5]"></i>
-                </div>
-                <div>
-                  <h4 class="text-white text-lg font-bold">Live Product Roadmap</h4>
-                  <p class="text-gray-500 text-sm mt-1 leading-relaxed">Track exactly what we are building. Check the status of upcoming modules and major releases before they even drop.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          
-        </div>
-      </div>
-    </section>
-
+    <!-- Installation Guide -->
     <section class="py-24">
       <div class="container max-w-4xl">
         <div class="glass-card p-8 md:p-12 shv-reveal">
@@ -298,6 +313,7 @@
     </section>
   </div>
 
+  <!-- Footer -->
   <footer class="py-12 text-center border-t border-white/5 bg-[#030405]">
     <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-6">
       <img src="./assets/site/logo.png" alt="SH Vertex" class="h-8 opacity-80 grayscale" />
