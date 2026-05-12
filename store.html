@@ -1,348 +1,700 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SHV Store | SH Vertex Tech</title>
-  <meta name="description" content="Download the official SH Vertex Store app for Android." />
-  <link rel="icon" type="image/png" href="./assets/site/favicon.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;700;800;900&display=swap');
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SHV Store | SH Vertex Tech</title>
+    <meta name="description" content="Download the official SH Vertex Store app for Android."/>
+    <link rel="icon" type="image/png" href="./assets/site/favicon.png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
 
-    :root {
-      --bg: #030405;
-      --accent: #00BFA5;
-      --accent-rgb: 0, 191, 165;
-      --text-soft: #cbd5e1;
-      --nav-h: 92px;
-    }
+        :root {
+            --shv-black: #000000;
+            --shv-deep: #020303;
+            --shv-green: #22c55e;
+            --shv-accent: #00BFA5;
+            --shv-accent-rgb: 0, 191, 165;
+            --shv-border: rgba(255, 255, 255, 0.08);
+            --shv-border-hover: rgba(255, 255, 255, 0.16);
+            --shv-surface: rgba(255, 255, 255, 0.03);
+            --shv-surface-hover: rgba(255, 255, 255, 0.06);
+            --shv-text: #e5e7eb;
+            --shv-text-muted: #9ca3af;
+            --shv-text-dim: #6b7280;
+        }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: #000000;
-      color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-    }
-    
-    .bg-dot-pattern {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    .nav-blur {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 60;
-      background: rgba(0,0,0,0.76);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    
-    .nav-wrap {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 1rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    
-    .nav-brand { display: inline-flex; align-items: center; gap: .9rem; text-decoration: none; color: #fff; }
-    .nav-brand img { height: 36px; width: auto; display: block; }
-    .nav-links { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; justify-content: center; }
-    
-    .nav-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: .72rem 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      color: #9ca3af;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: .25s ease;
-    }
-    
-    .nav-pill:hover { color: #fff; border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); }
-    .nav-pill-active { color: #fff; border-color: rgba(var(--accent-rgb), .48); background: rgba(var(--accent-rgb), .16); box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .04); }
-    .nav-pill-featured { color: #86efac; border-color: rgba(34,197,94,0.30); background: rgba(34,197,94,0.10); }
+        body {
+            background-color: var(--shv-black);
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            overflow-x: hidden;
+        }
 
-    .page-shell { padding-top: calc(var(--nav-h) + 2rem); }
-    .container { max-width: 1220px; margin: 0 auto; padding: 0 1rem; }
+        /* === BACKGROUND LAYERS === */
+        .bg-dot-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
 
-    .section-shell {
-      background: rgba(0,0,0,0.46);
-      backdrop-filter: blur(3px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-    }
-    
-    .glass-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 1.5rem;
-      backdrop-filter: blur(12px);
-    }
+        .bg-aurora {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(34, 197, 94, 0.06), transparent 35%),
+                radial-gradient(circle at 85% 75%, rgba(0, 191, 165, 0.04), transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), transparent 70%),
+                #000000;
+        }
 
-    .shv-reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .55s ease, transform .55s ease;
-    }
-    .shv-reveal.shv-revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.18;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.15) 70%, transparent 100%);
+        }
 
-    
-  
-/* Phase 2.1 hybrid navigation */
-.nav-wrap { position: relative; }
-.nav-actions { display: flex; align-items: center; gap: .75rem; }
-.nav-desktop-whatsapp { display: none; }
-.mobile-nav { position: relative; }
-.mobile-nav summary { list-style: none; }
-.mobile-nav summary::-webkit-details-marker { display: none; }
-.mobile-nav-toggle {
-  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
-  min-height: 44px; padding: .78rem 1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04); color: #ffffff; font-size: .7rem; font-weight: 900;
-  letter-spacing: .18em; text-transform: uppercase; backdrop-filter: blur(10px);
-  transition: background .25s ease, border-color .25s ease, transform .25s ease; cursor: pointer;
-}
-.mobile-nav-toggle:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
-.mobile-nav[open] .mobile-nav-toggle {
-  background: rgba(0,191,165,0.12); border-color: rgba(0,191,165,0.28); color: #00BFA5;
-}
-.mobile-nav-panel {
-  position: absolute; top: calc(100% + 12px); right: 0; width: min(330px, calc(100vw - 2rem));
-  padding: .95rem; border-radius: 1.3rem; border: 1px solid rgba(255,255,255,0.10);
-  background: linear-gradient(180deg, rgba(10,10,10,0.96), rgba(4,4,4,0.94));
-  box-shadow: 0 22px 48px rgba(0,0,0,0.48); backdrop-filter: blur(16px);
-}
-.mobile-nav-list { display: grid; gap: .6rem; }
-.mobile-nav-link {
-  display: flex; align-items: center; justify-content: space-between; gap: .9rem;
-  padding: .92rem 1rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03); color: #e5e7eb; font-size: .76rem; font-weight: 800;
-  letter-spacing: .08em; text-transform: uppercase; transition: background .25s ease, border-color .25s ease, transform .25s ease;
-}
-.mobile-nav-link:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); transform: translateY(-1px); }
-.mobile-nav-link.is-active {
-  color: #00BFA5; border-color: rgba(0,191,165,0.35); background: rgba(0,191,165,0.13);
-}
-.mobile-nav-link.is-featured { color: #86efac; border-color: rgba(34,197,94,0.24); background: rgba(34,197,94,0.08); }
-.mobile-nav-link.mobile-nav-whatsapp { color: #bbf7d0; border-color: rgba(34,197,94,0.24); background: rgba(34,197,94,0.08); }
-.mobile-nav-link i { font-size: .88rem; }
-@media (max-width: 767px) {
-  .nav-links { display: none !important; }
-  .nav-wrap { min-height: 56px; }
-}
-@media (min-width: 768px) {
-  .nav-links { display: flex !important; }
-  .mobile-nav { display: none; }
-  .nav-desktop-whatsapp { display: inline-flex; }
-}
+        /* === SCROLL PROGRESS === */
+        .shv-progress {
+            position: fixed;
+            inset: 0 auto auto 0;
+            height: 3px;
+            width: 0;
+            z-index: 70;
+            background: linear-gradient(90deg, #22c55e, #00BFA5);
+            box-shadow: 0 0 12px rgba(0, 191, 165, 0.5);
+            transition: width 0.1s linear;
+        }
 
-</style>
+        /* === NAVIGATION === */
+        .nav-blur {
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        body.is-scrolled .nav-blur {
+            background: rgba(0, 0, 0, 0.92);
+            border-bottom-color: rgba(255, 255, 255, 0.10);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-radius: 999px;
+            border: 1px solid var(--shv-border);
+            background: var(--shv-surface);
+            color: var(--shv-text-muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            white-space: nowrap;
+            backdrop-filter: blur(6px);
+        }
+
+        .nav-pill:hover {
+            color: #ffffff;
+            border-color: var(--shv-border-hover);
+            background: var(--shv-surface-hover);
+        }
+
+        .nav-pill-active {
+            color: #ffffff;
+            border-color: rgba(var(--shv-accent-rgb), 0.42);
+            background: rgba(var(--shv-accent-rgb), 0.14);
+            box-shadow: inset 0 0 0 1px rgba(var(--shv-accent-rgb), 0.04);
+        }
+
+        .nav-pill-featured {
+            color: #86efac;
+            border-color: rgba(34, 197, 94, 0.30);
+            background: rgba(34, 197, 94, 0.10);
+        }
+
+        .nav-pill-featured:hover {
+            color: #d1fae5;
+            border-color: rgba(34, 197, 94, 0.50);
+            background: rgba(34, 197, 94, 0.16);
+        }
+
+        @media (min-width: 768px) {
+            .nav-pill {
+                padding: 11px 18px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-pill {
+                padding: 9px 12px;
+                font-size: 10px;
+                letter-spacing: 0.10em;
+            }
+        }
+
+        /* === MOBILE NAV === */
+        .mobile-nav summary {
+            list-style: none;
+        }
+        .mobile-nav summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .mobile-nav-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            min-height: 44px;
+            padding: 0.78rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .mobile-nav-toggle:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .mobile-nav[open] .mobile-nav-toggle {
+            background: rgba(0, 191, 165, 0.12);
+            border-color: rgba(0, 191, 165, 0.28);
+            color: #00BFA5;
+        }
+
+        .mobile-nav-panel {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: min(320px, calc(100vw - 2rem));
+            padding: 0.9rem;
+            border-radius: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(6, 6, 6, 0.96);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(16px);
+            z-index: 60;
+        }
+
+        .mobile-nav-list {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            border-radius: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.025);
+            color: #e5e7eb;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .mobile-nav-link.is-active {
+            color: #00BFA5;
+            border-color: rgba(0, 191, 165, 0.35);
+            background: rgba(0, 191, 165, 0.12);
+        }
+
+        .mobile-nav-link.is-featured {
+            color: #86efac;
+            border-color: rgba(34, 197, 94, 0.24);
+            background: rgba(34, 197, 94, 0.07);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-nav {
+                display: none;
+            }
+            .nav-desktop-whatsapp {
+                display: inline-flex;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-links {
+                display: none !important;
+            }
+        }
+
+        /* === PAGE SHELL === */
+        .page-shell {
+            padding-top: 7rem;
+        }
+
+        @media (max-width: 767px) {
+            .page-shell {
+                padding-top: 6rem;
+            }
+        }
+
+        /* === SECTION SHELL === */
+        .section-shell {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* === GLASS CARD === */
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(12px);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 191, 165, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* === KICKER PILL === */
+        .kicker-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 191, 165, 0.30);
+            background: rgba(0, 191, 165, 0.10);
+            color: #00BFA5;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0, 191, 165, 0.15);
+        }
+
+        /* === BUTTONS === */
+        .btn-store {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #00BFA5;
+            color: #000000;
+            padding: 16px 40px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 34px rgba(0, 191, 165, 0.28);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-store:hover {
+            background: #ffffff;
+            color: #000000;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 16px 44px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 767px) {
+            .btn-store {
+                padding: 14px 30px;
+                font-size: 12px;
+            }
+        }
+
+        /* === INSTALLATION STEPS === */
+        .step-circle {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #00BFA5;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .step-tip-box {
+            background: rgba(0, 0, 0, 0.40);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            font-size: 0.85rem;
+            color: #d1d5db;
+            line-height: 1.7;
+        }
+
+        .step-tip-box strong {
+            color: #ffffff;
+        }
+
+        .step-tip-box .text-accent {
+            color: #00BFA5;
+        }
+
+        /* === FOOTER === */
+        .footer-shell {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-link {
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            font-size: 10px;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .footer-link:hover {
+            color: #00BFA5;
+        }
+
+        .footer-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: #d1d5db;
+            font-size: 11px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .footer-contact:hover {
+            color: #ffffff;
+            border-color: rgba(0, 191, 165, 0.3);
+        }
+
+        /* === REVEAL ANIMATIONS === */
+        .shv-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .shv-reveal.shv-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === STORE SPECIFIC GLOW === */
+        .store-hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 191, 165, 0.10), transparent 68%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* === REDUCED MOTION === */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+            .shv-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+    <meta content="#000000" name="theme-color"/>
 </head>
 <body class="bg-dot-pattern">
+    <!-- Background Layers -->
+    <div class="bg-aurora"></div>
+    <div class="bg-grid"></div>
+    <div class="shv-progress"></div>
 
-  <!-- Navigation -->
-  <nav class="fixed w-full z-50 nav-blur py-4 px-4 md:px-10">
-  <div class="max-w-7xl mx-auto nav-wrap flex items-center justify-between gap-4">
-    <a class="nav-brand" href="./index.html">
-      <img src="./assets/site/logo.png" alt="SH Vertex" />
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a class="nav-pill" href="./index.html">Base</a>
-      <a class="nav-pill" href="./products.html">Products</a>
-      <a class="nav-pill nav-pill-active" href="./store.html">Store</a>
-      <a class="nav-pill" href="./future-products.html">Future Products</a>
-      <a class="nav-pill" href="./vault.html">Vault</a>
-      <a class="nav-pill" href="./account.html">Account</a>
-      <a class="nav-pill nav-pill-featured" href="https://wa.me/94771363462" target="_blank">Inquiry</a>
-    </div>
-    <div class="nav-actions">
-      <a class="nav-desktop-whatsapp text-green-500 text-lg md:text-xl" href="https://wa.me/94771363462" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <details class="mobile-nav">
-        <summary class="mobile-nav-toggle"><span>Menu</span><i class="fas fa-bars"></i></summary>
-        <div class="mobile-nav-panel">
-          <div class="mobile-nav-list">
-            <a class="mobile-nav-link" href="./index.html"><span>Base</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link" href="./products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link is-active" href="./store.html"><span>Store</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link" href="./future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link" href="./vault.html"><span>Vault</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link" href="./account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link is-featured" href="https://wa.me/94771363462" target="_blank"><span>Inquiry</span><i class="fas fa-arrow-right"></i></a>
-            <a class="mobile-nav-link mobile-nav-whatsapp" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a>
-          </div>
-        </div>
-      </details>
-    </div>
-  </div>
-</nav>
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="fixed w-full z-50 nav-blur py-3 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <a href="./index.html">
+                <img alt="SH Vertex" class="h-8 md:h-10" src="./assets/site/logo.png"/>
+            </a>
 
-  <div class="page-shell">
-    <!-- Hero Section -->
-    <section class="relative pt-20 pb-32 overflow-hidden">
-      <!-- Glow -->
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00BFA5]/10 rounded-full blur-[150px] pointer-events-none"></div>
-      
-      <div class="container relative z-10 text-center shv-reveal">
-        <div class="inline-block border border-[#00BFA5]/30 bg-[#00BFA5]/10 text-[#00BFA5] text-[10px] font-extrabold px-4 py-2 rounded-full uppercase tracking-[0.2em] mb-6 shadow-[0_0_20px_rgba(0,191,165,0.2)]">
-          Official Ecosystem Hub
-        </div>
-        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-tight">
-          SH Vertex <span class="text-[#00BFA5]">Store</span>
-        </h1>
-        <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
-          Bypass third-party limitations. Download our official Android hub to get secure, direct access to all SH Vertex applications, integrated cloud licensing, and real-time roadmap updates.
-        </p>
-        
-        <a href="https://www.dropbox.com/scl/fi/1rjkt4s8gz9ml5tn2yo9m/shvstore-2-arm64-v8a_armeabi-v7a-debug.apk?rlkey=fnr48tplxzkkzjcdmioks82fi&st=0t7aovzv&dl=1" class="inline-flex items-center justify-center bg-[#00BFA5] text-black font-extrabold text-lg py-5 px-12 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(0,191,165,0.3)] hover:shadow-[0_0_50px_rgba(255,255,255,0.5)]">
-          <i class="fa-brands fa-android text-2xl mr-3"></i>
-          Download APK (v2.0.0)
-        </a>
-        <p class="text-[11px] text-gray-500 mt-6 uppercase tracking-[0.15em] font-bold">
-          Requires Android 8.0+ • Secure Direct Install
-        </p>
-      </div>
-    </section>
-
-    <!-- Why a standalone store? -->
-    <section class="py-24 section-shell">
-      <div class="container">
-        <div class="text-center mb-16 shv-reveal">
-          <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4">Why a Dedicated Store?</h2>
-          <p class="text-gray-400 max-w-2xl mx-auto">We built our own distribution network to guarantee security, maintain total control over licensing, and deliver uncompromised updates.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="glass-card p-8 shv-reveal text-center">
-            <i class="fa-solid fa-shield-halved text-[#00BFA5] text-4xl mb-6"></i>
-            <h3 class="text-xl font-bold mb-3">Direct Delivery</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">No third-party tracking or interference. You get the exact, unaltered, securely encrypted APK compiled straight from our build servers.</p>
-          </div>
-          <div class="glass-card p-8 shv-reveal text-center" style="transition-delay: 100ms;">
-            <i class="fa-solid fa-cloud text-[#00BFA5] text-4xl mb-6"></i>
-            <h3 class="text-xl font-bold mb-3">Cloud Licensing</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Seamlessly integrates with your Supabase account. Buy a license once, and access your authorized applications anywhere, instantly.</p>
-          </div>
-          <div class="glass-card p-8 shv-reveal text-center" style="transition-delay: 200ms;">
-            <i class="fa-solid fa-rss text-[#00BFA5] text-4xl mb-6"></i>
-            <h3 class="text-xl font-bold mb-3">Live Ecosystem</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Stay constantly updated with the integrated SHV News feed and live roadmap tracker. See what's currently in progress and what's dropping next.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Installation Guide -->
-    <section class="py-24">
-      <div class="container max-w-4xl">
-        <div class="glass-card p-8 md:p-12 shv-reveal">
-          <div class="flex items-center gap-4 mb-8 border-b border-white/10 pb-6">
-            <div class="w-12 h-12 rounded-full bg-[#00BFA5]/20 flex items-center justify-center">
-              <i class="fa-solid fa-wrench text-[#00BFA5] text-xl"></i>
-            </div>
-            <div>
-              <h2 class="text-2xl font-black">Installation Guide</h2>
-              <p class="text-gray-400 text-sm">How to install the SHV Store APK natively on Android</p>
-            </div>
-          </div>
-
-          <div class="space-y-8">
-            <div class="flex gap-6">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">1</div>
-              <div>
-                <h4 class="text-lg font-bold mb-2">Download the file</h4>
-                <p class="text-gray-400 text-sm">Tap the download button above. Your browser will save the <code class="bg-black/50 px-2 py-1 rounded text-[#00BFA5]">SHV_Store.apk</code> file to your device.</p>
-              </div>
-            </div>
-            
-            <div class="flex gap-6">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">2</div>
-              <div>
-                <h4 class="text-lg font-bold mb-2">Open the APK</h4>
-                <p class="text-gray-400 text-sm">Tap the "Download Complete" notification, or open your phone's <strong>File Manager</strong> app and navigate to your <strong>Downloads</strong> folder to find the file.</p>
-              </div>
+            <!-- Desktop Nav -->
+            <div class="nav-links flex flex-wrap gap-2 items-center justify-center">
+                <a class="nav-pill" href="./index.html">Home</a>
+                <a class="nav-pill nav-pill-active" href="./store.html">Store</a>
+                <a class="nav-pill nav-pill-featured" href="./products.html">Products</a>
+                <a class="nav-pill" href="./account.html">Account</a>
+                <a class="nav-pill" href="./future-products.html">Future</a>
+                <a class="nav-pill" href="./index.html#contact">Contact Us</a>
             </div>
 
-            <div class="flex gap-6">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">3</div>
-              <div>
-                <h4 class="text-lg font-bold mb-2">Allow Unknown Sources</h4>
-                <p class="text-gray-400 text-sm mb-3">Because we distribute directly instead of through Google Play, Android will ask you for security permission.</p>
-                <div class="bg-black/40 border border-white/5 rounded-lg p-4 text-sm text-gray-300">
-                  <ul class="list-disc pl-4 space-y-2">
-                    <li>Tap <strong class="text-white">Settings</strong> on the security popup.</li>
-                    <li>Toggle the switch to <strong class="text-[#00BFA5]">Allow from this source</strong>.</li>
-                    <li>Tap your back button to return to the installation.</li>
-                  </ul>
+            <!-- WhatsApp + Mobile Nav -->
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+                <a class="nav-desktop-whatsapp" href="https://wa.me/94771363462" target="_blank" style="color:#22c55e;font-size:1.3rem;display:none;align-items:center;">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <details class="mobile-nav">
+                    <summary class="mobile-nav-toggle">
+                        <span>Menu</span>
+                        <i class="fas fa-bars"></i>
+                    </summary>
+                    <div class="mobile-nav-panel">
+                        <div class="mobile-nav-list">
+                            <a class="mobile-nav-link" href="./index.html"><span>Home</span><i class="fas fa-arrow-right"></i></a>
+                            <a class="mobile-nav-link is-active" href="./store.html"><span>Store</span><i class="fas fa-arrow-right"></i></a>
+                            <a class="mobile-nav-link is-featured" href="./products.html"><span>Products</span><i class="fas fa-arrow-right"></i></a>
+                            <a class="mobile-nav-link" href="./account.html"><span>Account</span><i class="fas fa-arrow-right"></i></a>
+                            <a class="mobile-nav-link" href="./future-products.html"><span>Future Products</span><i class="fas fa-arrow-right"></i></a>
+                            <a class="mobile-nav-link" href="./index.html#contact"><span>Contact Us</span><i class="fas fa-arrow-right"></i></a>
+                            <a class="mobile-nav-link is-featured" href="https://wa.me/94771363462" target="_blank"><span>WhatsApp</span><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="page-shell">
+        <!-- Hero Section -->
+        <section class="relative pt-16 pb-28 md:pt-20 md:pb-32 overflow-hidden">
+            <div class="store-hero-glow"></div>
+            <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10 text-center shv-reveal">
+                <div class="kicker-pill mb-6">
+                    <i class="fas fa-cube"></i>
+                    Official Ecosystem Hub
                 </div>
-              </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-5 tracking-tighter leading-tight">
+                    SH Vertex <span class="text-[#00BFA5]">Store</span>
+                </h1>
+                <p class="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+                    Bypass third-party limitations. Download our official Android hub to get secure, direct access to all SH Vertex applications, integrated cloud licensing, and real-time roadmap updates.
+                </p>
+                <a href="https://www.dropbox.com/scl/fi/1rjkt4s8gz9ml5tn2yo9m/shvstore-2-arm64-v8a_armeabi-v7a-debug.apk?rlkey=fnr48tplxzkkzjcdmioks82fi&st=0t7aovzv&dl=1"
+                   class="btn-store">
+                    <i class="fa-brands fa-android text-xl md:text-2xl mr-3"></i>
+                    Download APK (v2.0.0)
+                </a>
+                <p class="text-[11px] text-gray-500 mt-5 uppercase tracking-[0.14em] font-bold">
+                    Requires Android 8.0+ • Secure Direct Install
+                </p>
             </div>
+        </section>
 
-            <div class="flex gap-6">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-[#00BFA5]">4</div>
-              <div>
-                <h4 class="text-lg font-bold mb-2">Install & Login</h4>
-                <p class="text-gray-400 text-sm">Tap <strong>Install</strong>. Once finished, open the SHV Store app and log in with your SH Vertex account (or register directly inside the app) to access your ecosystem!</p>
-              </div>
+        <!-- Why a Dedicated Store -->
+        <section class="py-20 md:py-24 section-shell">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="text-center mb-14 md:mb-16 shv-reveal">
+                    <h2 class="text-3xl md:text-4xl font-black tracking-tight mb-4">Why a Dedicated Store?</h2>
+                    <p class="text-gray-400 max-w-xl mx-auto text-sm md:text-base">We built our own distribution network to guarantee security, maintain total control over licensing, and deliver uncompromised updates.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                    <div class="glass-card p-6 md:p-8 shv-reveal text-center">
+                        <i class="fa-solid fa-shield-halved text-[#00BFA5] text-3xl md:text-4xl mb-5"></i>
+                        <h3 class="text-lg md:text-xl font-bold mb-3">Direct Delivery</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">No third-party tracking or interference. You get the exact, unaltered, securely encrypted APK compiled straight from our build servers.</p>
+                    </div>
+                    <div class="glass-card p-6 md:p-8 shv-reveal text-center" style="transition-delay: 100ms;">
+                        <i class="fa-solid fa-cloud text-[#00BFA5] text-3xl md:text-4xl mb-5"></i>
+                        <h3 class="text-lg md:text-xl font-bold mb-3">Cloud Licensing</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Seamlessly integrates with your Supabase account. Buy a license once, and access your authorized applications anywhere, instantly.</p>
+                    </div>
+                    <div class="glass-card p-6 md:p-8 shv-reveal text-center" style="transition-delay: 200ms;">
+                        <i class="fa-solid fa-rss text-[#00BFA5] text-3xl md:text-4xl mb-5"></i>
+                        <h3 class="text-lg md:text-xl font-bold mb-3">Live Ecosystem</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Stay constantly updated with the integrated SHV News feed and live roadmap tracker. See what's currently in progress and what's dropping next.</p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
 
-        </div>
-      </div>
-    </section>
-  </div>
+        <!-- Installation Guide -->
+        <section class="py-20 md:py-24">
+            <div class="max-w-3xl mx-auto px-4 md:px-6">
+                <div class="glass-card p-6 md:p-10 shv-reveal">
+                    <div class="flex items-center gap-4 mb-8 border-b border-white/10 pb-6">
+                        <div class="w-11 h-11 rounded-full bg-[#00BFA5]/20 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-wrench text-[#00BFA5] text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-black">Installation Guide</h2>
+                            <p class="text-gray-400 text-sm mt-1">How to install the SHV Store APK natively on Android</p>
+                        </div>
+                    </div>
 
-  <!-- Footer -->
-  <footer class="py-12 text-center border-t border-white/5 bg-[#030405]">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col items-center gap-6">
-      <img src="./assets/site/logo.png" alt="SH Vertex" class="h-8 opacity-80 grayscale" />
-      <div class="flex flex-wrap justify-center gap-6">
-        <a href="./index.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Base</a>
-        <a href="./products.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Products</a>
-        <a href="./store.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Store</a>
-        <a href="./future-products.html" class="text-[#6b7280] text-[10px] font-extrabold uppercase tracking-[0.18em] hover:text-[#00BFA5] transition">Future Products</a>
-      </div>
-      <p class="text-[10px] text-gray-600 font-extrabold uppercase tracking-[0.35em] mt-4">© 2026 SH VERTEX TECHNOLOGIES</p>
+                    <div class="space-y-6 md:space-y-7">
+                        <!-- Step 1 -->
+                        <div class="flex gap-4">
+                            <div class="step-circle">1</div>
+                            <div class="flex-1">
+                                <h4 class="text-base md:text-lg font-bold mb-2">Download the file</h4>
+                                <p class="text-gray-400 text-sm">Tap the download button above. Your browser will save the <code class="bg-black/50 px-2 py-0.5 rounded text-[#00BFA5] text-xs">SHV_Store.apk</code> file to your device.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex gap-4">
+                            <div class="step-circle">2</div>
+                            <div class="flex-1">
+                                <h4 class="text-base md:text-lg font-bold mb-2">Open the APK</h4>
+                                <p class="text-gray-400 text-sm">Tap the "Download Complete" notification, or open your phone's <strong class="text-white">File Manager</strong> app and navigate to your <strong class="text-white">Downloads</strong> folder to find the file.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex gap-4">
+                            <div class="step-circle">3</div>
+                            <div class="flex-1">
+                                <h4 class="text-base md:text-lg font-bold mb-2">Allow Unknown Sources</h4>
+                                <p class="text-gray-400 text-sm mb-3">Because we distribute directly instead of through Google Play, Android will ask you for security permission.</p>
+                                <div class="step-tip-box">
+                                    <ul class="list-disc pl-4 space-y-1.5">
+                                        <li>Tap <strong>Settings</strong> on the security popup.</li>
+                                        <li>Toggle the switch to <strong class="text-accent">Allow from this source</strong>.</li>
+                                        <li>Tap your back button to return to the installation.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="flex gap-4">
+                            <div class="step-circle">4</div>
+                            <div class="flex-1">
+                                <h4 class="text-base md:text-lg font-bold mb-2">Install &amp; Login</h4>
+                                <p class="text-gray-400 text-sm">Tap <strong class="text-white">Install</strong>. Once finished, open the SHV Store app and log in with your SH Vertex account (or register directly inside the app) to access your ecosystem!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </footer>
 
-  <script>
-    // Simple reveal animation script
-    const reveals = document.querySelectorAll('.shv-reveal');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('shv-revealed');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      reveals.forEach(el => io.observe(el));
-    } else {
-      reveals.forEach(el => el.classList.add('shv-revealed'));
-    }
-  </script>
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer-shell py-10 text-center">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 flex flex-col items-center gap-5">
+            <img alt="SH Vertex" class="h-8 opacity-70" src="./assets/site/logo.png"/>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+                <a class="footer-link" href="./index.html">Home</a>
+                <a class="footer-link" href="./store.html">Store</a>
+                <a class="footer-link" href="./products.html">Products</a>
+                <a class="footer-link" href="./account.html">Account</a>
+                <a class="footer-link" href="./future-products.html">Future Products</a>
+                <a class="footer-link" href="./index.html#contact">Contact Us</a>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a class="footer-contact" href="mailto:ceo@shvertex.online">
+                    <i class="fas fa-envelope text-green-400"></i>
+                    <span>ceo@shvertex.online</span>
+                </a>
+                <a class="footer-contact" href="https://wa.me/94771363462" target="_blank">
+                    <i class="fab fa-whatsapp text-green-400"></i>
+                    <span>+94 77 136 3462</span>
+                </a>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+                <a class="footer-link" href="privacy.html">Privacy Policy</a>
+                <a class="footer-link" href="terms.html">Terms of Service</a>
+            </div>
+            <p class="text-[10px] text-gray-600 font-extrabold uppercase tracking-[0.30em]">© 2026 SH VERTEX TECHNOLOGIES</p>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        (function() {
+            const body = document.body;
+            const progress = document.querySelector('.shv-progress');
+
+            const onScroll = () => {
+                const y = window.scrollY || 0;
+                body.classList.toggle('is-scrolled', y > 18);
+                if (progress) {
+                    const h = document.documentElement.scrollHeight - window.innerHeight;
+                    const p = h > 0 ? (y / h) * 100 : 0;
+                    progress.style.width = Math.max(0, Math.min(100, p)) + '%';
+                }
+            };
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive: true });
+
+            // Reveal animations
+            const reveals = document.querySelectorAll('.shv-reveal');
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('shv-revealed');
+                            io.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.10 });
+                reveals.forEach(el => io.observe(el));
+            } else {
+                reveals.forEach(el => el.classList.add('shv-revealed'));
+            }
+        })();
+    </script>
 </body>
 </html>
