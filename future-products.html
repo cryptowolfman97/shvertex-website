@@ -9,6 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
+    /* identical CSS as before – full styles here */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
     :root {
       --shv-black: #000000;
@@ -343,7 +344,7 @@
     })();
   </script>
 
-  <!-- Easter Egg: triple‑click logo → secret admin page -->
+  <!-- Easter Egg: triple‑click logo → secret admin page (fixed) -->
   <script>
     (function() {
       const logoLink = document.querySelector('a[href="index.html"]');
@@ -359,19 +360,27 @@
       }
 
       logoLink.addEventListener('click', function(e) {
+        // Always block normal navigation while counting
+        e.preventDefault();
+
         clicks++;
         if (clicks === 1) {
-          timer = setTimeout(resetClicks, 1800); // 1.8 seconds
+          // Start a 1.8‑second window
+          timer = setTimeout(() => {
+            // If we get here, user didn't triple‑click → go to index
+            resetClicks();
+            window.location.href = 'index.html';
+          }, 1800);
         }
         if (clicks === 3) {
+          // Easter egg activated!
           resetClicks();
-          // ⚠️ Replace the file name with YOUR actual secret admin file name
+          // ⚠️ Replace with YOUR secret admin file name
           window.location.href = 'shv-hub-7x9.html';
-          e.preventDefault();
         }
       });
 
-      // reset if clicking anywhere else
+      // If the user clicks anywhere else, reset the counter
       document.addEventListener('click', function(ev) {
         if (!logoLink.contains(ev.target)) {
           resetClicks();
