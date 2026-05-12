@@ -191,8 +191,8 @@
         }
 
         .mobile-nav[open] .mobile-nav-toggle {
-            background: rgba(0, 191, 165, 0.12);
-            border-color: rgba(0, 191, 165, 0.28);
+            background: rgba(var(--shv-accent-rgb), 0.12);
+            border-color: rgba(var(--shv-accent-rgb), 0.28);
             color: #00BFA5;
         }
 
@@ -240,8 +240,8 @@
 
         .mobile-nav-link.is-active {
             color: #00BFA5;
-            border-color: rgba(0, 191, 165, 0.35);
-            background: rgba(0, 191, 165, 0.12);
+            border-color: rgba(var(--shv-accent-rgb), 0.35);
+            background: rgba(var(--shv-accent-rgb), 0.12);
         }
 
         .mobile-nav-link.is-featured {
@@ -530,10 +530,11 @@
                 <p class="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
                     Bypass third-party limitations. Download our official Android hub to get secure, direct access to all SH Vertex applications, integrated cloud licensing, and real-time roadmap updates.
                 </p>
-                <a href="https://www.dropbox.com/scl/fi/1rjkt4s8gz9ml5tn2yo9m/shvstore-2-arm64-v8a_armeabi-v7a-debug.apk?rlkey=fnr48tplxzkkzjcdmioks82fi&st=0t7aovzv&dl=1"
+                <a id="storeDownloadBtn"
+                   href="#"
                    class="btn-store">
                     <i class="fa-brands fa-android text-xl md:text-2xl mr-3"></i>
-                    Download APK (v2.0.0)
+                    <span id="storeDownloadLabel">Download Store APK</span>
                 </a>
                 <p class="text-[11px] text-gray-500 mt-5 uppercase tracking-[0.14em] font-bold">
                     Requires Android 8.0+ • Secure Direct Install
@@ -661,25 +662,52 @@
         </div>
     </footer>
 
-    <!-- ========== SCRIPTS ========== -->
+    <!-- Supabase core (required for dynamic download) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="shv-supabase-config.js"></script>
+
+    <!-- Dynamic download link script -->
+    <script>
+        (async function() {
+            // Fetch the store APK link from Supabase
+            if (!window.SHV_SUPABASE?.url || !window.SHV_SUPABASE?.publishableKey) return;
+            try {
+                const supabase = window.supabase.createClient(window.SHV_SUPABASE.url, window.SHV_SUPABASE.publishableKey);
+                const { data } = await supabase
+                    .from('site_downloads')
+                    .select('url, label, version')
+                    .eq('code', 'store_apk')
+                    .single();
+
+                if (data) {
+                    const btn = document.getElementById('storeDownloadBtn');
+                    const label = document.getElementById('storeDownloadLabel');
+                    if (btn) btn.href = data.url;
+                    if (label) {
+                        label.textContent = `${data.label}${data.version ? ' (v' + data.version + ')' : ''}`;
+                    }
+                }
+            } catch (e) {
+                console.warn('Could not fetch store download link from Supabase.', e);
+                // Falls back to the placeholder link (#) gracefully
+            }
+        })();
+    </script>
+
+    <!-- Page effects -->
     <script>
         (function() {
             const body = document.body;
             const progress = document.querySelector('.shv-progress');
-
-            const onScroll = () => {
+            window.addEventListener('scroll', () => {
                 const y = window.scrollY || 0;
                 body.classList.toggle('is-scrolled', y > 18);
                 if (progress) {
                     const h = document.documentElement.scrollHeight - window.innerHeight;
-                    const p = h > 0 ? (y / h) * 100 : 0;
-                    progress.style.width = Math.max(0, Math.min(100, p)) + '%';
+                    progress.style.width = h > 0 ? Math.min(100, (y / h) * 100) + '%' : '0%';
                 }
-            };
-            onScroll();
-            window.addEventListener('scroll', onScroll, { passive: true });
+            }, { passive: true });
 
-            // Reveal animations
             const reveals = document.querySelectorAll('.shv-reveal');
             if ('IntersectionObserver' in window) {
                 const io = new IntersectionObserver((entries) => {
