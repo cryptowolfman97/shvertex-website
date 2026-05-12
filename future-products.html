@@ -9,7 +9,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
-    /* (identical CSS to products.html – same nav, footer, card styles) */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800;900&display=swap');
     :root {
       --shv-black: #000000;
@@ -48,8 +47,11 @@
       background-size: 48px 48px;
       mask-image: radial-gradient(circle at 50% 40%, rgba(0,0,0,0.7), rgba(0,0,0,0.15) 70%, transparent 100%);
     }
+
+    /* Nav */
     .nav-blur {
-      background: rgba(0,0,0,0.82); backdrop-filter: blur(16px);
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
@@ -338,6 +340,43 @@
       }
 
       loadProducts();
+    })();
+  </script>
+
+  <!-- Easter Egg: triple‑click logo → secret admin page -->
+  <script>
+    (function() {
+      const logoLink = document.querySelector('a[href="index.html"]');
+      if (!logoLink) return;
+
+      let clicks = 0;
+      let timer = null;
+
+      function resetClicks() {
+        clicks = 0;
+        if (timer) clearTimeout(timer);
+        timer = null;
+      }
+
+      logoLink.addEventListener('click', function(e) {
+        clicks++;
+        if (clicks === 1) {
+          timer = setTimeout(resetClicks, 1800); // 1.8 seconds
+        }
+        if (clicks === 3) {
+          resetClicks();
+          // ⚠️ Replace the file name with YOUR actual secret admin file name
+          window.location.href = 'shv-hub-7x9.html';
+          e.preventDefault();
+        }
+      });
+
+      // reset if clicking anywhere else
+      document.addEventListener('click', function(ev) {
+        if (!logoLink.contains(ev.target)) {
+          resetClicks();
+        }
+      });
     })();
   </script>
 </body>
