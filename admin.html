@@ -357,8 +357,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Price Label</label>
-              <input class="form-input" id="f-price-label" placeholder="e.g. LKR 1,500">
+              <label class="form-label">Currency</label>
+              <select class="form-select" id="f-currency" onchange="updatePricePlaceholder()">
+                <option value="LKR">LKR — Sri Lankan Rupee</option>
+                <option value="$">$ — US Dollar</option>
+                <option value="€">€ — Euro</option>
+                <option value="£">£ — British Pound</option>
+                <option value="AED">AED — UAE Dirham</option>
+                <option value="custom">Custom / None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price Amount</label>
+              <div style="display:flex;gap:0">
+                <div id="currency-prefix" style="font-family:var(--mono);font-size:12px;padding:11px 12px;background:rgba(34,197,94,.08);border:1px solid var(--border);border-right:none;color:var(--accent);white-space:nowrap;flex-shrink:0">LKR</div>
+                <input class="form-input" id="f-price-amount" placeholder="1,500" style="border-left:none">
+              </div>
+              <span class="form-hint">Leave blank for Free apps. This builds the price label shown on the site.</span>
             </div>
           </div>
 
@@ -485,6 +500,11 @@ async function doLogin(){
     sb=window.supabase.createClient(CFG.url,CFG.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
     const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
     if(error)throw error;
+    // Admin whitelist check
+    if(data.user.email.toLowerCase()!=='ceo.shvertex@gmail.com'){
+      await sb.auth.signOut();
+      throw new Error('Access denied. This panel is restricted.');
+    }
     document.getElementById('login-screen').style.display='none';
     document.getElementById('adminTag').textContent=data.user.email;
     await loadProducts(); loadSettings(); showPanel('overview');
@@ -502,6 +522,10 @@ async function doLogout(){
     sb=window.supabase.createClient(CFG.url,CFG.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
     const{data}=await sb.auth.getSession();
     if(data.session){
+      if(data.session.user.email.toLowerCase()!=='ceo.shvertex@gmail.com'){
+        await sb.auth.signOut();
+        return;
+      }
       document.getElementById('login-screen').style.display='none';
       document.getElementById('adminTag').textContent=data.session.user.email;
       await loadProducts(); loadSettings(); showPanel('overview');
@@ -569,6 +593,9 @@ function resetEditor(){
   document.getElementById('editor-title').textContent='Add Product';
   ['f-name','f-slug','f-tagline','f-desc','f-icon','f-banner','f-tags','f-price-label','f-android','f-version','f-size','f-code','f-video'].forEach(id=>{document.getElementById(id).value=''});
   document.getElementById('f-status').value='live';
+  document.getElementById('f-currency').value='LKR';
+  document.getElementById('currency-prefix').textContent='LKR';
+  document.getElementById('f-price-amount').value='';
   document.getElementById('f-pricing-type').value='paid';
   document.getElementById('f-sort').value='0';
   document.getElementById('f-featured').checked=false;
@@ -592,7 +619,30 @@ function editProduct(id){
   document.getElementById('f-tags').value=parseJson(p.tags).join(', ');
   document.getElementById('f-status').value=p.status||'live';
   document.getElementById('f-pricing-type').value=p.pricing_type||'paid';
-  document.getElementById('f-price-label').value=p.price_label||'';
+  // Parse price_label back into currency + amount
+  (()=>{
+    const pl=p.price_label||'';
+    const currencies=['LKR','AED','$','€','£'];
+    let matched=false;
+    for(const c of currencies){
+      if(pl.startsWith(c)){
+        document.getElementById('f-currency').value=c;
+        document.getElementById('currency-prefix').textContent=c;
+        document.getElementById('f-price-amount').value=pl.replace(c,'').trim();
+        matched=true;break;
+      }
+    }
+    if(!matched&&pl){
+      document.getElementById('f-currency').value='custom';
+      document.getElementById('currency-prefix').textContent='';
+      document.getElementById('f-price-amount').value=pl;
+    }
+    if(!pl){
+      document.getElementById('f-currency').value='LKR';
+      document.getElementById('currency-prefix').textContent='LKR';
+      document.getElementById('f-price-amount').value='';
+    }
+  })();
   document.getElementById('f-android').value=p.min_android||'';
   document.getElementById('f-version').value=p.app_version||'';
   document.getElementById('f-size').value=p.app_size||'';
@@ -622,7 +672,13 @@ async function saveProduct(){
     tags,
     status:document.getElementById('f-status').value,
     pricing_type:document.getElementById('f-pricing-type').value,
-    price_label:document.getElementById('f-price-label').value.trim()||null,
+    price_label:(()=>{
+      const cur=document.getElementById('f-currency').value;
+      const amt=document.getElementById('f-price-amount').value.trim();
+      if(!amt)return null;
+      if(cur==='custom'||cur==='$'||cur==='€'||cur==='£')return cur+amt;
+      return cur+' '+amt;
+    })(),
     min_android:document.getElementById('f-android').value.trim()||null,
     app_version:document.getElementById('f-version').value.trim()||null,
     app_size:document.getElementById('f-size').value.trim()||null,
@@ -782,6 +838,19 @@ function testApkUrl() {
   const url = document.getElementById('s-apk-url').value.trim();
   if (!url) { toast('Enter a URL first.', 'err'); return; }
   window.open(url, '_blank');
+}
+
+
+function updatePricePlaceholder(){
+  const sel=document.getElementById('f-currency');
+  const prefix=document.getElementById('currency-prefix');
+  const val=sel.value;
+  prefix.textContent=val==='custom'?'':val;
+  const amtInput=document.getElementById('f-price-amount');
+  if(val==='$')amtInput.placeholder='9.99';
+  else if(val==='LKR')amtInput.placeholder='1,500';
+  else if(val==='AED')amtInput.placeholder='35.00';
+  else amtInput.placeholder='Amount';
 }
 
 </script>
