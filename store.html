@@ -564,18 +564,12 @@ const IG_TOTAL = 5;
 // Falls back to the hardcoded URL in shv-settings.js if DB unreachable
 const FALLBACK_APK = 'https://www.dropbox.com/scl/fi/y4abfqxqukefh9yc36bd2/app-debug.apk?rlkey=cfzlku12xn2c9hhpq61motj6q&st=bvtl35cg&dl=1';
 
-async function getApkUrl() {
-  try {
-    const CFG = window.SHV_SUPABASE;
-    if (!CFG) return FALLBACK_APK;
-    const sb = window.supabase.createClient(CFG.url, CFG.anonKey);
-    const { data, error } = await sb
-      .from('site_settings')
-      .select('value')
-      .eq('key', 'store_apk_url')
-      .single();
-    if (!error && data && data.value) return data.value;
-  } catch(e) {}
+function getApkUrl() {
+  // shv-settings.js already fetched the correct URL from Supabase
+  // and stored it on window.SHV_APK_URL. Read it directly.
+  if (window.SHV_APK_URL && window.SHV_APK_URL !== '#') {
+    return window.SHV_APK_URL;
+  }
   return FALLBACK_APK;
 }
 
@@ -595,12 +589,12 @@ function igOverlayClick(e) {
   if (e.target === document.getElementById('igOverlay')) closeInstallGuide();
 }
 
-async function igStep(dir) {
+function igStep(dir) {
   const next = igCurrent + dir;
   if (next < 0 || next > IG_TOTAL) return;
   if (next === IG_TOTAL) {
     // Fetch the latest APK URL at download time — never stale
-    const url = await getApkUrl();
+    const url = getApkUrl();
     const a = document.createElement('a');
     a.href = url;
     a.target = '_blank'; // open in new tab as fallback for mobile browsers
