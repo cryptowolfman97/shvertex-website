@@ -12,6 +12,8 @@
   const FALLBACK_URL = 'https://www.dropbox.com/scl/fi/y4abfqxqukefh9yc36bd2/app-debug.apk?rlkey=cfzlku12xn2c9hhpq61motj6q&st=bvtl35cg&dl=1';
 
   function applyUrl(url) {
+    // Store on window so guide modal can read it without a separate Supabase call
+    window.SHV_APK_URL = url;
     // <a data-shv-apk-link> — sets href
     document.querySelectorAll('[data-shv-apk-link]').forEach(el => {
       el.href = url;
