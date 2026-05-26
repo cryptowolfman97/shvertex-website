@@ -9,7 +9,7 @@
   if (!CFG || !CFG.url || !CFG.publishableKey) return;
 
   // Default fallback (used before DB responds or on error)
-  const FALLBACK_URL = 'https://www.dropbox.com/scl/fi/y4abfqxqukefh9yc36bd2/app-debug.apk?rlkey=cfzlku12xn2c9hhpq61motj6q&st=bvtl35cg&dl=1';
+  const FALLBACK_URL = 'https://drive.google.com/file/d/1ORxTBBsRAQzxchyBT7_ZcKMn0jvP9oVu/view?usp=sharing';
 
   function applyUrl(url) {
     // Store on window so guide modal can read it without a separate Supabase call
