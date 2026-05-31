@@ -562,14 +562,27 @@ const IG_TOTAL = 5;
 
 // Fetch APK URL fresh from Supabase at the moment user clicks download
 // Falls back to the hardcoded URL in shv-settings.js if DB unreachable
-const FALLBACK_APK = 'https://drive.google.com/file/d/1ORxTBBsRAQzxchyBT7_ZcKMn0jvP9oVu/view?usp=sharing';
+const FALLBACK_APK = 'https://github.com/cryptowolfman97/shvertex-website/releases/download/v1.0/app-debug.apk';
 
-function getApkUrl() {
-  // shv-settings.js already fetched the correct URL from Supabase
-  // and stored it on window.SHV_APK_URL. Read it directly.
-  if (window.SHV_APK_URL && window.SHV_APK_URL !== '#') {
-    return window.SHV_APK_URL;
-  }
+async function getApkUrl() {
+  const SUPABASE_URL = 'https://ovdxetyadfsxehwnbyuz.supabase.co';
+  const ANON_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92ZHhldHlhZGZzeGVod25ieXV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyOTg3ODUsImV4cCI6MjA5MTg3NDc4NX0.LBPevOt31jpJaQNK7n_5GQsD-H40ndFVmi7dNeJt5tA';
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_settings?key=eq.store_apk_url&select=value`,
+      {
+        headers: {
+          'apikey':        ANON_KEY,
+          'Authorization': 'Bearer ' + ANON_KEY,
+          'Content-Type':  'application/json'
+        }
+      }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.length > 0 && data[0].value) return data[0].value;
+    }
+  } catch(e) {}
   return FALLBACK_APK;
 }
 
@@ -589,12 +602,12 @@ function igOverlayClick(e) {
   if (e.target === document.getElementById('igOverlay')) closeInstallGuide();
 }
 
-function igStep(dir) {
+async function igStep(dir) {
   const next = igCurrent + dir;
   if (next < 0 || next > IG_TOTAL) return;
   if (next === IG_TOTAL) {
     // Fetch the latest APK URL at download time — never stale
-    const url = getApkUrl();
+    const url = await getApkUrl();
     const a = document.createElement('a');
     a.href = url;
     a.target = '_blank'; // open in new tab as fallback for mobile browsers
