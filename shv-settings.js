@@ -1,39 +1,42 @@
 /**
- * SH Vertex — Site Settings Loader
- * Fetches site_settings from Supabase and replaces all
- * elements with data-shv-apk-link or data-shv-apk-href attributes.
- * Include this AFTER shv-supabase-config.js on every page.
+ * SH Vertex — Site Settings Loader v3
+ * Uses plain fetch() to Supabase REST API — no JS library dependency,
+ * no timing issues, always works.
  */
 (async function () {
-  const CFG = window.SHV_SUPABASE;
-  if (!CFG || !CFG.url || !CFG.publishableKey) return;
-
-  // Default fallback (used before DB responds or on error)
-  const FALLBACK_URL = 'https://drive.google.com/file/d/1ORxTBBsRAQzxchyBT7_ZcKMn0jvP9oVu/view?usp=sharing';
+  const SUPABASE_URL  = 'https://ovdxetyadfsxehwnbyuz.supabase.co';
+  const ANON_KEY      = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92ZHhldHlhZGZzeGVod25ieXV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyOTg3ODUsImV4cCI6MjA5MTg3NDc4NX0.LBPevOt31jpJaQNK7n_5GQsD-H40ndFVmi7dNeJt5tA';
+  const FALLBACK_URL  = 'https://github.com/cryptowolfman97/shvertex-website/releases/download/v1.0/app-debug.apk';
 
   function applyUrl(url) {
-    // Store on window so guide modal can read it without a separate Supabase call
     window.SHV_APK_URL = url;
-    // <a data-shv-apk-link> — sets href
     document.querySelectorAll('[data-shv-apk-link]').forEach(el => {
       el.href = url;
     });
   }
 
-  // Apply fallback immediately so buttons work even before fetch
+  // Apply fallback immediately — buttons work instantly on page load
   applyUrl(FALLBACK_URL);
 
+  // Then fetch the latest URL from Supabase via plain REST — no library needed
   try {
-    const sb = window.supabase.createClient(CFG.url, CFG.anonKey);
-    const { data, error } = await sb
-      .from('site_settings')
-      .select('value')
-      .eq('key', 'store_apk_url')
-      .single();
-    if (!error && data && data.value) {
-      applyUrl(data.value);
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_settings?key=eq.store_apk_url&select=value`,
+      {
+        headers: {
+          'apikey':        ANON_KEY,
+          'Authorization': 'Bearer ' + ANON_KEY,
+          'Content-Type':  'application/json'
+        }
+      }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.length > 0 && data[0].value) {
+        applyUrl(data[0].value);
+      }
     }
   } catch (e) {
-    // Silently fall back to hardcoded URL already applied above
+    // Fallback already applied above — silently continue
   }
 })();
