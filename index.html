@@ -149,7 +149,7 @@ body.sc nav{background:rgba(0,0,0,.94);border-color:var(--border2)}
 @media(max-width:900px){.store-promo{margin:0 20px}}
 .store-promo::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(34,197,94,.04),transparent);animation:spulse 4s ease-in-out infinite}
 @keyframes spulse{0%,100%{opacity:.5}50%{opacity:1}}
-.store-inner{padding:52px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.store-inner padding:52px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
 @media(max-width:700px){.store-inner{padding:32px 24px;grid-template-columns:1fr;gap:28px}}
 .store-badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .store-badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:lpulse 1.5s ease-in-out infinite}
@@ -212,6 +212,63 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
 .rv.in{opacity:1;transform:none}
 .rvl{opacity:0;transform:translateX(-30px);transition:opacity .65s ease,transform .65s ease}
 .rvl.in{opacity:1;transform:none}
+
+/* ═══════════════════════════════════════════
+   NEW: INTAKE ASSISTANT CORE ENGINE STYLING
+═══════════════════════════════════════════ */
+.asst-toggle {
+  position: fixed; bottom: 32px; right: 32px; z-index: 2000;
+  width: 54px; height: 54px; background: var(--bg);
+  border: 1px solid var(--accent); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); box-shadow: 0 0 20px rgba(34,197,94,0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.asst-toggle:hover {
+  transform: scale(1.05) rotate(90deg); box-shadow: 0 0 35px rgba(34,197,94,0.5); border-color: var(--accent2); color: var(--accent2);
+}
+.asst-panel {
+  position: fixed; bottom: 100px; right: 32px; z-index: 2000;
+  width: 380px; max-width: calc(100vw - 64px); height: 520px;
+  background: rgba(3, 5, 6, 0.96); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); padding: 32px 24px;
+  display: flex; flex-direction: column; opacity: 0; transform: translateY(20px) scale(0.95);
+  pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.asst-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; border-color: rgba(34,197,94,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+.asst-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.asst-hdr h4 { font-family: var(--display); font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--text); text-transform: uppercase; }
+.asst-close { background: none; border: none; color: var(--dim); font-family: var(--mono); font-size: 11px; transition: color 0.2s; }
+.asst-close:hover { color: var(--accent); }
+.asst-step { display: none; flex-direction: column; height: 100%; animation: asstFade 0.3s ease forwards; }
+.asst-step.active { display: flex; }
+@keyframes asstFade { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+.asst-q { font-size: 15px; font-weight: 500; margin-bottom: 18px; color: var(--text); line-height: 1.4; }
+.asst-chips { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 300px; padding-right: 4px; }
+.asst-chip {
+  width: 100%; background: var(--surface); border: 1px solid var(--border);
+  padding: 14px 18px; text-align: left; color: var(--muted); font-family: var(--body);
+  font-size: 13.5px; transition: all 0.2s; outline: none; display: flex; align-items: center; justify-content: space-between;
+}
+.asst-chip:hover { background: var(--accent-dim); border-color: rgba(34,197,94,0.3); color: var(--accent); }
+.asst-chip span { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+.asst-chip:hover span { color: var(--accent); }
+.asst-area { width: 100%; height: 160px; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--body); font-size: 13.5px; padding: 14px; outline: none; resize: none; margin-bottom: 16px; transition: border-color 0.2s; }
+.asst-area:focus { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.01); }
+.asst-input { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--body); font-size: 13.5px; padding: 12px 14px; outline: none; margin-bottom: 10px; transition: border-color 0.2s; }
+.asst-input:focus { border-color: rgba(34,197,94,0.4); }
+.asst-btn-row { display: flex; gap: 10px; margin-top: auto; }
+.asst-btn {
+  flex: 1; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px;
+  background: var(--accent); color: var(--bg); border: none; font-weight: 700; transition: box-shadow 0.2s;
+}
+.asst-btn:hover { box-shadow: 0 0 20px rgba(34,197,94,0.4); }
+.asst-btn.sec { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+.asst-btn.sec:hover { border-color: var(--border2); box-shadow: none; color: var(--text); }
+.asst-btn:disabled { opacity: 0.5; box-shadow: none; }
+.asst-status { font-family: var(--mono); font-size: 10px; text-transform: uppercase; margin-bottom: 8px; color: var(--accent); }
+.asst-success { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 40px; }
+.asst-success svg { width: 48px; height: 48px; color: var(--accent); margin-bottom: 16px; filter: drop-shadow(0 0 10px rgba(34,197,94,0.3)); }
 </style>
 </head>
 <body>
@@ -220,7 +277,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
 <canvas id="cv"></canvas>
 <div class="prog" id="prog"></div>
 
-<!-- MOBILE MENU -->
 <div class="mmenu" id="mmenu">
   <a href="#home" class="act">Home</a>
   <a href="store.html">Store</a>
@@ -250,11 +306,7 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════ -->
 <section class="hero" id="home">
-  <!-- 3D Shield -->
   <div class="shield-wrap">
     <div class="sring sring1"></div>
     <div class="sring sring2"></div>
@@ -269,19 +321,14 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
         <path d="M110 12 L196 50 L196 136 C196 196 154 232 110 246 C66 232 24 196 24 136 L24 50 Z" fill="url(#sg1)" filter="url(#gf1)"/>
         <path d="M110 12 L196 50 L196 136 C196 196 154 232 110 246 C66 232 24 196 24 136 L24 50 Z" fill="none" stroke="url(#sg2)" stroke-width="1.5"/>
         <path d="M110 30 L180 62 L180 132 C180 182 148 215 110 227 C72 215 40 182 40 132 L40 62 Z" fill="none" stroke="rgba(34,197,94,.1)" stroke-width="1"/>
-        <!-- hex grid -->
         <path d="M90 105 L110 94 L130 105 L130 127 L110 138 L90 127 Z" fill="none" stroke="rgba(34,197,94,.28)" stroke-width="1"/>
         <path d="M70 115 L90 105 M130 105 L150 115 M90 127 L70 137 M130 127 L150 137 M110 138 L110 155 M110 94 L110 77" stroke="rgba(34,197,94,.1)" stroke-width="1"/>
-        <!-- checkmark -->
         <path d="M83 119 L103 139 L140 98" stroke="url(#sg2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- scan line anim -->
         <line x1="28" y1="115" x2="192" y2="115" stroke="rgba(34,197,94,.25)" stroke-width="1" stroke-dasharray="5 10">
           <animateTransform attributeName="transform" type="translate" values="0,-90;0,90;0,-90" dur="3.5s" repeatCount="indefinite"/>
         </line>
-        <!-- corner marks -->
         <path d="M24 50 L44 50 M24 68 L24 50" stroke="rgba(34,197,94,.5)" stroke-width="1.5"/>
         <path d="M196 50 L176 50 M196 68 L196 50" stroke="rgba(34,197,94,.5)" stroke-width="1.5"/>
-        <!-- circuit nodes -->
         <circle cx="110" cy="47" r="3" fill="none" stroke="rgba(34,197,94,.3)" stroke-width="1"/>
         <circle cx="184" cy="100" r="2.5" fill="rgba(34,197,94,.4)"/>
         <circle cx="36" cy="100" r="2.5" fill="rgba(0,229,160,.4)"/>
@@ -316,7 +363,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
           <span>Web Architecture</span><span>•</span>
           <span class="hi">Data Center Security</span><span>•</span>
           <span>Mobile Device Management</span><span>•</span>
-          <!-- duplicate for seamless loop -->
           <span class="hi">Zero-Trust Architecture</span><span>•</span>
           <span>IAM / PAM Solutions</span><span>•</span>
           <span class="hi">Android App Development</span><span>•</span>
@@ -333,7 +379,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats">
   <div class="stat rv"><div class="stat-n" data-count="50">0+</div><div class="stat-l">Projects Delivered</div></div>
   <div class="stat rv" style="transition-delay:.08s"><div class="stat-n">A+</div><div class="stat-l">Security Grade</div></div>
@@ -341,7 +386,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   <div class="stat rv" style="transition-delay:.24s"><div class="stat-n">B2B</div><div class="stat-l">Service Focus</div></div>
 </div>
 
-<!-- STORE PROMO -->
 <div class="section" style="padding-bottom:0">
   <div class="store-promo rv">
     <div class="store-inner">
@@ -367,14 +411,12 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </div>
 
-<!-- SERVICES -->
 <section class="section" id="services">
   <div class="sec-eye rv">What We Deliver</div>
   <h2 class="sec-title rv">End-to-end technical services,<br>built without compromise.</h2>
   <p class="rv" style="font-size:14px;color:var(--muted);margin-top:12px;max-width:560px">End-to-end technical services spanning cybersecurity, software engineering, and premium visual design.</p>
   <div class="svc-grid" style="margin-top:48px">
 
-    <!-- CYBER SECURITY -->
     <div class="svc-card rv">
       <div class="svc-num">01 // Security</div>
       <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -389,7 +431,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
       </div>
     </div>
 
-    <!-- APP DEV -->
     <div class="svc-card rv" style="transition-delay:.06s">
       <div class="svc-num">02 // Development</div>
       <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -401,7 +442,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
       <div class="svc-tags"><span class="svc-tag">Python</span><span class="svc-tag">Kivy</span><span class="svc-tag">Android</span><span class="svc-tag">Kotlin</span></div>
     </div>
 
-    <!-- GRAPHIC -->
     <div class="svc-card rv" style="transition-delay:.12s">
       <div class="svc-num">03 // Design</div>
       <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -414,7 +454,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
       <div class="svc-tags"><span class="svc-tag">Branding</span><span class="svc-tag">UI/UX</span><span class="svc-tag">Identity</span></div>
     </div>
 
-    <!-- WEB -->
     <div class="svc-card rv" style="transition-delay:.18s">
       <div class="svc-num">04 // Web</div>
       <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -427,7 +466,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
       <div class="svc-tags"><span class="svc-tag">Responsive</span><span class="svc-tag">AMOLED</span><span class="svc-tag">CRO</span></div>
     </div>
 
-    <!-- VIDEO -->
     <div class="svc-card rv" style="transition-delay:.24s">
       <div class="svc-num">05 // Media</div>
       <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -440,7 +478,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
       <div class="svc-tags"><span class="svc-tag">Corporate</span><span class="svc-tag">Editing</span><span class="svc-tag">Motion</span></div>
     </div>
 
-    <!-- ECOSYSTEM -->
     <div class="svc-card rv" style="transition-delay:.3s;background:rgba(34,197,94,.018);border-left:1px solid rgba(34,197,94,.12)">
       <div class="svc-num" style="color:rgba(34,197,94,.4)">06 // Ecosystem</div>
       <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -457,7 +494,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </section>
 
-<!-- CYBER DEEP DIVE -->
 <section class="section" style="padding-top:0" id="cyber">
   <div style="border:1px solid var(--border);background:rgba(255,255,255,.012);padding:40px;margin-top:0">
     <div class="sec-eye rv">Cyber Security Detail</div>
@@ -491,7 +527,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </section>
 
-<!-- WHY SH VERTEX -->
 <section class="section" id="why-us">
   <div class="sec-eye rvl">Why SH Vertex</div>
   <h2 class="sec-title rv">Built for serious delivery.</h2>
@@ -514,7 +549,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </section>
 
-<!-- CERTIFICATIONS -->
 <div class="cert-strip">
   <div class="cert-label">Certified &amp; Standards</div>
   <div class="cert-list">
@@ -530,7 +564,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </div>
 
-<!-- ENGINEERING CORE -->
 <section class="section" id="engineering-core">
   <div class="sec-eye rv">The Minds Behind the Machine</div>
   <h2 class="sec-title rv">Engineering Core</h2>
@@ -555,7 +588,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="section" id="contact">
   <div class="sec-eye rv">Get In Touch</div>
   <h2 class="sec-title rv">Let's build something together.</h2>
@@ -591,7 +623,6 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="foot-inner">
     <img src="./assets/site/logo.png" alt="SH Vertex" style="height:36px;opacity:.75">
@@ -615,13 +646,167 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </footer>
 
+<button class="asst-toggle" id="asstToggle" aria-label="Open Assistant">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<div class="asst-panel" id="asstPanel">
+  <div class="asst-hdr">
+    <h4>SHV Intake Assistant</h4>
+    <button class="asst-close" onclick="closeAsst()">[CLOSE]</button>
+  </div>
+  
+  <div class="asst-step active" id="asstStep1">
+    <div class="asst-q">Select the category of service your engineering project requires:</div>
+    <div class="asst-chips">
+      <button class="asst-chip" onclick="selectCategory('Cyber Security Operations')">Cyber Security <span>01 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('App Development')">App Development <span>02 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Graphic Design')">Graphic Design <span>03 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Web Designing')">Web Designing <span>04 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Video Post-Production')">Video Production <span>05 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Custom Architecture Inquiry')">Other / Core Ecosystem <span>06 //</span></button>
+    </div>
+  </div>
+
+  <div class="asst-step" id="asstStep2">
+    <div class="asst-q" id="asstStep2Title">Describe the project scope:</div>
+    <textarea class="asst-area" id="asstDesc" placeholder="Provide system requirements, parameters, or objective insights..."></textarea>
+    <div class="asst-btn-row">
+      <button class="asst-btn sec" onclick="changeStep(1)">Back</button>
+      <button class="asst-btn" onclick="validateStep2()">Next</button>
+    </div>
+  </div>
+
+  <div class="asst-step" id="asstStep3">
+    <div class="asst-q">Provide direct verification and routing vectors:</div>
+    <input type="text" class="asst-input" id="asstName" placeholder="Your Name / Organization" required>
+    <input type="email" class="asst-input" id="asstEmail" placeholder="Corporate Email Address" required>
+    <input type="tel" class="asst-input" id="asstWhatsapp" placeholder="WhatsApp Line (Optional)">
+    <div class="asst-btn-row">
+      <button class="asst-btn sec" onclick="changeStep(2)">Back</button>
+      <button class="asst-btn" id="asstSubmitBtn" onclick="submitToSupabase()">Deploy Request</button>
+    </div>
+  </div>
+
+  <div class="asst-step" id="asstStep4">
+    <div class="asst-success">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <div class="asst-status">Transaction Dispatched</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6;">Your project parameters have been written to our secure sync database layer. Core engineers notified via edge hooks.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// Initialize connection matrices using user configuration parameters
+const SUPABASE_URL = "https://ovdxetyadfsxehwnbyuz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_3J-H60daCgWdhSvpdXi0zw_QpPax3Dz";
+const supabase = librarySupabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// State Engine Variables
+let intakeData = { category: '', description: '', name: '', email: '', whatsapp: '' };
+
+const panel = document.getElementById('asstPanel');
+const toggleBtn = document.getElementById('asstToggle');
+
+toggleBtn.addEventListener('click', () => {
+  panel.classList.toggle('open');
+});
+
+function closeAsst() {
+  panel.classList.remove('open');
+}
+
+function changeStep(stepNum) {
+  document.querySelectorAll('.asst-step').forEach(step => step.classList.remove('active'));
+  document.getElementById(`asstStep${stepNum}`).classList.add('active');
+}
+
+function selectCategory(cat) {
+  intakeData.category = cat;
+  document.getElementById('asstStep2Title').textContent = `Describe your scope for [${cat}]:`;
+  changeStep(2);
+}
+
+function validateStep2() {
+  const descVal = document.getElementById('asstDesc').value.trim();
+  if(!descVal) {
+    alert("Please input architectural scope description before advancing pipeline state.");
+    return;
+  }
+  intakeData.description = descVal;
+  changeStep(3);
+}
+
+async function submitToSupabase() {
+  const nameVal = document.getElementById('asstName').value.trim();
+  const emailVal = document.getElementById('asstEmail').value.trim();
+  const whatsappVal = document.getElementById('asstWhatsapp').value.trim();
+  
+  if(!nameVal || !emailVal) {
+    alert("Identity records (Name, Email) are mission critical components.");
+    return;
+  }
+  
+  intakeData.name = nameVal;
+  intakeData.email = emailVal;
+  intakeData.whatsapp = whatsappVal || null;
+
+  const btn = document.getElementById('asstSubmitBtn');
+  btn.textContent = "Processing Async Write...";
+  btn.disabled = true;
+
+  try {
+    const { data, error } = await supabase
+      .from('client_requests')
+      .insert([
+        { 
+          name: intakeData.name, 
+          email: intakeData.email, 
+          whatsapp: intakeData.whatsapp, 
+          category: intakeData.category, 
+          description: intakeData.description 
+        }
+      ]);
+
+    if (error) throw error;
+    
+    changeStep(4);
+    setTimeout(() => {
+      closeAsst();
+      // Reset State
+      intakeData = { category: '', description: '', name: '', email: '', whatsapp: '' };
+      document.getElementById('asstDesc').value = '';
+      document.getElementById('asstName').value = '';
+      document.getElementById('asstEmail').value = '';
+      document.getElementById('asstWhatsapp').value = '';
+      changeStep(1);
+    }, 5000);
+
+  } catch (err) {
+    console.error("Critical fault executing database append:", err);
+    alert("Fail state occurred during security transaction transfer. Please check network logs.");
+    btn.textContent = "Deploy Request";
+    btn.disabled = false;
+  }
+}
+</script>
+
 <script>
 // ── CURSOR ──
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
 (function anim(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
-document.querySelectorAll('a,button,.svc-card,.stat,.why-card,.cert-badge,.eng-card').forEach(el=>{
+
+// Updated target bindings to attach dynamic custom cursor response matrix to new widget components safely
+document.querySelectorAll('a,button,.svc-card,.stat,.why-card,.cert-badge,.eng-card,.asst-toggle,.asst-chip,.asst-btn,.asst-close').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='rgba(34,197,94,.6)'});
   el.addEventListener('mouseleave',()=>{cur.style.width='9px';cur.style.height='9px';ring.style.width='34px';ring.style.height='34px';ring.style.borderColor='rgba(34,197,94,.35)'});
 });
