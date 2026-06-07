@@ -149,7 +149,7 @@ body.sc nav{background:rgba(0,0,0,.94);border-color:var(--border2)}
 @media(max-width:900px){.store-promo{margin:0 20px}}
 .store-promo::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(34,197,94,.04),transparent);animation:spulse 4s ease-in-out infinite}
 @keyframes spulse{0%,100%{opacity:.5}50%{opacity:1}}
-.store-inner padding:52px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.store-inner {padding:52px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
 @media(max-width:700px){.store-inner{padding:32px 24px;grid-template-columns:1fr;gap:28px}}
 .store-badge{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .store-badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:lpulse 1.5s ease-in-out infinite}
@@ -707,7 +707,9 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
 // Initialize connection matrices using user configuration parameters
 const SUPABASE_URL = "https://ovdxetyadfsxehwnbyuz.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_3J-H60daCgWdhSvpdXi0zw_QpPax3Dz";
-const supabase = librarySupabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// FIX APPLIED HERE: Used window.supabase.createClient instead of librarySupabase.createClient
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // State Engine Variables
 let intakeData = { category: '', description: '', name: '', email: '', whatsapp: '' };
