@@ -89,7 +89,7 @@ body.sc nav{background:rgba(0,0,0,.94);border-color:var(--border2)}
 .btn-p:hover{box-shadow:0 0 50px rgba(34,197,94,.55)}
 .btn-p .arr{transition:transform .2s}
 .btn-p:hover .arr{transform:translateX(4px)}
-.btn-g{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:15px 30px;border:1px solid var(--border2);color:var(--muted);text-decoration:none;transition:all .25s}
+.btn-g{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:15px 30px;border:1px solid var(--border2);color:var(--muted);text-decoration:none;transition:all .25s; cursor: none;}
 .btn-g:hover{border-color:rgba(34,197,94,.4);color:var(--accent);background:var(--accent-dim)}
 .hero-ticker{position:relative;z-index:3;margin-top:60px;display:flex;align-items:center;gap:0;border-top:1px solid var(--border);padding-top:24px;overflow:hidden;opacity:0;animation:fadeIn .7s ease 1.1s forwards}
 .ticker-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase;white-space:nowrap;padding-right:24px;border-right:1px solid var(--border);flex-shrink:0}
@@ -214,41 +214,39 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
 .rvl.in{opacity:1;transform:none}
 
 /* ═══════════════════════════════════════════
-   NEW: INTAKE ASSISTANT CORE ENGINE STYLING
+   NEW: INTAKE ASSISTANT MODAL UI
 ═══════════════════════════════════════════ */
-.asst-toggle {
-  position: fixed; bottom: 32px; right: 32px; z-index: 2000;
-  width: 54px; height: 54px; background: var(--bg);
-  border: 1px solid var(--accent); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--accent); box-shadow: 0 0 20px rgba(34,197,94,0.2);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.asst-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+  z-index: 1999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
 }
-.asst-toggle:hover {
-  transform: scale(1.05) rotate(90deg); box-shadow: 0 0 35px rgba(34,197,94,0.5); border-color: var(--accent2); color: var(--accent2);
-}
+.asst-overlay.open { opacity: 1; pointer-events: all; }
+
 .asst-panel {
-  position: fixed; bottom: 100px; right: 32px; z-index: 2000;
-  width: 380px; max-width: calc(100vw - 64px); height: 520px;
-  background: rgba(3, 5, 6, 0.96); backdrop-filter: blur(20px);
-  border: 1px solid var(--border); padding: 32px 24px;
-  display: flex; flex-direction: column; opacity: 0; transform: translateY(20px) scale(0.95);
+  position: fixed; top: 50%; left: 50%; z-index: 2000;
+  width: 440px; max-width: 90vw; height: auto; min-height: 520px;
+  background: rgba(3, 5, 6, 0.98); border: 1px solid var(--border);
+  padding: 32px 28px; display: flex; flex-direction: column; opacity: 0;
+  transform: translate(-50%, -45%) scale(0.95);
   pointer-events: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.asst-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; border-color: rgba(34,197,94,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+.asst-panel.open {
+  opacity: 1; transform: translate(-50%, -50%) scale(1);
+  pointer-events: all; border-color: rgba(34,197,94,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+}
 .asst-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
 .asst-hdr h4 { font-family: var(--display); font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--text); text-transform: uppercase; }
-.asst-close { background: none; border: none; color: var(--dim); font-family: var(--mono); font-size: 11px; transition: color 0.2s; }
+.asst-close { background: none; border: none; color: var(--dim); font-family: var(--mono); font-size: 11px; transition: color 0.2s; cursor: none; }
 .asst-close:hover { color: var(--accent); }
-.asst-step { display: none; flex-direction: column; height: 100%; animation: asstFade 0.3s ease forwards; }
+.asst-step { display: none; flex-direction: column; height: 100%; flex: 1; animation: asstFade 0.3s ease forwards; }
 .asst-step.active { display: flex; }
 @keyframes asstFade { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
 .asst-q { font-size: 15px; font-weight: 500; margin-bottom: 18px; color: var(--text); line-height: 1.4; }
-.asst-chips { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 300px; padding-right: 4px; }
+.asst-chips { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 340px; padding-right: 4px; }
 .asst-chip {
   width: 100%; background: var(--surface); border: 1px solid var(--border);
   padding: 14px 18px; text-align: left; color: var(--muted); font-family: var(--body);
-  font-size: 13.5px; transition: all 0.2s; outline: none; display: flex; align-items: center; justify-content: space-between;
+  font-size: 13.5px; transition: all 0.2s; outline: none; display: flex; align-items: center; justify-content: space-between; cursor: none;
 }
 .asst-chip:hover { background: var(--accent-dim); border-color: rgba(34,197,94,0.3); color: var(--accent); }
 .asst-chip span { font-family: var(--mono); font-size: 10px; color: var(--dim); }
@@ -257,10 +255,10 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
 .asst-area:focus { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.01); }
 .asst-input { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--body); font-size: 13.5px; padding: 12px 14px; outline: none; margin-bottom: 10px; transition: border-color 0.2s; }
 .asst-input:focus { border-color: rgba(34,197,94,0.4); }
-.asst-btn-row { display: flex; gap: 10px; margin-top: auto; }
+.asst-btn-row { display: flex; gap: 10px; margin-top: auto; padding-top: 20px; }
 .asst-btn {
   flex: 1; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px;
-  background: var(--accent); color: var(--bg); border: none; font-weight: 700; transition: box-shadow 0.2s;
+  background: var(--accent); color: var(--bg); border: none; font-weight: 700; transition: box-shadow 0.2s; cursor: none;
 }
 .asst-btn:hover { box-shadow: 0 0 20px rgba(34,197,94,0.4); }
 .asst-btn.sec { background: transparent; border: 1px solid var(--border); color: var(--muted); }
@@ -347,7 +345,7 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
     <p class="hero-sub">We design secure digital infrastructure, build high-performance software, and create premium product ecosystems for modern businesses, founders, and high-intent buyers.</p>
     <div class="hero-btns">
       <a href="products.html" class="btn-p">View Products <span class="arr">→</span></a>
-      <a href="#contact" class="btn-g">Contact Us</a>
+      <a class="btn-g" onclick="openAsst()">Contact Us</a>
     </div>
     <div class="hero-ticker">
       <div class="ticker-lbl">Core Expertise</div>
@@ -646,12 +644,7 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
   </div>
 </footer>
 
-<button class="asst-toggle" id="asstToggle" aria-label="Open Assistant">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-
+<div class="asst-overlay" id="asstOverlay" onclick="closeAsst()"></div>
 <div class="asst-panel" id="asstPanel">
   <div class="asst-hdr">
     <h4>SHV Intake Assistant</h4>
@@ -704,25 +697,33 @@ footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Initialize connection matrices using user configuration parameters
+// Configuration
 const SUPABASE_URL = "https://ovdxetyadfsxehwnbyuz.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_3J-H60daCgWdhSvpdXi0zw_QpPax3Dz";
 
-// FIX APPLIED HERE: Used window.supabase.createClient instead of librarySupabase.createClient
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// LAZY INIT FIX: Prevents Supabase CDN from crashing UI
+let dbClient = null;
+function getSupabase() {
+  if (!dbClient && window.supabase) {
+    dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+  return dbClient;
+}
 
 // State Engine Variables
 let intakeData = { category: '', description: '', name: '', email: '', whatsapp: '' };
 
 const panel = document.getElementById('asstPanel');
-const toggleBtn = document.getElementById('asstToggle');
+const overlay = document.getElementById('asstOverlay');
 
-toggleBtn.addEventListener('click', () => {
-  panel.classList.toggle('open');
-});
+function openAsst() {
+  panel.classList.add('open');
+  overlay.classList.add('open');
+}
 
 function closeAsst() {
   panel.classList.remove('open');
+  overlay.classList.remove('open');
 }
 
 function changeStep(stepNum) {
@@ -764,6 +765,14 @@ async function submitToSupabase() {
   btn.textContent = "Processing Async Write...";
   btn.disabled = true;
 
+  const supabase = getSupabase();
+  if (!supabase) {
+    alert("Database connection initializing or blocked by network. Please try again.");
+    btn.textContent = "Deploy Request";
+    btn.disabled = false;
+    return;
+  }
+
   try {
     const { data, error } = await supabase
       .from('client_requests')
@@ -789,6 +798,8 @@ async function submitToSupabase() {
       document.getElementById('asstEmail').value = '';
       document.getElementById('asstWhatsapp').value = '';
       changeStep(1);
+      btn.textContent = "Deploy Request";
+      btn.disabled = false;
     }, 5000);
 
   } catch (err) {
@@ -807,8 +818,8 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
 (function anim(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
 
-// Updated target bindings to attach dynamic custom cursor response matrix to new widget components safely
-document.querySelectorAll('a,button,.svc-card,.stat,.why-card,.cert-badge,.eng-card,.asst-toggle,.asst-chip,.asst-btn,.asst-close').forEach(el=>{
+// Ensures custom cursor responds properly over the overlay and the new modal buttons
+document.querySelectorAll('a,button,.svc-card,.stat,.why-card,.cert-badge,.eng-card,.asst-chip,.asst-btn,.asst-close,.btn-g,.asst-overlay').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='rgba(34,197,94,.6)'});
   el.addEventListener('mouseleave',()=>{cur.style.width='9px';cur.style.height='9px';ring.style.width='34px';ring.style.height='34px';ring.style.borderColor='rgba(34,197,94,.35)'});
 });
