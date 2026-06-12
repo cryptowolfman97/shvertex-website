@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHV Store | SH Vertex Tech</title>
+<meta name="description" content="Download the SHV Store — the official SH Vertex Android app hub.">
+<link rel="icon" type="image/png" href="./assets/site/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090f;--bg2:#0d0d18;--card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --green:#4ade80;--blue:#60a5fa;--purple:#a78bfa;--amber:#fbbf24;--cyan:#22d3ee;
+  --green-dim:rgba(74,222,128,0.1);--blue-dim:rgba(96,165,250,0.1);
+  --text:#f1f0ed;--text2:#a8a49f;--text3:#5c5955;
+  --mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--body:'Plus Jakarta Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+#cur{position:fixed;width:10px;height:10px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .15s,height .15s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(74,222,128,.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .14s ease}
+#cv{position:fixed;inset:0;z-index:0;opacity:.45;pointer-events:none}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+.prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:200;background:linear-gradient(90deg,var(--green),var(--cyan));transition:width .1s linear}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(9,9,15,.82);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .3s}
+body.sc nav{background:rgba(9,9,15,.95);border-color:var(--border2)}
+.logo{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo-badge{background:linear-gradient(135deg,var(--green),var(--cyan));width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.nav-links{display:flex;gap:2px}.nav-links a{font-family:var(--body);font-size:13px;font-weight:500;padding:8px 13px;border-radius:7px;color:var(--text2);text-decoration:none;transition:all .2s}
+.nav-links a:hover{color:var(--text);background:var(--card2)}.nav-links a.act{color:var(--green);background:var(--green-dim)}
+.nav-cta{font-family:var(--body);font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;text-decoration:none;transition:all .2s}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}.nav-cta span{position:relative;z-index:1}
+.mbtn{display:none;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border:1px solid var(--border);color:var(--text2);background:transparent;cursor:none;border-radius:7px}
+.mmenu{display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(9,9,15,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(24px);padding:16px;flex-direction:column;gap:4px}
+.mmenu.open{display:flex}.mmenu a{font-family:var(--body);font-size:13px;font-weight:500;padding:13px 16px;border-radius:8px;color:var(--text2);text-decoration:none;transition:all .2s}
+.mmenu a:hover,.mmenu a.act{color:var(--green);background:var(--green-dim)}
+@media(max-width:900px){nav{padding:14px 20px}.nav-links,.nav-cta{display:none}.mbtn{display:block}}
+/* HERO */
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding:120px 52px 80px;gap:60px;flex-wrap:wrap}
+@media(max-width:900px){.hero{padding:110px 20px 60px;flex-direction:column}}
+.orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.orb1{width:500px;height:400px;background:rgba(74,222,128,.06);top:0;left:-5%}
+.orb2{width:350px;height:350px;background:rgba(96,165,250,.05);top:20%;right:-5%}
+.hero-left{flex:1;min-width:280px;max-width:600px;position:relative;z-index:2}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.18);border-radius:100px;padding:6px 16px;margin-bottom:22px}
+.hero-eye-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:gpulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+.hero-eye span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.hero-title{font-family:var(--display);font-size:clamp(42px,6vw,84px);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:22px}
+.hero-title .glt{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;line-height:1.78;color:var(--text2);max-width:500px;margin-bottom:32px;font-weight:400}
+.dl-btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--body);font-size:15px;font-weight:700;padding:16px 32px;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;text-decoration:none;transition:all .25s;box-shadow:0 6px 28px rgba(74,222,128,.3);position:relative;overflow:hidden;cursor:none}
+.dl-btn::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:rgba(255,255,255,.18);transform:skewX(-18deg);animation:shine 3.5s ease-in-out 1s infinite}
+@keyframes shine{0%{left:-60%}100%{left:160%}}
+.dl-btn:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(74,222,128,.5)}
+.req-info{margin-top:14px;font-size:13px;font-weight:500;color:var(--text3);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.req-info span::before{content:'·';color:var(--green);margin-right:6px}
+/* PHONE MOCKUP */
+.hero-right{flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
+.phone-wrap{position:relative;width:220px;animation:pfloat 5s ease-in-out infinite}
+@keyframes pfloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+.phone{width:220px;background:#0a0a0a;border:1.5px solid rgba(255,255,255,.1);border-radius:32px;padding:10px;position:relative;box-shadow:0 0 60px rgba(74,222,128,.12),0 40px 80px rgba(0,0,0,.6)}
+.phone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:52px;height:3px;background:rgba(255,255,255,.1);border-radius:2px}
+.phone-screen{background:#000;border-radius:24px;overflow:hidden;aspect-ratio:9/19;display:flex;flex-direction:column}
+.phone-status{height:28px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#000}
+.phone-status-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:gpulse 1.5s infinite}
+.phone-status-time{font-family:var(--mono);font-size:8px;color:var(--text3)}
+.phone-header{padding:12px 14px 8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.phone-header-logo{font-family:var(--display);font-size:12px;font-weight:800;color:var(--green);letter-spacing:.1em}
+.phone-header-sub{font-family:var(--mono);font-size:7px;color:var(--text3);letter-spacing:.08em;margin-top:2px}
+.phone-content{flex:1;padding:10px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.phone-app-row{display:flex;align-items:center;gap:8px;padding:7px 9px;background:rgba(74,222,128,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px}
+.phone-app-icon{width:28px;height:28px;border-radius:6px;background:rgba(74,222,128,.1);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:9px;font-weight:800;color:var(--green);flex-shrink:0}
+.phone-app-name{font-family:var(--mono);font-size:8px;color:var(--text);letter-spacing:.04em}
+.phone-app-tag{font-family:var(--mono);font-size:6px;color:var(--text3);letter-spacing:.04em}
+.phone-app-btn{margin-left:auto;font-family:var(--mono);font-size:7px;padding:3px 7px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;font-weight:800;border-radius:4px;flex-shrink:0}
+/* FEATURES */
+.section{position:relative;z-index:2;padding:80px 52px}
+@media(max-width:900px){.section{padding:60px 20px}}
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--text3);margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
+.sec-tag::before{content:'';width:18px;height:1px;background:var(--text3)}
+.sec-title{font-family:var(--display);font-size:clamp(28px,3.8vw,48px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:44px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.feat-grid{grid-template-columns:1fr}}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;transition:all .28s}
+.feat-card:hover{background:var(--card2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.25)}
+.feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.feat-icon.green{background:var(--green-dim);color:var(--green)}
+.feat-icon.blue{background:var(--blue-dim);color:var(--blue)}
+.feat-icon.purple{background:rgba(167,139,250,.1);color:var(--purple)}
+.feat-icon.amber{background:rgba(251,191,36,.1);color:var(--amber)}
+.feat-icon.cyan{background:rgba(34,211,238,.1);color:var(--cyan)}
+.feat-icon.pink{background:rgba(244,114,182,.1);color:#f472b6}
+.feat-icon svg{width:22px;height:22px}
+.feat-title{font-family:var(--display);font-size:17px;font-weight:800;margin-bottom:10px;letter-spacing:-.02em}
+.feat-desc{font-size:14px;line-height:1.72;color:var(--text2);font-weight:400}
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:700px){.steps-grid{grid-template-columns:1fr 1fr}}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 20px;position:relative}
+.step-num{font-family:var(--display);font-size:38px;font-weight:800;color:rgba(74,222,128,.12);line-height:1;margin-bottom:12px}
+.step-title{font-family:var(--display);font-size:15px;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+.step-desc{font-size:13px;line-height:1.65;color:var(--text2);font-weight:400}
+/* CTA */
+.cta-block{position:relative;z-index:2;margin:0 52px 80px;border:1px solid var(--border);border-radius:18px;padding:52px;text-align:center;background:linear-gradient(135deg,rgba(74,222,128,.05),rgba(34,211,238,.03));overflow:hidden}
+@media(max-width:900px){.cta-block{margin:0 20px 60px;padding:36px 24px;border-radius:14px}}
+.cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);border-radius:18px 18px 0 0}
+footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(--border)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 52px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+@media(max-width:900px){.foot-inner{padding:0 20px}}
+.foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.foot-links a{font-size:13px;font-weight:500;color:var(--text3);text-decoration:none;padding:6px 12px;border-radius:6px;transition:all .2s}
+.foot-links a:hover{color:var(--green);background:var(--green-dim)}
+.foot-copy{font-size:12px;color:var(--text3);font-weight:500}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}.rv.in{opacity:1;transform:none}
+/* INSTALL GUIDE MODAL */
+.ig-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px}
+.ig-overlay.open{display:flex}
+.ig-modal{width:100%;max-width:560px;background:var(--bg2);border:1px solid rgba(74,222,128,.2);border-radius:18px;position:relative;max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
+.ig-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);border-radius:18px 18px 0 0}
+.ig-header{padding:24px 28px 0;flex-shrink:0}
+.ig-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ig-step-label{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:6px}
+.ig-step-label span{color:var(--green)}
+.ig-step-title{font-family:var(--display);font-size:18px;font-weight:800;letter-spacing:-.02em}
+.ig-close{font-size:12px;font-weight:600;padding:8px 14px;border:1px solid var(--border);color:var(--text2);background:transparent;cursor:none;transition:all .2s;border-radius:8px}
+.ig-close:hover{border-color:rgba(74,222,128,.4);color:var(--green)}
+.ig-steps-bar{display:flex;align-items:center;gap:6px;margin-bottom:20px}
+.ig-step-dot{height:3px;border-radius:2px;flex:1;background:var(--border);transition:all .35s}
+.ig-step-dot.done{background:rgba(74,222,128,.45)}.ig-step-dot.active{background:var(--green);flex:2}
+.ig-content{flex:1;overflow-y:auto;padding:0 28px 20px}
+.ig-panel{display:none;animation:igFadeUp .3s ease}.ig-panel.active{display:flex;flex-direction:column;gap:20px}
+@keyframes igFadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ig-phone-wrap{display:flex;justify-content:center}
+.ig-phone{width:180px;background:#0a0a0a;border:1.5px solid rgba(255,255,255,.1);border-radius:24px;padding:8px;position:relative;box-shadow:0 0 40px rgba(74,222,128,.1)}
+.ig-phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:44px;height:3px;background:rgba(255,255,255,.1);border-radius:2px}
+.ig-phone-screen{background:#000;border-radius:17px;overflow:hidden;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:12px}
+.ig-step-num{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.ig-step-title-sm{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.ig-step-desc{font-size:14px;line-height:1.75;color:var(--text2);font-weight:400}
+.ig-step-desc strong{color:var(--text);font-weight:600}
+.ig-tip{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid rgba(74,222,128,.18);background:rgba(74,222,128,.04);border-radius:10px;margin-top:4px;font-size:13px;line-height:1.65;color:var(--text2)}
+.ig-tip::before{content:'💡';flex-shrink:0}
+.ig-warn{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid rgba(251,191,36,.18);background:rgba(251,191,36,.04);border-radius:10px;margin-top:4px;font-size:13px;line-height:1.65;color:var(--text2)}
+.ig-warn::before{content:'⚠️';flex-shrink:0}
+.ig-notif{width:100%;background:#1a1a1a;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.07)}
+.ig-notif-icon{width:32px;height:32px;background:rgba(74,222,128,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ig-notif-text{font-size:9px;color:rgba(255,255,255,.6);line-height:1.4}
+.ig-notif-text strong{color:#fff;display:block;font-size:10px}
+.ig-toggle-row{width:100%;display:flex;align-items:center;justify-content:space-between;background:#1a1a1a;border-radius:8px;padding:10px 12px;border:1px solid rgba(255,255,255,.07)}
+.ig-toggle-label{font-size:9px;color:rgba(255,255,255,.6);line-height:1.4;max-width:140px}
+.ig-toggle{width:36px;height:20px;background:var(--green);border-radius:10px;position:relative;flex-shrink:0;box-shadow:0 0 10px rgba(74,222,128,.35)}
+.ig-toggle::after{content:'';position:absolute;right:2px;top:2px;width:16px;height:16px;background:#fff;border-radius:50%}
+.ig-dialog{width:100%;background:#1e1e1e;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.08)}
+.ig-dialog-title{font-size:11px;font-weight:700;color:#fff;margin-bottom:4px}
+.ig-dialog-body{font-size:9px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:10px}
+.ig-dialog-btns{display:flex;flex-direction:column;gap:5px}
+.ig-dialog-btn{width:100%;padding:7px;border-radius:6px;font-size:9px;font-weight:700;text-align:center;border:none}
+.ig-dialog-btn.primary{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.25)}
+.ig-dialog-btn.ghost{background:transparent;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.08)}
+.ig-pp-dialog{width:100%;background:#1e1e1e;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.ig-pp-header{background:#2a1a1a;padding:10px 12px;display:flex;align-items:center;gap:8px}
+.ig-pp-icon{width:24px;height:24px;background:rgba(251,191,36,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ig-pp-title{font-size:10px;font-weight:700;color:#fbbf24}
+.ig-pp-body{padding:10px 12px;font-size:9px;color:rgba(255,255,255,.45);line-height:1.5}
+.ig-pp-btns{padding:4px 12px 10px;display:flex;flex-direction:column;gap:4px}
+.ig-pp-btn{width:100%;padding:7px;border-radius:6px;font-size:9px;font-weight:700;text-align:center;border:none}
+.ig-pp-btn.primary{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.25)}
+.ig-pp-btn.ghost{background:transparent;color:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.06)}
+.ig-success-icon{width:56px;height:56px;background:rgba(74,222,128,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(74,222,128,.25);font-size:24px}
+.ig-app-icon{width:52px;height:52px;background:rgba(74,222,128,.07);border-radius:12px;border:1px solid rgba(74,222,128,.18);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:16px;font-weight:800;color:var(--green)}
+.ig-footer{padding:16px 28px 24px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);flex-shrink:0;gap:12px}
+.ig-nav-btn{font-size:13px;font-weight:700;padding:12px 24px;border:1px solid var(--border2);color:var(--text2);background:transparent;cursor:none;transition:all .25s;border-radius:10px}
+.ig-nav-btn:hover{color:var(--text);border-color:var(--border2)}
+.ig-nav-btn.primary{border-color:transparent;color:#000;background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:0 4px 16px rgba(74,222,128,.25)}
+.ig-nav-btn.primary:hover{box-shadow:0 6px 28px rgba(74,222,128,.5);transform:translateY(-1px)}
+.ig-nav-btn:disabled{opacity:.3;cursor:default;transform:none}
+.ig-skip{font-size:12px;font-weight:600;color:var(--text3);background:none;border:none;cursor:none;transition:color .2s;padding:4px}
+.ig-skip:hover{color:var(--text2)}
+@media(max-width:600px){.ig-modal{max-height:100vh;border-radius:0}.ig-phone{width:150px}}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-ring"></div>
+<canvas id="cv"></canvas>
+<div class="prog" id="prog"></div>
+<div class="mmenu" id="mmenu">
+  <a href="index.html">Home</a><a href="store.html" class="act">Store</a>
+  <a href="products.html">Products</a><a href="account.html">Account</a><a href="future-products.html">Future</a>
+</div>
+<nav>
+  <a href="index.html" class="logo"><div class="logo-badge">SHV</div>SH Vertex Tech</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="store.html" class="act">Store</a>
+    <a href="products.html">Products</a><a href="account.html">Account</a>
+    <a href="future-products.html">Future</a><a href="index.html#contact">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="https://wa.me/94771363462" class="nav-cta" target="_blank"><span>WhatsApp</span></a>
+    <button class="mbtn" onclick="document.getElementById('mmenu').classList.toggle('open')">MENU</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="hero-left rv">
+    <div class="hero-eye"><div class="hero-eye-dot"></div><span>Official Distribution Platform</span></div>
+    <h1 class="hero-title">The <span class="glt">SHV Store</span></h1>
+    <p class="hero-sub">Your secure gateway to the entire SH Vertex app ecosystem. Direct APK distribution, cloud-synced licensing, and real-time updates — all without third-party platform limits.</p>
+    <a href="javascript:void(0)" onclick="openInstallGuide()" class="dl-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16L6 10h4V4h4v6h4l-6 6zM4 18h16v2H4v-2z"/></svg>
+      Download APK
+    </a>
+    <div class="req-info">
+      <span>Android 8.0+</span><span>Enable Unknown Sources</span><span>Free to Install</span><span>No Play Store Required</span>
+    </div>
+  </div>
+  <div class="hero-right rv" style="transition-delay:.15s">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-status"><div class="phone-status-dot"></div><div class="phone-status-time">9:41</div></div>
+          <div class="phone-header"><div class="phone-header-logo">SHV STORE</div><div class="phone-header-sub">// 4 Apps Available</div></div>
+          <div class="phone-content">
+            <div class="phone-app-row"><div class="phone-app-icon">S</div><div><div class="phone-app-name">SimpliBudget</div><div class="phone-app-tag">Finance · Paid</div></div><div class="phone-app-btn">GET</div></div>
+            <div class="phone-app-row"><div class="phone-app-icon">SY</div><div><div class="phone-app-name">Synapse</div><div class="phone-app-tag">Productivity · Paid</div></div><div class="phone-app-btn">GET</div></div>
+            <div class="phone-app-row"><div class="phone-app-icon">CT</div><div><div class="phone-app-name">Casino Tools Pro</div><div class="phone-app-tag">Analytics · Paid</div></div><div class="phone-app-btn">GET</div></div>
+            <div class="phone-app-row"><div class="phone-app-icon">SS</div><div><div class="phone-app-name">Strategy Suite Pro</div><div class="phone-app-tag">Strategy · Paid</div></div><div class="phone-app-btn">GET</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-tag rv">Why SHV Store</div>
+  <h2 class="sec-title rv">No middleman. No restrictions.</h2>
+  <div class="feat-grid">
+    <div class="feat-card rv"><div class="feat-icon green"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 4L8 10v10c0 8 5 14 12 16 7-2 12-8 12-16V10L20 4z"/><path d="M14 20l4 4 8-8"/></svg></div><div class="feat-title">Secure Direct Install</div><div class="feat-desc">APKs served directly from SH Vertex infrastructure. No third-party stores, no policy restrictions, no takedown risks.</div></div>
+    <div class="feat-card rv" style="transition-delay:.06s"><div class="feat-icon blue"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6a14 14 0 1 0 0 28 14 14 0 0 0 0-28z"/><path d="M20 14v6l4 4"/></svg></div><div class="feat-title">Real-time Updates</div><div class="feat-desc">Get notified the moment a new version is available. In-app update mechanism keeps everything current automatically.</div></div>
+    <div class="feat-card rv" style="transition-delay:.12s"><div class="feat-icon purple"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="12" width="24" height="20" rx="2"/><path d="M14 12V10a6 6 0 1 1 12 0v2"/><circle cx="20" cy="22" r="2"/><path d="M20 24v4"/></svg></div><div class="feat-title">Licence Verification</div><div class="feat-desc">Your SH Vertex Account manages app licences automatically. Purchase once, access on authorised devices.</div></div>
+    <div class="feat-card rv" style="transition-delay:.18s"><div class="feat-icon amber"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="20" cy="20" rx="14" ry="10"/><path d="M6 20s4-6 14-6 14 6 14 6-4 6-14 6-14-6-14-6z"/><circle cx="20" cy="20" r="3"/></svg></div><div class="feat-title">Catalogue Overview</div><div class="feat-desc">Browse all available SH Vertex apps in one place. Screenshots, features, pricing — full visibility before downloading.</div></div>
+    <div class="feat-card rv" style="transition-delay:.24s"><div class="feat-icon cyan"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="20" cy="16" r="6"/><path d="M8 36c0-6 5-10 12-10s12 4 12 10"/></svg></div><div class="feat-title">Account Integration</div><div class="feat-desc">Linked to your SH Vertex Account for backup management, device tracking, and cross-device access.</div></div>
+    <div class="feat-card rv" style="transition-delay:.3s"><div class="feat-icon pink"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 20h28M20 6v28"/><circle cx="20" cy="20" r="14" stroke-dasharray="4 2"/></svg></div><div class="feat-title">Future Roadmap</div><div class="feat-desc">See upcoming apps before they launch. Subscribe to be notified when new products are available.</div></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="sec-tag rv">Setup Guide</div>
+  <h2 class="sec-title rv">Up and running in 4 steps.</h2>
+  <div class="steps-grid">
+    <div class="step-card rv"><div class="step-num">01</div><div class="step-title">Download APK</div><div class="step-desc">Tap the Download button and save the APK file to your Android device.</div></div>
+    <div class="step-card rv" style="transition-delay:.08s"><div class="step-num">02</div><div class="step-title">Allow Unknown Sources</div><div class="step-desc">Go to Settings → Security and enable "Install Unknown Apps" for your browser or file manager.</div></div>
+    <div class="step-card rv" style="transition-delay:.16s"><div class="step-num">03</div><div class="step-title">Install &amp; Launch</div><div class="step-desc">Open the APK from Downloads and tap Install. Launch SHV Store from your app drawer.</div></div>
+    <div class="step-card rv" style="transition-delay:.24s"><div class="step-num">04</div><div class="step-title">Sign In &amp; Browse</div><div class="step-desc">Use your SH Vertex Account to access your licences and browse all available applications.</div></div>
+  </div>
+</section>
+
+<div class="cta-block rv">
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.18);border-radius:100px;padding:5px 16px;margin-bottom:14px">
+    <div style="width:5px;height:5px;background:var(--green);border-radius:50%;animation:gpulse 1.8s infinite"></div>
+    <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)">Official SH Vertex Distribution</span>
+  </div>
+  <h2 style="font-family:var(--display);font-size:clamp(24px,3.5vw,42px);font-weight:800;letter-spacing:-.03em;margin-bottom:14px">Ready to get started?</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:440px;margin:0 auto 28px;line-height:1.75">Download the SHV Store now and gain access to the entire SH Vertex product ecosystem.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="javascript:void(0)" onclick="openInstallGuide()" class="dl-btn" style="font-size:14px;padding:14px 28px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16L6 10h4V4h4v6h4l-6 6zM4 18h16v2H4v-2z"/></svg>
+      Download SHV Store APK
+    </a>
+    <a href="products.html" style="font-family:var(--body);font-size:14px;font-weight:600;padding:13px 24px;border-radius:10px;border:1px solid var(--border2);color:var(--text2);text-decoration:none;transition:all .25s">Browse Products</a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-links">
+      <a href="index.html">Home</a><a href="store.html">Store</a><a href="products.html">Products</a>
+      <a href="account.html">Account</a><a href="future-products.html">Future</a><a href="index.html#contact">Contact</a>
+    </div>
+    <div class="foot-copy">&copy; 2026 SH Vertex Technologies — All Rights Reserved</div>
+  </div>
+</footer>
+
+<!-- INSTALL GUIDE MODAL (full preserved HTML) -->
+<div class="ig-overlay" id="igOverlay" onclick="igOverlayClick(event)">
+  <div class="ig-modal" id="igModal">
+    <div class="ig-header">
+      <div class="ig-header-top">
+        <div><div class="ig-step-label">Step <span id="igStepNum">1</span> of 5</div><h2 class="ig-step-title">Installation Guide</h2></div>
+        <button class="ig-close" onclick="closeInstallGuide()">✕ Skip</button>
+      </div>
+      <div class="ig-steps-bar">
+        <div class="ig-step-dot active" id="igDot0"></div><div class="ig-step-dot" id="igDot1"></div>
+        <div class="ig-step-dot" id="igDot2"></div><div class="ig-step-dot" id="igDot3"></div><div class="ig-step-dot" id="igDot4"></div>
+      </div>
+    </div>
+    <div class="ig-content">
+      <div class="ig-panel active" id="igPanel0">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="justify-content:flex-start;padding-top:20px"><div style="width:100%;text-align:center;margin-bottom:8px"><div style="font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Notification</div></div><div class="ig-notif"><div class="ig-notif-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--green)"><path d="M12 16L6 10h4V4h4v6h4l-6 6zM4 18h16v2H4v-2z"/></svg></div><div class="ig-notif-text"><strong>Download complete</strong>shvstore.apk • Tap to open</div></div><div style="margin-top:12px;width:100%;text-align:center"><div style="font-size:9px;color:var(--text3)">or open via</div><div style="font-size:10px;color:rgba(255,255,255,.55);margin-top:4px">Files → Downloads</div></div></div></div></div>
+        <div><div class="ig-step-num">Step 01</div><div class="ig-step-title-sm">Tap Download</div><div class="ig-step-desc">The APK file will download to your device. When complete, you'll see a notification — tap it, or find it in your <strong>Files → Downloads</strong> folder.</div><div class="ig-tip">The file is named <strong>shvstore.apk</strong>. It comes directly from SH Vertex.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel1">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="justify-content:flex-start;padding-top:16px;gap:8px"><div style="font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase">Files App</div><div style="width:100%;display:flex;flex-direction:column;gap:6px"><div style="background:#1a1a1a;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.05)"><div style="width:24px;height:24px;background:rgba(96,165,250,.12);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px">📄</div><div style="font-size:9px;color:rgba(255,255,255,.4)">document.pdf</div></div><div style="background:#1a1a1a;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;border:1px solid rgba(74,222,128,.28);box-shadow:0 0 10px rgba(74,222,128,.07)"><div style="width:24px;height:24px;background:rgba(74,222,128,.12);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px">📦</div><div><div style="font-size:10px;color:var(--green);font-weight:700">shvstore.apk</div><div style="font-size:8px;color:rgba(255,255,255,.3)">Tap to install</div></div></div></div></div></div></div>
+        <div><div class="ig-step-num">Step 02</div><div class="ig-step-title-sm">Open the APK file</div><div class="ig-step-desc">Find <strong>shvstore.apk</strong> in your Downloads folder and tap it. Android will begin the install process.</div><div class="ig-tip">Open your <strong>Files</strong> or <strong>My Files</strong> app and look in <strong>Downloads</strong>.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel2">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="justify-content:flex-start;padding-top:14px;gap:10px"><div class="ig-dialog"><div class="ig-dialog-title">Install blocked</div><div class="ig-dialog-body">For security, your phone is set to block installation of apps from unknown sources.</div><div class="ig-dialog-btns"><div class="ig-dialog-btn primary">Settings →</div><div class="ig-dialog-btn ghost">Cancel</div></div></div><div style="display:flex;align-items:center;gap:6px;padding:0 4px"><div style="width:1px;height:40px;background:rgba(74,222,128,.25)"></div><div style="font-size:8px;color:var(--text2);line-height:1.5">Tap <strong style="color:var(--green)">Settings</strong>, then toggle <strong style="color:var(--green)">Allow from this source</strong></div></div><div class="ig-toggle-row"><div class="ig-toggle-label">Allow from this source</div><div class="ig-toggle"></div></div></div></div></div>
+        <div><div class="ig-step-num">Step 03</div><div class="ig-step-title-sm">Allow installation</div><div class="ig-step-desc">Android will show an <strong>"Install blocked"</strong> warning. Tap <strong>Settings</strong>, enable <strong>"Allow from this source"</strong>, then press Back.</div><div class="ig-warn">This is a one-time setting per app. It only applies to that specific app installing APKs.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel3">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="padding:12px 8px;justify-content:center"><div class="ig-pp-dialog"><div class="ig-pp-header"><div class="ig-pp-icon">🛡️</div><div class="ig-pp-title">Play Protect alert</div></div><div class="ig-pp-body">Google Play Protect doesn't recognise this app. It was not checked by Play Protect.</div><div class="ig-pp-btns"><div class="ig-pp-btn primary">Install anyway →</div><div class="ig-pp-btn ghost">Got it (cancel)</div></div></div><div style="margin-top:10px;display:flex;align-items:center;gap:6px;padding:0 4px"><div style="width:1px;height:32px;background:rgba(74,222,128,.25)"></div><div style="font-size:8px;color:var(--text2);line-height:1.5">Tap <strong style="color:var(--green)">Install anyway</strong></div></div></div></div></div>
+        <div><div class="ig-step-num">Step 04</div><div class="ig-step-title-sm">Bypass Play Protect</div><div class="ig-step-desc">On Android 8+, Play Protect may flag the app as <strong>"unrecognised"</strong>. This is normal for all apps outside the Play Store.</div><div class="ig-warn">Tap <strong>"Install anyway"</strong> — not "Got it". Tapping "Got it" cancels the install.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel4">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="gap:10px"><div class="ig-success-icon">✓</div><div class="ig-app-icon">SHV</div><div style="text-align:center"><div style="font-size:10px;color:var(--green);font-weight:700;letter-spacing:.1em">INSTALLED</div><div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">SHV Store</div></div><div style="background:#1a1a1a;border-radius:6px;padding:7px 14px;border:1px solid rgba(74,222,128,.18)"><div style="font-size:9px;color:var(--green);font-weight:700;text-align:center">Open</div></div></div></div></div>
+        <div><div class="ig-step-num">Step 05</div><div class="ig-step-title-sm">You're all set! 🎉</div><div class="ig-step-desc">Tap <strong>Install</strong> — the SHV Store will install and appear in your app drawer. Sign in with your SH Vertex Account to access all apps.</div><div class="ig-tip">You can disable "Allow from this source" again after installing if you prefer.</div></div>
+      </div>
+    </div>
+    <div class="ig-footer">
+      <button class="ig-nav-btn" id="igPrevBtn" onclick="igStep(-1)" disabled>← Back</button>
+      <button class="ig-skip" onclick="closeInstallGuide()">Skip guide</button>
+      <button class="ig-nav-btn primary" id="igNextBtn" onclick="igStep(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./shv-supabase-config.js"></script>
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
+});
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');let W,H,pts=[];
+const PCOLS=['rgba(74,222,128,','rgba(96,165,250,','rgba(167,139,250,','rgba(34,211,238,'];
+function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight}resize();window.addEventListener('resize',()=>{resize();init()});
+function init(){pts=[];for(let i=0;i<55;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.2+.3,c:PCOLS[Math.floor(Math.random()*PCOLS.length)]})}init();
+let mp={x:-999,y:-999};document.addEventListener('mousemove',e=>{mp.x=e.clientX;mp.y=e.clientY});
+function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1});
+for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(255,255,255,${(1-d/120)*.1})`;ctx.lineWidth=.5;ctx.stroke()}}
+const pm=pts[i],dx=pm.x-mp.x,dy=pm.y-mp.y,d=Math.sqrt(dx*dx+dy*dy);if(d<160){ctx.beginPath();ctx.moveTo(pm.x,pm.y);ctx.lineTo(mp.x,mp.y);ctx.strokeStyle=`rgba(74,222,128,${(1-d/160)*.55})`;ctx.lineWidth=.8;ctx.stroke()}}
+pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+'.6)';ctx.fill()});requestAnimationFrame(draw)}draw();
+window.addEventListener('scroll',()=>{const y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('prog').style.width=Math.min(100,y/h*100)+'%';document.body.classList.toggle('sc',y>20)},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// INSTALL GUIDE (preserved exactly)
+let igCurrent=0;const IG_TOTAL=5;
+const FALLBACK_APK='https://github.com/cryptowolfman97/shvertex-website/releases/download/v1.0/app-debug.apk';
+function getApkUrl(){return(window.SHV_APK_URL&&window.SHV_APK_URL!=='#')?window.SHV_APK_URL:FALLBACK_APK}
+function openInstallGuide(){igCurrent=0;igRender();document.getElementById('igOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeInstallGuide(){document.getElementById('igOverlay').classList.remove('open');document.body.style.overflow=''}
+function igOverlayClick(e){if(e.target===document.getElementById('igOverlay'))closeInstallGuide()}
+function igStep(dir){
+  const next=igCurrent+dir;if(next<0||next>IG_TOTAL)return;
+  if(next===IG_TOTAL){const url=getApkUrl();const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();document.body.removeChild(a);closeInstallGuide();return;}
+  igCurrent=next;igRender();
+}
+function igRender(){
+  document.querySelectorAll('.ig-panel').forEach((p,i)=>p.classList.toggle('active',i===igCurrent));
+  document.querySelectorAll('.ig-step-dot').forEach((d,i)=>{d.classList.remove('active','done');if(i===igCurrent)d.classList.add('active');else if(i<igCurrent)d.classList.add('done')});
+  document.getElementById('igStepNum').textContent=igCurrent+1;
+  document.getElementById('igPrevBtn').disabled=igCurrent===0;
+  document.getElementById('igNextBtn').textContent=igCurrent===IG_TOTAL-1?'⬇ Download Now':'Next →';
+}
+document.addEventListener('keydown',e=>{if(!document.getElementById('igOverlay').classList.contains('open'))return;if(e.key==='Escape')closeInstallGuide();if(e.key==='ArrowRight')igStep(1);if(e.key==='ArrowLeft')igStep(-1)});
+</script>
+<script src="./shv-settings.js"></script>
+</body>
+</html>
