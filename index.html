@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SH Vertex Tech | Enterprise Engineering & Security</title>
+<meta name="description" content="SH Vertex Tech — Enterprise-grade cyber security, Android/Python software, and premium web & visual design for modern businesses.">
+<link rel="icon" type="image/png" href="./assets/site/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090f;--bg2:#0d0d18;--bg3:#111120;
+  --card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --green:#4ade80;--blue:#60a5fa;--purple:#a78bfa;
+  --amber:#fbbf24;--pink:#f472b6;--cyan:#22d3ee;
+  --green-dim:rgba(74,222,128,0.1);--blue-dim:rgba(96,165,250,0.1);
+  --purple-dim:rgba(167,139,250,0.1);--amber-dim:rgba(251,191,36,0.1);
+  --pink-dim:rgba(244,114,182,0.1);--cyan-dim:rgba(34,211,238,0.1);
+  --text:#f1f0ed;--text2:#a8a49f;--text3:#5c5955;
+  --mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--body:'Plus Jakarta Sans',sans-serif;
+  /* legacy aliases for JS/modal compatibility */
+  --accent:#4ade80;--accent2:#22d3ee;--muted:rgba(241,240,237,0.45);--dim:rgba(241,240,237,0.18);
+  --surface:rgba(255,255,255,0.025);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:10px;height:10px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .15s,height .15s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(74,222,128,.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .14s ease}
+
+/* ── CANVAS ── */
+#cv{position:fixed;inset:0;z-index:0;opacity:.55;pointer-events:none}
+
+/* ── NOISE ── */
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.22;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+
+/* ── PROGRESS ── */
+.prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:200;background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 8px rgba(74,222,128,.5);transition:width .1s linear}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(9,9,15,.82);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .3s}
+body.sc nav{background:rgba(9,9,15,.95);border-color:var(--border2)}
+.logo{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo-badge{background:linear-gradient(135deg,var(--green),var(--cyan));width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-links a{font-family:var(--body);font-size:13px;font-weight:500;padding:8px 13px;border-radius:7px;color:var(--text2);text-decoration:none;transition:all .2s}
+.nav-links a:hover{color:var(--text);background:var(--card2)}
+.nav-links a.act{color:var(--green);background:var(--green-dim)}
+.nav-cta{font-family:var(--body);font-size:13px;font-weight:700;padding:10px 22px;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;text-decoration:none;transition:opacity .2s,transform .2s;box-shadow:0 4px 20px rgba(74,222,128,.25)}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
+.nav-cta span{position:relative;z-index:1}
+.mbtn{display:none;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border:1px solid var(--border);color:var(--text2);background:transparent;cursor:none;border-radius:7px;transition:all .2s}
+.mmenu{display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(9,9,15,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(24px);padding:16px;flex-direction:column;gap:4px}
+.mmenu.open{display:flex}
+.mmenu a{font-family:var(--body);font-size:13px;font-weight:500;padding:13px 16px;border-radius:8px;color:var(--text2);text-decoration:none;transition:all .2s}
+.mmenu a:hover,.mmenu a.act{color:var(--green);background:var(--green-dim)}
+@media(max-width:900px){nav{padding:14px 20px}.nav-links,.nav-cta{display:none}.mbtn{display:block}}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:130px 52px 80px;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 75% at 50% 50%,transparent 30%,var(--bg) 100%);pointer-events:none}
+
+/* gradient orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.orb1{width:600px;height:500px;background:rgba(74,222,128,.06);top:-5%;left:-8%}
+.orb2{width:400px;height:400px;background:rgba(96,165,250,.05);top:15%;right:-5%}
+.orb3{width:300px;height:300px;background:rgba(167,139,250,.04);bottom:5%;left:35%}
+
+/* shield */
+.shield-wrap{position:absolute;top:50%;right:4%;transform:translateY(-50%);width:520px;height:520px;perspective:900px;pointer-events:none;z-index:0}
+.shield-3d{width:100%;height:100%;transform-style:preserve-3d;animation:sfloat 7s ease-in-out infinite}
+@keyframes sfloat{0%,100%{transform:rotateX(6deg) rotateY(-8deg) translateY(0)}33%{transform:rotateX(-3deg) rotateY(12deg) translateY(-20px)}66%{transform:rotateX(8deg) rotateY(-14deg) translateY(-10px)}}
+.sring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid;transform:translate(-50%,-50%) rotateX(72deg);animation:rpulse 3s ease-in-out infinite}
+.sring1{width:340px;height:340px;border-color:rgba(74,222,128,.14);animation-delay:0s}
+.sring2{width:440px;height:440px;border-color:rgba(34,211,238,.08);animation-delay:.9s}
+.sring3{width:540px;height:540px;border-color:rgba(74,222,128,.04);animation-delay:1.8s}
+@keyframes rpulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) rotateX(72deg) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) rotateX(72deg) scale(1.05)}}
+
+.hero-content{position:relative;z-index:3;max-width:680px}
+
+.hero-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.18);border-radius:100px;padding:6px 16px;margin-bottom:26px;opacity:0;animation:riseUp .6s ease .2s forwards}
+.hero-eye-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:grnpulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes grnpulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+.hero-eye span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+
+.hero-title{font-family:var(--display);font-size:clamp(52px,7vw,100px);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:24px;opacity:0;animation:riseUp .8s ease .4s forwards}
+.hero-title .stroke{color:transparent;-webkit-text-stroke:1.5px rgba(74,222,128,.4)}
+.hero-title .glt{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 28px rgba(74,222,128,.35))}
+
+.hero-sub{font-size:16px;line-height:1.8;color:var(--text2);max-width:520px;margin-bottom:36px;opacity:0;animation:riseUp .7s ease .6s forwards;font-weight:400}
+.hero-sub strong{color:var(--text);font-weight:600}
+
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:riseUp .6s ease .8s forwards}
+.btn-p{font-family:var(--body);font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;text-decoration:none;transition:all .25s;box-shadow:0 4px 24px rgba(74,222,128,.28);display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden}
+.btn-p::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:rgba(255,255,255,.18);transform:skewX(-18deg);animation:shine 3.5s ease-in-out 1.5s infinite}
+@keyframes shine{0%{left:-60%}100%{left:160%}}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(74,222,128,.4)}
+.btn-p .arr{transition:transform .2s}
+.btn-p:hover .arr{transform:translateX(4px)}
+.btn-g{font-family:var(--body);font-size:14px;font-weight:600;padding:13px 26px;border-radius:10px;border:1px solid var(--border2);color:var(--text2);text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:8px;cursor:none}
+.btn-g:hover{background:var(--card2);color:var(--text);border-color:var(--border2);transform:translateY(-1px)}
+
+/* trust strip */
+.hero-trust{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:36px;opacity:0;animation:riseUp .6s ease 1s forwards}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text3);font-weight:500}
+.trust-item svg{width:13px;height:13px;color:var(--green);flex-shrink:0}
+.trust-sep{width:1px;height:14px;background:var(--border)}
+
+/* hero ticker */
+.hero-ticker{position:relative;z-index:3;margin-top:52px;display:flex;align-items:center;gap:0;border-top:1px solid var(--border);padding-top:22px;overflow:hidden;opacity:0;animation:fadeIn .7s ease 1.1s forwards}
+.ticker-lbl{font-size:11px;font-weight:600;color:var(--text3);white-space:nowrap;padding-right:22px;border-right:1px solid var(--border);flex-shrink:0}
+.ticker-wrap{overflow:hidden;flex:1}
+.ticker-inner{display:flex;gap:48px;animation:tick 24s linear infinite;white-space:nowrap}
+.ticker-inner span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;flex-shrink:0}
+.ticker-inner span.hi{color:var(--green)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes riseUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+@media(max-width:900px){.hero{padding:110px 20px 60px}.shield-wrap{display:none}.hero-title{font-size:52px}}
+
+/* ── STATS ── */
+.stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{background:var(--bg2);padding:28px 30px;position:relative;overflow:hidden;transition:background .3s}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.stat:nth-child(1)::before{background:linear-gradient(90deg,var(--green),var(--cyan))}
+.stat:nth-child(2)::before{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.stat:nth-child(3)::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.stat:nth-child(4)::before{background:linear-gradient(90deg,var(--amber),var(--pink))}
+.stat:hover::before{transform:scaleX(1)}
+.stat:hover{background:var(--bg3)}
+.stat-n{font-family:var(--display);font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px}
+.stat:nth-child(1) .stat-n{color:var(--green)}
+.stat:nth-child(2) .stat-n{color:var(--blue)}
+.stat:nth-child(3) .stat-n{color:var(--purple)}
+.stat:nth-child(4) .stat-n{color:var(--amber)}
+.stat-l{font-size:13px;color:var(--text2);font-weight:500}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.stat{padding:22px 20px}.stat-n{font-size:36px}}
+
+/* ── SECTIONS ── */
+.section{position:relative;z-index:2;padding:88px 52px}
+@media(max-width:900px){.section{padding:60px 20px}}
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--text3);margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
+.sec-tag::before{content:'';width:18px;height:1px;background:var(--text3)}
+.sec-title{font-family:var(--display);font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:14px}
+.sec-sub{font-size:15px;line-height:1.75;color:var(--text2);max-width:560px;margin-bottom:48px;font-weight:400}
+/* keep old class alias */
+.sec-eye{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--green);margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
+.sec-eye::before{content:'//';color:var(--text3)}
+
+/* ── STORE PROMO ── */
+.store-promo{position:relative;z-index:2;margin:0 52px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(135deg,rgba(74,222,128,.05),rgba(34,211,238,.03));overflow:hidden}
+@media(max-width:900px){.store-promo{margin:0 20px;border-radius:12px}}
+.store-promo::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.store-promo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(74,222,128,.03),transparent);animation:spulse 4s ease-in-out infinite}
+@keyframes spulse{0%,100%{opacity:.5}50%{opacity:1}}
+.store-inner{padding:52px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;position:relative;z-index:1}
+@media(max-width:700px){.store-inner{padding:28px 24px;grid-template-columns:1fr;gap:24px}}
+.store-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.18);border-radius:100px;padding:5px 14px;margin-bottom:14px}
+.store-badge-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:grnpulse 1.8s ease-in-out infinite}
+.store-badge span{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.store-title{font-family:var(--display);font-size:clamp(24px,3vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:12px}
+.store-sub{font-size:14px;line-height:1.75;color:var(--text2);max-width:480px;margin-bottom:28px}
+.store-req{font-size:12px;color:var(--text3);font-weight:500}
+.store-apk-btn{font-family:var(--body);font-size:14px;font-weight:700;padding:14px 28px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .25s;box-shadow:0 4px 20px rgba(74,222,128,.25)}
+.store-apk-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(74,222,128,.45)}
+.store-icon-wrap svg{width:80px;height:80px;color:var(--green);opacity:.2}
+
+/* ── SERVICES ── */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.svc-grid{grid-template-columns:1fr}}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;position:relative;overflow:hidden;transition:all .28s}
+.svc-card::after{content:'';position:absolute;inset:0;border-radius:16px;opacity:0;transition:opacity .3s}
+.svc-card[data-c=green]::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(74,222,128,.07),transparent 55%)}
+.svc-card[data-c=blue]::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(96,165,250,.07),transparent 55%)}
+.svc-card[data-c=purple]::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(167,139,250,.07),transparent 55%)}
+.svc-card[data-c=amber]::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(251,191,36,.07),transparent 55%)}
+.svc-card[data-c=pink]::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(244,114,182,.07),transparent 55%)}
+.svc-card[data-c=cyan]::after{background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(34,211,238,.07),transparent 55%)}
+.svc-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 16px 48px rgba(0,0,0,.35)}
+.svc-card:hover::after{opacity:1}
+.svc-icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex-shrink:0}
+.svc-icon-wrap svg,.svc-icon{width:24px;height:24px}
+[data-c=green] .svc-icon-wrap{background:var(--green-dim);color:var(--green)}
+[data-c=blue]  .svc-icon-wrap{background:var(--blue-dim);color:var(--blue)}
+[data-c=purple].svc-icon-wrap{background:var(--purple-dim);color:var(--purple)}
+[data-c=amber] .svc-icon-wrap{background:var(--amber-dim);color:var(--amber)}
+[data-c=pink]  .svc-icon-wrap{background:var(--pink-dim);color:var(--pink)}
+[data-c=cyan]  .svc-icon-wrap{background:var(--cyan-dim);color:var(--cyan)}
+.svc-num{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--text3);margin-bottom:10px;text-transform:uppercase}
+.svc-title{font-family:var(--display);font-size:19px;font-weight:800;margin-bottom:10px;letter-spacing:-.02em}
+.svc-desc{font-size:14px;line-height:1.72;color:var(--text2);margin-bottom:18px;font-weight:400}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.svc-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;border:1px solid var(--border);color:var(--text3);transition:all .2s}
+.svc-card:hover .svc-tag{border-color:var(--border2);color:var(--text2)}
+
+/* ── CYBER DEEP DIVE ── */
+.cyber-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.cyber-item{background:var(--bg2);padding:18px 20px;transition:background .2s}
+.cyber-item:hover{background:var(--bg3)}
+.cyber-item-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.cyber-item-desc{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.why-grid{grid-template-columns:1fr}}
+.why-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;transition:all .28s}
+.why-card:hover{background:var(--card2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.25)}
+.why-icon{width:40px;height:40px;border-radius:10px;background:var(--green-dim);display:flex;align-items:center;justify-content:center;color:var(--green);margin-bottom:18px}
+.why-icon svg{width:20px;height:20px}
+.why-title{font-family:var(--display);font-size:17px;font-weight:800;margin-bottom:10px;letter-spacing:-.02em}
+.why-desc{font-size:14px;line-height:1.72;color:var(--text2);font-weight:400}
+
+/* ── CERT STRIP ── */
+.cert-strip{position:relative;z-index:2;padding:32px 52px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;gap:0;overflow:hidden}
+@media(max-width:900px){.cert-strip{padding:22px 20px;flex-wrap:wrap;gap:12px}}
+.cert-label{font-size:11px;font-weight:600;color:var(--text3);white-space:nowrap;padding-right:24px;border-right:1px solid var(--border);flex-shrink:0;margin-right:20px;letter-spacing:.05em;text-transform:uppercase}
+.cert-list{display:flex;flex-wrap:wrap;gap:8px}
+.cert-badge{font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid var(--border);color:var(--text2);background:var(--card);transition:all .2s;white-space:nowrap}
+.cert-badge:hover{border-color:rgba(74,222,128,.3);color:var(--green);background:var(--green-dim)}
+
+/* ── ENGINEERING CORE ── */
+.eng-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
+@media(max-width:700px){.eng-grid{grid-template-columns:1fr}}
+.eng-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;display:flex;align-items:flex-start;gap:20px;transition:all .28s}
+.eng-card:hover{background:var(--card2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.25)}
+.eng-num{font-family:var(--display);font-size:42px;font-weight:800;color:rgba(74,222,128,.12);letter-spacing:-.04em;line-height:1;flex-shrink:0;min-width:52px;transition:color .3s}
+.eng-card:hover .eng-num{color:rgba(74,222,128,.25)}
+.eng-title{font-family:var(--display);font-size:17px;font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
+.eng-desc{font-size:14px;line-height:1.72;color:var(--text2);font-weight:400}
+
+/* ── CONTACT (new style — triggers assistant) ── */
+.contact-cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px}
+@media(max-width:700px){.contact-cta-grid{grid-template-columns:1fr}}
+.contact-channel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;display:flex;align-items:flex-start;gap:18px;text-decoration:none;color:inherit;transition:all .28s}
+.contact-channel:hover{background:var(--card2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.25);border-color:var(--border2)}
+.contact-channel-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-channel-icon.green{background:var(--green-dim);color:var(--green)}
+.contact-channel-icon.blue{background:var(--blue-dim);color:var(--blue)}
+.contact-channel-icon svg{width:22px;height:22px}
+.contact-channel-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.contact-channel-val{font-family:var(--display);font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.contact-channel-sub{font-size:13px;color:var(--text2)}
+.contact-assistant-card{background:linear-gradient(135deg,rgba(74,222,128,.06),rgba(34,211,238,.04));border:1px solid rgba(74,222,128,.18);border-radius:16px;padding:40px;text-align:center;position:relative;overflow:hidden;margin-top:14px}
+.contact-assistant-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.contact-assistant-card h3{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+.contact-assistant-card p{font-size:15px;color:var(--text2);max-width:480px;margin:0 auto 28px;line-height:1.7}
+.response-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.18);border-radius:100px;padding:5px 16px;margin-top:16px}
+.response-badge span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+
+/* ── ASSISTANT MODAL (preserved exactly from your current site) ── */
+.asst-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
+.asst-overlay.open{opacity:1;pointer-events:all}
+.asst-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-45%) scale(0.95);z-index:501;width:min(540px,94vw);max-height:86vh;background:var(--bg2);border:1px solid var(--border2);padding:28px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .3s;overflow:hidden;border-radius:16px}
+.asst-panel.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1)}
+.asst-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;border-bottom:1px solid var(--border);padding-bottom:14px}
+.asst-hdr h4{font-family:var(--display);font-size:15px;font-weight:800;letter-spacing:.04em;color:var(--text)}
+.asst-close{background:none;border:none;color:var(--text3);font-family:var(--mono);font-size:11px;transition:color 0.2s;cursor:none;letter-spacing:.1em;padding:4px 8px;border-radius:5px}
+.asst-close:hover{color:var(--green);background:var(--green-dim)}
+.asst-step{display:none;flex-direction:column;height:100%;flex:1;animation:asstFade 0.3s ease forwards}
+.asst-step.active{display:flex}
+@keyframes asstFade{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+.asst-q{font-size:15px;font-weight:600;margin-bottom:18px;color:var(--text);line-height:1.5}
+.asst-chips{display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:340px;padding-right:4px}
+.asst-chip{background:var(--card);border:1px solid var(--border);color:var(--text);padding:14px 18px;text-align:left;font-family:var(--body);font-size:14px;font-weight:500;display:flex;justify-content:space-between;align-items:center;cursor:none;transition:all .2s;border-radius:10px}
+.asst-chip:hover{background:var(--green-dim);border-color:rgba(74,222,128,.3);color:var(--green)}
+.asst-chip span{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em}
+.asst-chip:hover span{color:var(--green)}
+.asst-area{width:100%;height:160px;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--body);font-size:14px;padding:14px;outline:none;resize:none;margin-bottom:16px;transition:border-color .2s;border-radius:10px}
+.asst-area:focus{border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.02)}
+.asst-input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--body);font-size:14px;padding:12px 14px;outline:none;margin-bottom:10px;transition:border-color .2s;border-radius:10px}
+.asst-input:focus{border-color:rgba(74,222,128,.4)}
+.asst-btn-row{display:flex;gap:10px;margin-top:auto;padding-top:20px}
+.asst-btn{flex:1;font-family:var(--body);font-size:13px;font-weight:700;padding:13px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#000;border:none;cursor:none;transition:all .25s;border-radius:10px;box-shadow:0 4px 16px rgba(74,222,128,.25)}
+.asst-btn:hover{box-shadow:0 6px 24px rgba(74,222,128,.45);transform:translateY(-1px)}
+.asst-btn.sec{background:var(--card);border:1px solid var(--border);color:var(--text2);box-shadow:none}
+.asst-btn.sec:hover{border-color:var(--border2);box-shadow:none;color:var(--text);transform:none}
+.asst-btn:disabled{opacity:.5;box-shadow:none;transform:none}
+.asst-status{font-family:var(--mono);font-size:10px;text-transform:uppercase;margin-bottom:10px;color:var(--green);letter-spacing:.12em}
+.asst-success{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-bottom:40px;gap:8px}
+.asst-success svg{width:52px;height:52px;color:var(--green);margin-bottom:8px;filter:drop-shadow(0 0 12px rgba(74,222,128,.35))}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:2;padding:52px 0 28px;border-top:1px solid var(--border)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 52px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+@media(max-width:900px){.foot-inner{padding:0 20px}}
+.foot-logo{font-family:var(--display);font-size:15px;font-weight:800;color:var(--text)}
+.foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.foot-links a{font-size:13px;font-weight:500;color:var(--text3);text-decoration:none;padding:6px 12px;border-radius:6px;transition:all .2s}
+.foot-links a:hover{color:var(--green);background:var(--green-dim)}
+.foot-contacts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.foot-contact{font-size:13px;font-weight:500;padding:9px 18px;border-radius:100px;border:1px solid var(--border);color:var(--text2);text-decoration:none;transition:all .2s;display:flex;align-items:center;gap:8px}
+.foot-contact:hover{border-color:rgba(74,222,128,.3);color:var(--green);background:var(--green-dim)}
+.foot-copy{font-size:12px;color:var(--text3);font-weight:500}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.rv.in{opacity:1;transform:none}
+.rvl{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease}
+.rvl.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="cv"></canvas>
+<div class="prog" id="prog"></div>
+
+<!-- MOBILE MENU -->
+<div class="mmenu" id="mmenu">
+  <a href="#home" class="act">Home</a>
+  <a href="store.html">Store</a>
+  <a href="products.html">Products</a>
+  <a href="account.html">Account</a>
+  <a href="future-products.html">Future</a>
+  <a href="#contact">Contact</a>
+  <a href="https://wa.me/94771363462" target="_blank" style="color:var(--green)">WhatsApp ↗</a>
+</div>
+
+<nav>
+  <a href="#home" class="logo">
+    <div class="logo-badge">SHV</div>
+    SH Vertex Tech
+  </a>
+  <div class="nav-links">
+    <a href="#home" class="act">Home</a>
+    <a href="store.html">Store</a>
+    <a href="products.html">Products</a>
+    <a href="account.html">Account</a>
+    <a href="future-products.html">Future</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="https://wa.me/94771363462" class="nav-cta" target="_blank"><span>WhatsApp</span></a>
+    <button class="mbtn" id="mbtn" onclick="toggleMenu()">MENU</button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="home">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <!-- 3D Shield — preserved exactly -->
+  <div class="shield-wrap">
+    <div class="sring sring1"></div>
+    <div class="sring sring2"></div>
+    <div class="sring sring3"></div>
+    <div class="shield-3d">
+      <svg viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 50px rgba(74,222,128,.18)) drop-shadow(0 0 100px rgba(34,211,238,.08))">
+        <defs>
+          <linearGradient id="sg1" x1="0" y1="0" x2="220" y2="260" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4ade80" stop-opacity=".2"/><stop offset="100%" stop-color="#22d3ee" stop-opacity=".06"/></linearGradient>
+          <linearGradient id="sg2" x1="0" y1="0" x2="220" y2="260" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4ade80" stop-opacity=".85"/><stop offset="100%" stop-color="#22d3ee" stop-opacity=".45"/></linearGradient>
+          <filter id="gf1"><feGaussianBlur stdDeviation="4"/></filter>
+        </defs>
+        <path d="M110 12 L196 50 L196 136 C196 196 154 232 110 246 C66 232 24 196 24 136 L24 50 Z" fill="url(#sg1)" filter="url(#gf1)"/>
+        <path d="M110 12 L196 50 L196 136 C196 196 154 232 110 246 C66 232 24 196 24 136 L24 50 Z" fill="none" stroke="url(#sg2)" stroke-width="1.5"/>
+        <path d="M110 30 L180 62 L180 132 C180 182 148 215 110 227 C72 215 40 182 40 132 L40 62 Z" fill="none" stroke="rgba(74,222,128,.1)" stroke-width="1"/>
+        <path d="M90 105 L110 94 L130 105 L130 127 L110 138 L90 127 Z" fill="none" stroke="rgba(74,222,128,.28)" stroke-width="1"/>
+        <path d="M70 115 L90 105 M130 105 L150 115 M90 127 L70 137 M130 127 L150 137 M110 138 L110 155 M110 94 L110 77" stroke="rgba(74,222,128,.1)" stroke-width="1"/>
+        <path d="M83 119 L103 139 L140 98" stroke="url(#sg2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="28" y1="115" x2="192" y2="115" stroke="rgba(74,222,128,.22)" stroke-width="1" stroke-dasharray="5 10">
+          <animateTransform attributeName="transform" type="translate" values="0,-90;0,90;0,-90" dur="3.5s" repeatCount="indefinite"/>
+        </line>
+        <path d="M24 50 L44 50 M24 68 L24 50" stroke="rgba(74,222,128,.5)" stroke-width="1.5"/>
+        <path d="M196 50 L176 50 M196 68 L196 50" stroke="rgba(74,222,128,.5)" stroke-width="1.5"/>
+        <circle cx="110" cy="47" r="3" fill="none" stroke="rgba(74,222,128,.3)" stroke-width="1"/>
+        <circle cx="184" cy="100" r="2.5" fill="rgba(74,222,128,.4)"/>
+        <circle cx="36" cy="100" r="2.5" fill="rgba(34,211,238,.4)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eye">
+      <div class="hero-eye-dot"></div>
+      <span>Cyber Security &bull; Development &bull; Design</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="stroke">DEFEND</span><br>
+      <span class="glt">BUILD</span><br>
+      <span class="stroke">DELIVER</span>
+    </h1>
+    <p class="hero-sub">We design <strong>secure digital infrastructure</strong>, build high-performance software, and create premium product ecosystems for modern businesses, founders, and high-intent buyers.</p>
+    <div class="hero-btns">
+      <a href="products.html" class="btn-p">View Products <span class="arr">→</span></a>
+      <a class="btn-g" onclick="openAsst()">Contact Us</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z"/><path d="M9 12l2 2 4-4"/></svg>
+        8 Certifications
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+        50+ Projects
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        B2B Focus
+      </div>
+    </div>
+    <div class="hero-ticker">
+      <div class="ticker-lbl">Core Expertise</div>
+      <div class="ticker-wrap">
+        <div class="ticker-inner">
+          <span class="hi">Zero-Trust Architecture</span><span>•</span>
+          <span>IAM / PAM Solutions</span><span>•</span>
+          <span class="hi">Android App Development</span><span>•</span>
+          <span>Python &amp; Kivy Frameworks</span><span>•</span>
+          <span class="hi">EDR / XDR Operations</span><span>•</span>
+          <span>Premium UI Design</span><span>•</span>
+          <span class="hi">VAPT &amp; Security Training</span><span>•</span>
+          <span>Web Architecture</span><span>•</span>
+          <span class="hi">Data Center Security</span><span>•</span>
+          <span>Mobile Device Management</span><span>•</span>
+          <span class="hi">Zero-Trust Architecture</span><span>•</span>
+          <span>IAM / PAM Solutions</span><span>•</span>
+          <span class="hi">Android App Development</span><span>•</span>
+          <span>Python &amp; Kivy Frameworks</span><span>•</span>
+          <span class="hi">EDR / XDR Operations</span><span>•</span>
+          <span>Premium UI Design</span><span>•</span>
+          <span class="hi">VAPT &amp; Security Training</span><span>•</span>
+          <span>Web Architecture</span><span>•</span>
+          <span class="hi">Data Center Security</span><span>•</span>
+          <span>Mobile Device Management</span><span>•</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat rv"><div class="stat-n" data-count="50">0+</div><div class="stat-l">Projects Delivered</div></div>
+  <div class="stat rv" style="transition-delay:.08s"><div class="stat-n">A+</div><div class="stat-l">Security Grade</div></div>
+  <div class="stat rv" style="transition-delay:.16s"><div class="stat-n" data-count="8">0</div><div class="stat-l">Certifications</div></div>
+  <div class="stat rv" style="transition-delay:.24s"><div class="stat-n">B2B</div><div class="stat-l">Service Focus</div></div>
+</div>
+
+<!-- STORE PROMO -->
+<div class="section" style="padding-bottom:0">
+  <div class="store-promo rv">
+    <div class="store-inner">
+      <div>
+        <div class="store-badge"><div class="store-badge-dot"></div><span>Official Ecosystem</span></div>
+        <h2 class="store-title">The SHV Store App</h2>
+        <p class="store-sub">Bypass third-party platform limits. Download our official Android hub for direct, secure access to all SH Vertex applications, cloud-synced licensing, and real-time roadmap updates.</p>
+        <a href="javascript:void(0)" onclick="openInstallGuide()" class="store-apk-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16L6 10h4V4h4v6h4l-6 6zM4 18h16v2H4v-2z"/></svg>
+          Download Store APK
+        </a>
+        <div style="margin-top:12px" class="store-req">Requires Android 8.0+ &nbsp;•&nbsp; Direct Install &nbsp;•&nbsp; No Play Store Required</div>
+      </div>
+      <div class="store-icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="15" y="10" width="70" height="80" rx="8"/>
+          <rect x="25" y="25" width="50" height="35" rx="3"/>
+          <circle cx="50" cy="76" r="4"/>
+          <path d="M35 38l10 10 20-20"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="sec-tag rv">What We Deliver</div>
+  <h2 class="sec-title rv">End-to-end technical services,<br>built without compromise.</h2>
+  <p class="sec-sub rv">Spanning cybersecurity, software engineering, and premium visual design — every layer of the digital stack.</p>
+  <div class="svc-grid">
+
+    <div class="svc-card rv" data-c="green">
+      <div class="svc-icon-wrap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M24 4L8 12v14c0 10 7 19 16 21 9-2 16-11 16-21V12L24 4z"/><path d="M17 24l5 5 10-10"/><circle cx="24" cy="21" r="7" stroke-opacity=".25"/></svg></div>
+      <div class="svc-num">01 // Security</div>
+      <div class="svc-title">Cyber Security Operations</div>
+      <div class="svc-desc">Comprehensive zero-trust infrastructure protection. Enterprise-grade security from perimeter to endpoint — identity, privilege, detection, and response.</div>
+      <div class="svc-tags"><span class="svc-tag">IAM</span><span class="svc-tag">PAM</span><span class="svc-tag">EDR</span><span class="svc-tag">XDR</span><span class="svc-tag">VAPT</span><span class="svc-tag">DLP</span></div>
+    </div>
+
+    <div class="svc-card rv" data-c="blue" style="transition-delay:.06s">
+      <div class="svc-icon-wrap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="10" width="36" height="28" rx="2"/><path d="M16 22l-5 5 5 5M32 22l5 5-5 5M24 17l-4 14"/></svg></div>
+      <div class="svc-num">02 // Development</div>
+      <div class="svc-title">App Development</div>
+      <div class="svc-desc">Complex, data-heavy applications and software ecosystems. Python and Kivy for cross-platform tools with algorithmic processing and simulation logic.</div>
+      <div class="svc-tags"><span class="svc-tag">Python</span><span class="svc-tag">Kivy</span><span class="svc-tag">Android</span><span class="svc-tag">Kotlin</span></div>
+    </div>
+
+    <div class="svc-card rv" data-c="purple" style="transition-delay:.12s">
+      <div class="svc-icon-wrap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="24" cy="24" r="16"/><path d="M24 10c0 0 8 6 8 14s-8 14-8 14M24 10c0 0-8 6-8 14s8 14 8 14M8 24h32"/></svg></div>
+      <div class="svc-num">03 // Design</div>
+      <div class="svc-title">Graphic Design</div>
+      <div class="svc-desc">Expert-level visual architecture. Pixel-perfect image manipulation, premium brand identity crafting, and engaging UI/UX asset design.</div>
+      <div class="svc-tags"><span class="svc-tag">Branding</span><span class="svc-tag">UI/UX</span><span class="svc-tag">Identity</span></div>
+    </div>
+
+    <div class="svc-card rv" data-c="amber" style="transition-delay:.18s">
+      <div class="svc-icon-wrap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="8" width="40" height="32" rx="3"/><path d="M4 16h40M14 8v8M4 28h10M4 34h6"/><rect x="18" y="22" width="22" height="14" rx="1" stroke-opacity=".5"/></svg></div>
+      <div class="svc-num">04 // Web</div>
+      <div class="svc-title">Web Designing</div>
+      <div class="svc-desc">Responsive, high-converting websites. Seamless navigation and premium brand positioning for modern businesses.</div>
+      <div class="svc-tags"><span class="svc-tag">Responsive</span><span class="svc-tag">AMOLED</span><span class="svc-tag">CRO</span></div>
+    </div>
+
+    <div class="svc-card rv" data-c="pink" style="transition-delay:.24s">
+      <div class="svc-icon-wrap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="12" width="30" height="24" rx="2"/><path d="M34 20l10-6v20l-10-6"/><path d="M14 22l7 5-7 5" fill="currentColor" stroke="none" opacity=".4"/></svg></div>
+      <div class="svc-num">05 // Media</div>
+      <div class="svc-title">Video Post-Production</div>
+      <div class="svc-desc">Streamlined, professional video editing for corporate communications. Clean cuts, clear audio, crisp visual storytelling.</div>
+      <div class="svc-tags"><span class="svc-tag">Corporate</span><span class="svc-tag">Editing</span><span class="svc-tag">Motion</span></div>
+    </div>
+
+    <div class="svc-card rv" data-c="cyan" style="transition-delay:.3s">
+      <div class="svc-icon-wrap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="24" cy="24" r="5"/><circle cx="10" cy="14" r="3.5"/><circle cx="38" cy="14" r="3.5"/><circle cx="10" cy="34" r="3.5"/><circle cx="38" cy="34" r="3.5"/><path d="M13 15l8 7M35 15l-8 7M13 33l8-7M35 33l-8-7"/></svg></div>
+      <div class="svc-num">06 // Ecosystem</div>
+      <div class="svc-title">Product Ecosystems</div>
+      <div class="svc-desc">Full-stack product suites with the SHV Store as the secure distribution hub. Cloud-synced licensing and direct APK distribution.</div>
+      <div class="svc-tags"><span class="svc-tag">SHV Store</span><span class="svc-tag">Licensing</span><span class="svc-tag">Direct</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CYBER DEEP DIVE -->
+<section class="section" style="padding-top:0" id="cyber">
+  <div style="border:1px solid var(--border);border-radius:16px;background:var(--bg2);padding:36px;overflow:hidden">
+    <div class="sec-eye rv" style="margin-bottom:10px">Cyber Security Detail</div>
+    <h3 class="rv" style="font-family:var(--display);font-size:clamp(20px,2.5vw,30px);font-weight:800;letter-spacing:-.03em;margin-bottom:24px">Full service inventory — what we deploy</h3>
+    <div class="cyber-grid rv">
+      <div class="cyber-item"><div class="cyber-item-tag">Identity &amp; Access</div><div class="cyber-item-desc">Identity Access Management (IAM) · Privilege Access Management (PAM)</div></div>
+      <div class="cyber-item"><div class="cyber-item-tag">Detection &amp; Response</div><div class="cyber-item-desc">EDR &amp; XDR Operations · Endpoint AV Solutions · UEBA Implementation</div></div>
+      <div class="cyber-item"><div class="cyber-item-tag">Infrastructure</div><div class="cyber-item-desc">Data Center &amp; Server Security · Firewalls &amp; NGFWs · Deception Technology</div></div>
+      <div class="cyber-item"><div class="cyber-item-tag">Network &amp; Cloud</div><div class="cyber-item-desc">Secure Web Gateway (CASB) · Email Security &amp; Collaboration · Endpoint/Network Management</div></div>
+      <div class="cyber-item"><div class="cyber-item-tag">Data &amp; Compliance</div><div class="cyber-item-desc">DLP &amp; Data Classifications · Data Back-up &amp; Storage · Mobile Device Management (MDM)</div></div>
+      <div class="cyber-item"><div class="cyber-item-tag">Assessment &amp; Training</div><div class="cyber-item-desc">VAPT &amp; Security Training · Security Audits · Zero-Trust Architecture Design</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SH VERTEX -->
+<section class="section" id="why-us">
+  <div class="sec-tag rvl">Why SH Vertex</div>
+  <h2 class="sec-title rv">Built for serious delivery.</h2>
+  <div class="why-grid">
+    <div class="why-card rv">
+      <div class="why-icon"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3L5 9v10c0 8 5.5 15 13 17 7.5-2 13-9 13-17V9L18 3z"/></svg></div>
+      <div class="why-title">Security-First Thinking</div>
+      <div class="why-desc">Strong cyber security foundations influence how we build, structure, and protect both services and software products. Every system is designed to stay secure from the ground up.</div>
+    </div>
+    <div class="why-card rv" style="transition-delay:.08s">
+      <div class="why-icon"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="6" width="28" height="24" rx="2"/><path d="M12 18l-4 4 4 4M24 18l4 4-4 4M18 13l-4 10"/></svg></div>
+      <div class="why-title">Logic-Heavy Systems</div>
+      <div class="why-desc">Comfortable with simulation logic, operational tooling, workflow design, and complex internal-use applications. We build systems that actually think, not just display.</div>
+    </div>
+    <div class="why-card rv" style="transition-delay:.16s">
+      <div class="why-icon"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="18" r="13"/><path d="M12 18l4 4 8-8"/></svg></div>
+      <div class="why-title">Premium Presentation</div>
+      <div class="why-desc">Clean, dark, modern, and conversion-aware design language that makes output feel premium instead of generic. Cohesive systems designed to function well and present well.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<div class="cert-strip">
+  <div class="cert-label">Certified &amp; Trusted</div>
+  <div class="cert-list">
+    <span class="cert-badge">AZ-104 Azure Admin</span>
+    <span class="cert-badge">AZ-900 Azure Fund.</span>
+    <span class="cert-badge">SC-900 Sec &amp; Identity</span>
+    <span class="cert-badge">ITIL 4 Fundamentals</span>
+    <span class="cert-badge">Kaspersky NEXT P19.01</span>
+    <span class="cert-badge">Kaspersky NEXT S19.01</span>
+    <span class="cert-badge">Kaspersky KATA EDR S25.5</span>
+    <span class="cert-badge">Kaspersky NEXT XDR S48.2</span>
+    <span class="cert-badge">Kaspersky UMAP S34.1</span>
+  </div>
+</div>
+
+<!-- ENGINEERING CORE -->
+<section class="section" id="engineering-core">
+  <div class="sec-eye rv">The Minds Behind the Machine</div>
+  <h2 class="sec-title rv">Engineering Core</h2>
+  <p class="rv" style="font-size:15px;color:var(--text2);margin-top:8px;max-width:580px">Multi-disciplinary digital architecture supported by elite expertise — every project comprehensively engineered to exact specifications.</p>
+  <div class="eng-grid">
+    <div class="eng-card rv">
+      <div class="eng-num">01</div>
+      <div><div class="eng-title">Cyber Security</div><div class="eng-desc">Designing impenetrable, zero-trust architectures and managing enterprise-grade endpoints to secure sensitive corporate data streams.</div></div>
+    </div>
+    <div class="eng-card rv" style="transition-delay:.08s">
+      <div class="eng-num">02</div>
+      <div><div class="eng-title">Software Development</div><div class="eng-desc">Deploying robust, logic-heavy Python and Kivy frameworks for cross-platform Android applications and complex simulation tools.</div></div>
+    </div>
+    <div class="eng-card rv" style="transition-delay:.12s">
+      <div class="eng-num">03</div>
+      <div><div class="eng-title">Design &amp; Web</div><div class="eng-desc">Executing pixel-perfect graphic layouts and engineering responsive, high-converting web architectures with modern aesthetics.</div></div>
+    </div>
+    <div class="eng-card rv" style="transition-delay:.18s">
+      <div class="eng-num">04</div>
+      <div><div class="eng-title">Video Production</div><div class="eng-desc">Delivering crisp, professional video post-production tailored for corporate communications and high-end digital media campaigns.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="sec-eye rv">Get In Touch</div>
+  <h2 class="sec-title rv">Let's build something together.</h2>
+  <p class="rv" style="font-size:15px;color:var(--text2);margin-top:8px;max-width:480px">For custom services, product access, or partnership discussions — reach out directly or use our intake assistant.</p>
+
+  <div class="contact-cta-grid rv">
+    <a href="mailto:ceo@shvertex.online" class="contact-channel">
+      <div class="contact-channel-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+      </div>
+      <div>
+        <div class="contact-channel-label">Email</div>
+        <div class="contact-channel-val">ceo@shvertex.online</div>
+        <div class="contact-channel-sub">Direct line to the CEO</div>
+      </div>
+    </a>
+    <a href="https://wa.me/94771363462" class="contact-channel" target="_blank">
+      <div class="contact-channel-icon blue">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.549 4.122 1.508 5.857L0 24l6.304-1.509A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.846 0-3.572-.499-5.06-1.37l-.363-.214-3.742.896.912-3.65-.236-.376A9.957 9.957 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      </div>
+      <div>
+        <div class="contact-channel-label">WhatsApp</div>
+        <div class="contact-channel-val">+94 77 136 3462</div>
+        <div class="contact-channel-sub">Fastest response channel</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="contact-assistant-card rv">
+    <h3>Use the SHV Intake Assistant</h3>
+    <p>Tell us about your project in 3 quick steps. We'll route your request directly to the right team and respond within 24 hours.</p>
+    <button onclick="openAsst()" class="btn-p" style="margin:0 auto;display:inline-flex">
+      Launch Assistant <span class="arr">→</span>
+    </button>
+    <div class="response-badge">
+      <div class="hero-eye-dot"></div>
+      <span>Avg. Response: 24 Hours</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">SH Vertex Technologies</div>
+    <div class="foot-links">
+      <a href="#home">Home</a><a href="store.html">Store</a>
+      <a href="products.html">Products</a><a href="account.html">Account</a>
+      <a href="future-products.html">Future</a><a href="#contact">Contact</a>
+      <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+    </div>
+    <div class="foot-contacts">
+      <a href="mailto:ceo@shvertex.online" class="foot-contact">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        ceo@shvertex.online
+      </a>
+      <a href="https://wa.me/94771363462" class="foot-contact" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.549 4.122 1.508 5.857L0 24l6.304-1.509A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        +94 77 136 3462
+      </a>
+    </div>
+    <div class="foot-copy">&copy; 2026 SH Vertex Technologies &mdash; All Rights Reserved</div>
+  </div>
+</footer>
+
+<!-- ═══════════════ INTAKE ASSISTANT MODAL (preserved exactly) ═══════════════ -->
+<div class="asst-overlay" id="asstOverlay" onclick="closeAsst()"></div>
+<div class="asst-panel" id="asstPanel">
+  <div class="asst-hdr">
+    <h4>SHV Intake Assistant</h4>
+    <button class="asst-close" onclick="closeAsst()">[CLOSE]</button>
+  </div>
+  <div class="asst-step active" id="asstStep1">
+    <div class="asst-q">Select the category of service your engineering project requires:</div>
+    <div class="asst-chips">
+      <button class="asst-chip" onclick="selectCategory('Cyber Security Operations')">Cyber Security <span>01 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('App Development')">App Development <span>02 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Graphic Design')">Graphic Design <span>03 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Web Designing')">Web Designing <span>04 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Video Post-Production')">Video Production <span>05 //</span></button>
+      <button class="asst-chip" onclick="selectCategory('Custom Architecture Inquiry')">Other / Core Ecosystem <span>06 //</span></button>
+    </div>
+  </div>
+  <div class="asst-step" id="asstStep2">
+    <div class="asst-q" id="asstStep2Title">Describe the project scope:</div>
+    <textarea class="asst-area" id="asstDesc" placeholder="Provide system requirements, parameters, or objective insights..."></textarea>
+    <div class="asst-btn-row">
+      <button class="asst-btn sec" onclick="changeStep(1)">Back</button>
+      <button class="asst-btn" onclick="validateStep2()">Next</button>
+    </div>
+  </div>
+  <div class="asst-step" id="asstStep3">
+    <div class="asst-q">Provide direct verification and routing vectors:</div>
+    <input type="text" class="asst-input" id="asstName" placeholder="Your Name / Organization" required>
+    <input type="email" class="asst-input" id="asstEmail" placeholder="Corporate Email Address" required>
+    <input type="tel" class="asst-input" id="asstWhatsapp" placeholder="WhatsApp Line (Optional)">
+    <div class="asst-btn-row">
+      <button class="asst-btn sec" onclick="changeStep(2)">Back</button>
+      <button class="asst-btn" id="asstSubmitBtn" onclick="submitToSupabase()">Deploy Request</button>
+    </div>
+  </div>
+  <div class="asst-step" id="asstStep4">
+    <div class="asst-success">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <div class="asst-status">Transaction Dispatched</div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.65">Your project parameters have been written to our secure sync database layer. Core engineers notified via edge hooks.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ INSTALL GUIDE MODAL (preserved from store flow) ═══════════════ -->
+<style>
+.ig-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px}
+.ig-overlay.open{display:flex}
+.ig-modal{width:100%;max-width:560px;background:var(--bg2);border:1px solid rgba(74,222,128,.2);border-radius:16px;position:relative;max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
+.ig-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);border-radius:16px 16px 0 0}
+.ig-header{padding:24px 28px 0;flex-shrink:0}
+.ig-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ig-step-title{font-family:var(--display);font-size:18px;font-weight:800;letter-spacing:-.02em}
+.ig-close{font-size:12px;font-weight:600;padding:8px 14px;border:1px solid var(--border);color:var(--text2);background:transparent;cursor:none;transition:all .2s;border-radius:8px}
+.ig-close:hover{border-color:rgba(74,222,128,.4);color:var(--green)}
+.ig-step-label{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:6px}
+.ig-step-label span{color:var(--green)}
+.ig-steps-bar{display:flex;align-items:center;gap:6px;margin-bottom:20px}
+.ig-step-dot{height:3px;border-radius:2px;flex:1;background:var(--border);transition:all .35s}
+.ig-step-dot.done{background:rgba(74,222,128,.45)}
+.ig-step-dot.active{background:var(--green);flex:2}
+.ig-content{flex:1;overflow-y:auto;padding:0 28px 20px}
+.ig-panel{display:none;animation:igFadeUp .3s ease}
+.ig-panel.active{display:flex;flex-direction:column;gap:20px}
+@keyframes igFadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ig-phone-wrap{display:flex;justify-content:center}
+.ig-phone{width:180px;background:#0a0a0a;border:1.5px solid rgba(255,255,255,.1);border-radius:24px;padding:8px;position:relative;box-shadow:0 0 40px rgba(74,222,128,.1)}
+.ig-phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:44px;height:3px;background:rgba(255,255,255,.1);border-radius:2px}
+.ig-phone-screen{background:#000;border-radius:17px;overflow:hidden;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:12px;position:relative}
+.ig-step-num{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.ig-step-title-sm{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+.ig-step-desc{font-size:14px;line-height:1.75;color:var(--text2)}
+.ig-step-desc strong{color:var(--text);font-weight:600}
+.ig-tip{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid rgba(74,222,128,.18);background:rgba(74,222,128,.04);border-radius:10px;margin-top:4px;font-size:13px;line-height:1.65;color:var(--text2)}
+.ig-tip::before{content:'💡';flex-shrink:0}
+.ig-warn{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid rgba(251,191,36,.18);background:rgba(251,191,36,.04);border-radius:10px;margin-top:4px;font-size:13px;line-height:1.65;color:var(--text2)}
+.ig-warn::before{content:'⚠️';flex-shrink:0}
+.ig-notif{width:100%;background:#1a1a1a;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.08)}
+.ig-notif-icon{width:32px;height:32px;background:rgba(74,222,128,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ig-notif-text{font-size:9px;color:rgba(255,255,255,.65);line-height:1.4}
+.ig-notif-text strong{color:#fff;display:block;font-size:10px}
+.ig-toggle-row{width:100%;display:flex;align-items:center;justify-content:space-between;background:#1a1a1a;border-radius:8px;padding:10px 12px;border:1px solid rgba(255,255,255,.08)}
+.ig-toggle-label{font-size:9px;color:rgba(255,255,255,.65);line-height:1.4;max-width:140px}
+.ig-toggle{width:36px;height:20px;background:var(--green);border-radius:10px;position:relative;flex-shrink:0;box-shadow:0 0 10px rgba(74,222,128,.4)}
+.ig-toggle::after{content:'';position:absolute;right:2px;top:2px;width:16px;height:16px;background:#fff;border-radius:50%}
+.ig-dialog{width:100%;background:#1e1e1e;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.1)}
+.ig-dialog-title{font-size:11px;font-weight:700;color:#fff;margin-bottom:4px}
+.ig-dialog-body{font-size:9px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:10px}
+.ig-dialog-btns{display:flex;flex-direction:column;gap:5px}
+.ig-dialog-btn{width:100%;padding:7px;border-radius:6px;font-size:9px;font-weight:700;text-align:center;border:none}
+.ig-dialog-btn.primary{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.ig-dialog-btn.ghost{background:transparent;color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1)}
+.ig-pp-dialog{width:100%;background:#1e1e1e;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.ig-pp-header{background:#2a1a1a;padding:10px 12px;display:flex;align-items:center;gap:8px}
+.ig-pp-icon{width:24px;height:24px;background:rgba(251,191,36,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ig-pp-title{font-size:10px;font-weight:700;color:#fbbf24}
+.ig-pp-body{padding:10px 12px;font-size:9px;color:rgba(255,255,255,.5);line-height:1.5}
+.ig-pp-btns{padding:4px 12px 10px;display:flex;flex-direction:column;gap:4px}
+.ig-pp-btn{width:100%;padding:7px;border-radius:6px;font-size:9px;font-weight:700;text-align:center;border:none}
+.ig-pp-btn.primary{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.ig-pp-btn.ghost{background:transparent;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.07)}
+.ig-success-icon{width:56px;height:56px;background:rgba(74,222,128,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(74,222,128,.3);font-size:24px}
+.ig-app-icon{width:52px;height:52px;background:rgba(74,222,128,.08);border-radius:12px;border:1px solid rgba(74,222,128,.18);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:16px;font-weight:800;color:var(--green)}
+.ig-footer{padding:16px 28px 24px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);flex-shrink:0;gap:12px}
+.ig-nav-btn{font-size:12px;font-weight:700;padding:12px 24px;border:1px solid var(--border2);color:var(--text2);background:transparent;cursor:none;transition:all .25s;border-radius:10px}
+.ig-nav-btn:hover{color:var(--text);border-color:var(--border2)}
+.ig-nav-btn.primary{border-color:var(--green);color:#000;background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:0 4px 16px rgba(74,222,128,.25)}
+.ig-nav-btn.primary:hover{box-shadow:0 6px 28px rgba(74,222,128,.5)}
+.ig-nav-btn:disabled{opacity:.3;cursor:default}
+.ig-skip{font-size:11px;font-weight:600;color:var(--text3);background:none;border:none;cursor:none;transition:color .2s;padding:4px}
+.ig-skip:hover{color:var(--text2)}
+@media(max-width:600px){.ig-modal{max-height:100vh;border-radius:0}.ig-phone{width:150px}}
+</style>
+
+<div class="ig-overlay" id="igOverlay" onclick="igOverlayClick(event)">
+  <div class="ig-modal" id="igModal">
+    <div class="ig-header">
+      <div class="ig-header-top">
+        <div>
+          <div class="ig-step-label">Step <span id="igStepNum">1</span> of 5</div>
+          <h2 class="ig-step-title">Installation Guide</h2>
+        </div>
+        <button class="ig-close" onclick="closeInstallGuide()">✕ Skip</button>
+      </div>
+      <div class="ig-steps-bar" id="igStepsBar">
+        <div class="ig-step-dot active" id="igDot0"></div>
+        <div class="ig-step-dot" id="igDot1"></div>
+        <div class="ig-step-dot" id="igDot2"></div>
+        <div class="ig-step-dot" id="igDot3"></div>
+        <div class="ig-step-dot" id="igDot4"></div>
+      </div>
+    </div>
+    <div class="ig-content">
+      <div class="ig-panel active" id="igPanel0">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="justify-content:flex-start;padding-top:20px"><div style="width:100%;text-align:center;margin-bottom:8px"><div style="font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Notification</div></div><div class="ig-notif"><div class="ig-notif-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--green)"><path d="M12 16L6 10h4V4h4v6h4l-6 6zM4 18h16v2H4v-2z"/></svg></div><div class="ig-notif-text"><strong>Download complete</strong>shvstore.apk • Tap to open</div></div><div style="margin-top:12px;width:100%;text-align:center"><div style="font-size:9px;color:var(--text3)">or open via</div><div style="font-size:10px;color:rgba(255,255,255,.55);margin-top:4px">Files → Downloads</div></div></div></div></div>
+        <div><div class="ig-step-num">Step 01</div><div class="ig-step-title-sm">Tap Download</div><div class="ig-step-desc">The APK file will download to your device. When complete, you'll see a notification — tap it, or find it in your <strong>Files → Downloads</strong> folder.</div><div class="ig-tip">The file is named <strong>shvstore.apk</strong>. It comes directly from SH Vertex infrastructure.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel1">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="justify-content:flex-start;padding-top:16px;gap:8px"><div style="font-size:8px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase">Files App</div><div style="width:100%;display:flex;flex-direction:column;gap:6px"><div style="background:#1a1a1a;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.05)"><div style="width:24px;height:24px;background:rgba(96,165,250,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px">📄</div><div style="font-size:9px;color:rgba(255,255,255,.45)">document.pdf</div></div><div style="background:#1a1a1a;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;border:1px solid rgba(74,222,128,.3);box-shadow:0 0 10px rgba(74,222,128,.08)"><div style="width:24px;height:24px;background:rgba(74,222,128,.15);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px">📦</div><div><div style="font-size:10px;color:var(--green);font-weight:700">shvstore.apk</div><div style="font-size:8px;color:rgba(255,255,255,.35)">Tap to install</div></div></div></div></div></div></div>
+        <div><div class="ig-step-num">Step 02</div><div class="ig-step-title-sm">Open the APK file</div><div class="ig-step-desc">Find <strong>shvstore.apk</strong> in your Downloads folder and tap it. Android will begin the install process.</div><div class="ig-tip">Open your <strong>Files</strong> or <strong>My Files</strong> app and look in <strong>Downloads</strong>.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel2">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="justify-content:flex-start;padding-top:14px;gap:10px"><div class="ig-dialog"><div class="ig-dialog-title">Install blocked</div><div class="ig-dialog-body">For security, your phone is set to block installation of apps from unknown sources.</div><div class="ig-dialog-btns"><div class="ig-dialog-btn primary">Settings →</div><div class="ig-dialog-btn ghost">Cancel</div></div></div><div style="display:flex;align-items:center;gap:6px;padding:0 4px"><div style="width:1px;height:40px;background:rgba(74,222,128,.3)"></div><div style="font-size:8px;color:var(--text2);line-height:1.5">Tap <strong style="color:var(--green)">Settings</strong>, then toggle <strong style="color:var(--green)">Allow from this source</strong></div></div><div class="ig-toggle-row"><div class="ig-toggle-label">Allow from this source</div><div class="ig-toggle"></div></div></div></div></div>
+        <div><div class="ig-step-num">Step 03</div><div class="ig-step-title-sm">Allow installation</div><div class="ig-step-desc">Android will show an <strong>"Install blocked"</strong> warning. Tap <strong>Settings</strong>, enable <strong>"Allow from this source"</strong>, then press Back.</div><div class="ig-warn">This is a one-time setting per app. It only applies to that specific app installing APKs.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel3">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="padding:12px 8px;justify-content:center"><div class="ig-pp-dialog"><div class="ig-pp-header"><div class="ig-pp-icon">🛡️</div><div class="ig-pp-title">Play Protect alert</div></div><div class="ig-pp-body">Google Play Protect doesn't recognise this app. It was not checked by Play Protect.</div><div class="ig-pp-btns"><div class="ig-pp-btn primary">Install anyway →</div><div class="ig-pp-btn ghost">Got it (cancel)</div></div></div><div style="margin-top:10px;display:flex;align-items:center;gap:6px;padding:0 4px"><div style="width:1px;height:32px;background:rgba(74,222,128,.3)"></div><div style="font-size:8px;color:var(--text2);line-height:1.5">Tap <strong style="color:var(--green)">Install anyway</strong></div></div></div></div></div>
+        <div><div class="ig-step-num">Step 04</div><div class="ig-step-title-sm">Bypass Play Protect</div><div class="ig-step-desc">On Android 8+, Google Play Protect may flag the app as <strong>"unrecognised"</strong>. This is normal for all apps outside the Play Store.</div><div class="ig-warn">Tap <strong>"Install anyway"</strong> — not "Got it". Tapping "Got it" cancels the install.</div></div>
+      </div>
+      <div class="ig-panel" id="igPanel4">
+        <div class="ig-phone-wrap"><div class="ig-phone"><div class="ig-phone-screen" style="gap:10px"><div class="ig-success-icon">✓</div><div class="ig-app-icon">SHV</div><div style="text-align:center"><div style="font-size:10px;color:var(--green);font-weight:700;letter-spacing:.1em">INSTALLED</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:2px">SHV Store</div></div><div style="background:#1a1a1a;border-radius:6px;padding:7px 14px;border:1px solid rgba(74,222,128,.2)"><div style="font-size:9px;color:var(--green);font-weight:700;text-align:center">Open</div></div></div></div></div>
+        <div><div class="ig-step-num">Step 05</div><div class="ig-step-title-sm">You're all set! 🎉</div><div class="ig-step-desc">Tap <strong>Install</strong> — the SHV Store will install and appear in your app drawer. Sign in with your SH Vertex Account to access all your apps.</div><div class="ig-tip">You can disable "Allow from this source" again after installing if you prefer.</div></div>
+      </div>
+    </div>
+    <div class="ig-footer">
+      <button class="ig-nav-btn" id="igPrevBtn" onclick="igStep(-1)" disabled>← Back</button>
+      <button class="ig-skip" onclick="closeInstallGuide()">Skip guide</button>
+      <button class="ig-nav-btn primary" id="igNextBtn" onclick="igStep(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./shv-supabase-config.js"></script>
+<script src="./shv-settings.js"></script>
+
+<!-- SUPABASE INTAKE ASSISTANT (preserved exactly from your current site) -->
+<script>
+const SUPABASE_URL = "https://ovdxetyadfsxehwnbyuz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_3J-H60daCgWdhSvpdXi0zw_QpPax3Dz";
+let dbClient = null;
+function getSupabase() {
+  if (!dbClient && window.supabase) {
+    dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+  return dbClient;
+}
+let intakeData = { category: '', description: '', name: '', email: '', whatsapp: '' };
+const panel = document.getElementById('asstPanel');
+const overlay = document.getElementById('asstOverlay');
+function openAsst() { panel.classList.add('open'); overlay.classList.add('open'); }
+function closeAsst() { panel.classList.remove('open'); overlay.classList.remove('open'); }
+function changeStep(stepNum) {
+  document.querySelectorAll('.asst-step').forEach(step => step.classList.remove('active'));
+  document.getElementById(`asstStep${stepNum}`).classList.add('active');
+}
+function selectCategory(cat) {
+  intakeData.category = cat;
+  document.getElementById('asstStep2Title').textContent = `Describe your scope for [${cat}]:`;
+  changeStep(2);
+}
+function validateStep2() {
+  const descVal = document.getElementById('asstDesc').value.trim();
+  if(!descVal) { alert("Please input architectural scope description before advancing pipeline state."); return; }
+  intakeData.description = descVal;
+  changeStep(3);
+}
+async function submitToSupabase() {
+  const nameVal = document.getElementById('asstName').value.trim();
+  const emailVal = document.getElementById('asstEmail').value.trim();
+  const whatsappVal = document.getElementById('asstWhatsapp').value.trim();
+  if(!nameVal || !emailVal) { alert("Identity records (Name, Email) are mission critical components."); return; }
+  intakeData.name = nameVal; intakeData.email = emailVal; intakeData.whatsapp = whatsappVal || null;
+  const btn = document.getElementById('asstSubmitBtn');
+  btn.textContent = "Processing Async Write..."; btn.disabled = true;
+  const supabase = getSupabase();
+  if (!supabase) { alert("Database connection initializing or blocked by network. Please try again."); btn.textContent = "Deploy Request"; btn.disabled = false; return; }
+  try {
+    const { data, error } = await supabase.from('client_requests').insert([{
+      name: intakeData.name, email: intakeData.email, whatsapp: intakeData.whatsapp,
+      category: intakeData.category, description: intakeData.description
+    }]);
+    if (error) throw error;
+    changeStep(4);
+    setTimeout(() => {
+      closeAsst();
+      intakeData = { category: '', description: '', name: '', email: '', whatsapp: '' };
+      document.getElementById('asstDesc').value = '';
+      document.getElementById('asstName').value = '';
+      document.getElementById('asstEmail').value = '';
+      document.getElementById('asstWhatsapp').value = '';
+      changeStep(1);
+      btn.textContent = "Deploy Request"; btn.disabled = false;
+    }, 5000);
+  } catch (err) {
+    console.error("Critical fault executing database append:", err);
+    alert("Fail state occurred during security transaction transfer. Please check network logs.");
+    btn.textContent = "Deploy Request"; btn.disabled = false;
+  }
+}
+</script>
+
+<script>
+// ── CURSOR ──
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.svc-card,.stat,.why-card,.cert-badge,.eng-card,.asst-chip,.asst-btn,.asst-close,.btn-g,.contact-channel').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='rgba(74,222,128,.6)'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(74,222,128,.32)'});
+});
+
+// ── PARTICLE NETWORK ──
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+let W,H,pts=[];
+const N=85,MAX=135;
+const PCOLS=['rgba(74,222,128,','rgba(96,165,250,','rgba(167,139,250,','rgba(34,211,238,'];
+function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight}
+resize();window.addEventListener('resize',()=>{resize();init()});
+function init(){pts=[];for(let i=0;i<N;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.38,vy:(Math.random()-.5)*.38,r:Math.random()*1.4+.4,c:PCOLS[Math.floor(Math.random()*PCOLS.length)]})}
+init();
+let mp={x:-999,y:-999};
+document.addEventListener('mousemove',e=>{mp.x=e.clientX;mp.y=e.clientY});
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    const dx=mp.x-p.x,dy=mp.y-p.y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<200){p.vx+=dx/d*.01;p.vy+=dy/d*.01}
+    const s=Math.sqrt(p.vx*p.vx+p.vy*p.vy);if(s>.75){p.vx/=s*.75;p.vy/=s*.75}
+  });
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<MAX){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(255,255,255,${(1-d/MAX)*.1})`;ctx.lineWidth=.5;ctx.stroke()}
+    }
+    const pm=pts[i],dx=pm.x-mp.x,dy=pm.y-mp.y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<180){ctx.beginPath();ctx.moveTo(pm.x,pm.y);ctx.lineTo(mp.x,mp.y);ctx.strokeStyle=`rgba(74,222,128,${(1-d/180)*.55})`;ctx.lineWidth=.8;ctx.stroke()}
+  }
+  pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+'.65)';ctx.fill()});
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ── SCROLL PROGRESS ──
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=Math.min(100,y/h*100)+'%';
+  document.body.classList.toggle('sc',y>20);
+},{passive:true});
+
+// ── REVEAL ──
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
+document.querySelectorAll('.rv,.rvl').forEach(el=>io.observe(el));
+
+// ── COUNT UP ──
+const co=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target.querySelector('[data-count]');
+    if(el&&!el.dataset.done){
+      el.dataset.done='1';const t=+el.dataset.count;
+      let n=0;const iv=setInterval(()=>{n=Math.min(n+Math.ceil(t/35),t);el.textContent=n+'+';if(n>=t)clearInterval(iv)},28);
+    }
+  }
+}),{threshold:.4});
+document.querySelectorAll('.stat').forEach(el=>co.observe(el));
+
+// ── SERVICE CARD MOUSE GLOW ──
+document.querySelectorAll('.svc-card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')});
+});
+
+// ── MOBILE MENU ──
+function toggleMenu(){document.getElementById('mmenu').classList.toggle('open')}
+
+// ── INSTALL GUIDE ──
+let igCurrent=0;const IG_TOTAL=5;
+const FALLBACK_APK='https://github.com/cryptowolfman97/shvertex-website/releases/download/v1.0/app-debug.apk';
+function getApkUrl(){return(window.SHV_APK_URL&&window.SHV_APK_URL!=='#')?window.SHV_APK_URL:FALLBACK_APK}
+function openInstallGuide(){igCurrent=0;igRender();document.getElementById('igOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeInstallGuide(){document.getElementById('igOverlay').classList.remove('open');document.body.style.overflow=''}
+function igOverlayClick(e){if(e.target===document.getElementById('igOverlay'))closeInstallGuide()}
+function igStep(dir){
+  const next=igCurrent+dir;
+  if(next<0||next>IG_TOTAL)return;
+  if(next===IG_TOTAL){
+    const url=getApkUrl();const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);closeInstallGuide();return;
+  }
+  igCurrent=next;igRender();
+}
+function igRender(){
+  document.querySelectorAll('.ig-panel').forEach((p,i)=>p.classList.toggle('active',i===igCurrent));
+  document.querySelectorAll('.ig-step-dot').forEach((d,i)=>{d.classList.remove('active','done');if(i===igCurrent)d.classList.add('active');else if(i<igCurrent)d.classList.add('done')});
+  document.getElementById('igStepNum').textContent=igCurrent+1;
+  document.getElementById('igPrevBtn').disabled=igCurrent===0;
+  const nb=document.getElementById('igNextBtn');
+  nb.textContent=igCurrent===IG_TOTAL-1?'⬇ Download Now':'Next →';
+}
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('igOverlay').classList.contains('open'))return;
+  if(e.key==='Escape')closeInstallGuide();
+  if(e.key==='ArrowRight')igStep(1);if(e.key==='ArrowLeft')igStep(-1);
+});
+</script>
+</body>
+</html>
