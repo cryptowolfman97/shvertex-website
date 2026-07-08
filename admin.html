@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHV Admin — Product Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700;800&family=JetBrains+Mono:wght@300;400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#000;--bg2:#060a0c;--surface:rgba(255,255,255,.03);--surface2:rgba(255,255,255,.06);--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--accent:#22c55e;--accent2:#00e5a0;--accent-dim:rgba(34,197,94,.08);--danger:#f87171;--danger-dim:rgba(248,113,113,.08);--warn:#fbbf24;--text:#e8f0f8;--muted:rgba(232,240,248,.5);--dim:rgba(232,240,248,.18);--mono:'JetBrains Mono',monospace;--display:'Oxanium',sans-serif;--body:'DM Sans',sans-serif}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;cursor:none}
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:50}
+.topbar-logo{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.2em;color:var(--text);display:flex;align-items:center;gap:8px}
+.topbar-logo .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:1px solid rgba(34,197,94,.3);color:var(--accent);background:var(--accent-dim)}
+.topbar-btn{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border);color:var(--muted);background:transparent;cursor:none;transition:all .2s}
+.topbar-btn:hover{border-color:var(--border2);color:var(--text)}
+.topbar-btn.primary{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.topbar-btn.primary:hover{background:var(--accent);color:var(--bg)}
+/* LOGIN */
+#login-screen{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.login-box{width:100%;max-width:380px;padding:48px;border:1px solid var(--border)}
+.login-box h2{font-family:var(--display);font-size:24px;font-weight:800;margin-bottom:6px}
+.login-box p{font-size:13px;color:var(--muted);margin-bottom:28px}
+.login-field{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--body);font-size:13px;padding:12px 14px;outline:none;transition:border-color .2s;margin-bottom:10px}
+.login-field:focus{border-color:rgba(34,197,94,.4)}
+.login-submit{width:100%;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:14px;background:var(--accent);color:var(--bg);border:none;cursor:none;font-weight:700;transition:box-shadow .3s;margin-top:6px;box-shadow:0 0 16px rgba(34,197,94,.2)}
+.login-submit:hover{box-shadow:0 0 32px rgba(34,197,94,.5)}
+.login-err{font-family:var(--mono);font-size:10px;color:var(--danger);margin-top:10px;display:none}
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
+/* SIDEBAR */
+.sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sidebar-section{padding:16px 14px 8px;font-family:var(--mono);font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border)}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:12px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.03);transition:all .2s;cursor:none}
+.sidebar-link svg{width:14px;height:14px;flex-shrink:0}
+.sidebar-link:hover{color:var(--text);background:var(--surface)}
+.sidebar-link.act{color:var(--accent);background:var(--accent-dim);border-left:2px solid var(--accent)}
+.sidebar-count{margin-left:auto;font-size:9px;padding:2px 6px;border:1px solid var(--border);color:var(--dim);border-radius:2px}
+/* MAIN CONTENT */
+.main{flex:1;overflow-y:auto;background:var(--bg);position:relative}
+.panel{display:none;padding:28px;height:100%}
+.panel.act{display:flex;flex-direction:column;gap:20px}
+/* DASHBOARD OVERVIEW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.stat-card{background:var(--bg2);padding:20px;transition:background .2s}
+.stat-card:hover{background:var(--surface)}
+.stat-n{font-family:var(--display);font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:4px}
+.stat-l{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+/* PRODUCT LIST TABLE */
+.table-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:0;background:var(--bg2);border:1px solid var(--border)}
+.th{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:12px 16px;border-right:1px solid var(--border)}
+.th:last-child{border-right:none}
+.prod-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:0;border:1px solid var(--border);border-top:none;transition:background .2s}
+.prod-row:hover{background:var(--surface)}
+.td{padding:14px 16px;border-right:1px solid var(--border);display:flex;align-items:center;font-size:13px}
+.td:last-child{border-right:none;justify-content:flex-end;gap:6px}
+.td-name{font-family:var(--display);font-weight:700;font-size:14px;gap:10px}
+.td-icon{width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:12px;font-weight:800;color:var(--accent);flex-shrink:0;overflow:hidden}
+.td-icon img{width:100%;height:100%;object-fit:cover;border-radius:5px}
+.status-pill{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.pill-live{border:1px solid rgba(34,197,94,.3);color:var(--accent);background:var(--accent-dim)}
+.pill-soon{border:1px solid rgba(255,255,255,.1);color:var(--muted);background:var(--surface)}
+.pill-archived{border:1px solid rgba(248,113,113,.2);color:var(--danger);background:var(--danger-dim)}
+.pill-free{border:1px solid rgba(34,197,94,.25);color:var(--accent);background:var(--accent-dim)}
+.pill-paid{border:1px solid rgba(251,191,36,.25);color:#fcd34d;background:rgba(251,191,36,.07)}
+.pill-sub{border:1px solid rgba(0,200,255,.25);color:#7dd3fc;background:rgba(0,200,255,.07)}
+.action-btn{font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:6px 10px;border:1px solid var(--border);color:var(--muted);background:transparent;cursor:none;transition:all .2s}
+.action-btn:hover{border-color:var(--accent);color:var(--accent)}.action-btn.del:hover{border-color:var(--danger);color:var(--danger)}
+/* FORM EDITOR */
+.editor{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1}
+.editor-col{display:flex;flex-direction:column;gap:12px;overflow-y:auto;padding-right:4px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.form-label .req{color:var(--accent)}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--body);font-size:13px;padding:11px 13px;outline:none;transition:border-color .2s;resize:vertical}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.02)}
+.form-select option{background:var(--bg)}
+.form-textarea{min-height:90px;font-family:var(--body)}
+.form-hint{font-size:11px;color:var(--dim);line-height:1.5}
+/* JSON ARRAY EDITOR */
+.array-editor{background:var(--surface);border:1px solid var(--border);padding:12px}
+.array-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.array-item-fields{flex:1;display:flex;flex-direction:column;gap:6px}
+.array-item-del{font-family:var(--mono);font-size:10px;padding:6px 8px;border:1px solid var(--border);color:var(--muted);background:transparent;cursor:none;transition:all .2s;align-self:flex-start;margin-top:1px}
+.array-item-del:hover{border-color:var(--danger);color:var(--danger)}
+.array-add-btn{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;border:1px solid rgba(34,197,94,.3);color:var(--accent);background:transparent;cursor:none;transition:all .2s;margin-top:6px}
+.array-add-btn:hover{background:var(--accent-dim)}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;z-index:1000;font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:14px 20px;border:1px solid;opacity:0;transform:translateY(12px);transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.toast.ok{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.1);color:#d1fae5}
+.toast.err{border-color:rgba(248,113,113,.3);background:rgba(248,113,113,.1);color:#fecaca}
+/* MODAL CONFIRM */
+.confirm-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+.confirm-overlay.open{display:flex}
+.confirm-box{background:var(--bg2);border:1px solid var(--border);padding:32px;max-width:380px;width:100%}
+.confirm-box h3{font-family:var(--display);font-size:20px;font-weight:800;margin-bottom:8px}
+.confirm-box p{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.confirm-btns{display:flex;gap:10px}
+/* DROPBOX SECTION */
+.dropbox-hint{background:var(--surface);border:1px solid var(--border);padding:14px;font-size:12px;line-height:1.6;color:var(--muted)}
+.dropbox-hint strong{color:var(--text)}
+.dropbox-hint code{font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-dim);padding:2px 6px}
+/* DRAG SORT INDICATOR */
+.prod-row.drag-over{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.04)}
+/* MOBILE RESPONSIVE LAYOUT */
+@media(max-width:700px){
+  html,body{height:auto;overflow:auto}
+  .layout{flex-direction:column}
+  .sidebar{width:100%;border-right:none;border-bottom:1px solid var(--border);flex-direction:row;flex-wrap:wrap;overflow-x:auto;overflow-y:visible;padding:8px}
+  .sidebar-section{display:none}
+  .sidebar-link{padding:10px 14px;border-bottom:none;border:1px solid var(--border);margin:2px;font-size:9px;gap:6px;flex-shrink:0}
+  .sidebar-link svg{width:12px;height:12px}
+  .sidebar-count{display:none}
+  .main{overflow-y:visible;height:auto}
+  .panel.act{height:auto;overflow:visible}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .table-header{display:none}
+  .prod-row{grid-template-columns:1fr;border-top:1px solid var(--border)}
+  .td{border-right:none;border-bottom:1px solid rgba(255,255,255,.04);padding:10px 12px}
+  .td:last-child{border-bottom:none;justify-content:flex-start}
+  .editor{grid-template-columns:1fr}
+  .editor-col{overflow-y:visible}
+  .topbar{padding:0 14px;flex-wrap:wrap;height:auto;min-height:52px;gap:8px;padding:10px 14px}
+  .topbar-right{flex-wrap:wrap;gap:6px}
+  .topbar-tag{font-size:8px;padding:4px 8px}
+  .topbar-btn{font-size:8px;padding:6px 10px}
+  .panel{padding:16px}
+  .form-group input,.form-group select,.form-group textarea{font-size:16px}
+  .confirm-box{margin:20px}
+  .login-box{padding:32px 24px;margin:20px}
+  #login-screen{padding:20px;align-items:flex-start;padding-top:80px}
+}
+@media(max-width:400px){
+  .sidebar-link span:not(.sidebar-count){display:none}
+  .sidebar-link{padding:10px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h2>Admin Access</h2>
+    <p>SH Vertex Product Dashboard — restricted area.</p>
+    <input class="login-field" id="adminEmail" type="email" placeholder="Admin email">
+    <input class="login-field" id="adminPass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-submit" onclick="doLogin()">Authenticate</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Confirm Action</h3>
+    <p id="confirmMsg">Are you sure?</p>
+    <div class="confirm-btns">
+      <button class="topbar-btn primary" id="confirmYes">Confirm</button>
+      <button class="topbar-btn" onclick="closeConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo"><img src="./assets/site/shvertex-submark.png" alt="SHV" style="height:26px;width:auto;opacity:.9">SHV ADMIN</div>
+  <div class="topbar-right">
+    <span class="topbar-tag" id="adminTag">Not logged in</span>
+    <button class="topbar-btn" onclick="window.open('products.html','_blank')">View Site ↗</button>
+    <button class="topbar-btn" onclick="doLogout()">Logout</button>
+  </div>
+</div>
+
+
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">Dashboard</div>
+    <div class="sidebar-link act" onclick="showPanel('overview')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Overview
+    </div>
+    <div class="sidebar-section">Products</div>
+    <div class="sidebar-link" onclick="showPanel('list')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      All Products <span class="sidebar-count" id="sidebar-count">0</span>
+    </div>
+    <div class="sidebar-link" onclick="showPanel('add')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      Add Product
+    </div>
+    <div class="sidebar-section">Site</div>
+    <div class="sidebar-link" onclick="window.open('index.html','_blank')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2c0 0 4 4 4 10s-4 10-4 10M12 2c0 0-4 4-4 10s4 10 4 10M2 12h20"/></svg>
+      Homepage
+    </div>
+    <div class="sidebar-link" onclick="window.open('account.html','_blank')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Account Portal
+    </div>
+    <div class="sidebar-section">Settings</div>
+    <div class="sidebar-link" onclick="showPanel('settings')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Site Settings
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- OVERVIEW PANEL -->
+    <div class="panel act" id="panel-overview">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:8px">// Dashboard Overview</div>
+        <h1 style="font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-.03em">Product Control Centre</h1>
+      </div>
+      <div class="stats-row" id="overview-stats">
+        <div class="stat-card"><div class="stat-n" id="ov-total">—</div><div class="stat-l">Total Products</div></div>
+        <div class="stat-card"><div class="stat-n" id="ov-live">—</div><div class="stat-l">Live</div></div>
+        <div class="stat-card"><div class="stat-n" id="ov-soon">—</div><div class="stat-l">Coming Soon</div></div>
+        <div class="stat-card"><div class="stat-n" id="ov-archived">—</div><div class="stat-l">Archived</div></div>
+      </div>
+      <div style="border:1px solid var(--border);background:var(--surface);padding:20px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:12px">Quick Actions</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="topbar-btn primary" onclick="showPanel('add')">+ Add New Product</button>
+          <button class="topbar-btn" onclick="showPanel('list')">Manage Products</button>
+          <button class="topbar-btn" onclick="window.open('products.html','_blank')">Preview Catalogue ↗</button>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border);background:var(--surface);padding:20px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:12px">Dropbox Image Workflow</div>
+        <div class="dropbox-hint">
+          <strong>How to add images from your Dropbox:</strong><br><br>
+          1. Upload your file to Dropbox (icon, screenshot, etc.)<br>
+          2. Click <strong>Share</strong> → <strong>Copy Link</strong> — you'll get a URL like <code>https://www.dropbox.com/s/abc123/icon.png?dl=0</code><br>
+          3. Change <code>?dl=0</code> to <code>?raw=1</code> at the end of the URL<br>
+          4. Paste the modified URL into the <strong>Icon URL</strong> or <strong>Screenshot URL</strong> fields in the product editor<br><br>
+          <strong>Result:</strong> <code>https://www.dropbox.com/s/abc123/icon.png?raw=1</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT LIST PANEL -->
+    <div class="panel" id="panel-list">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:6px">// All Products</div>
+          <h2 style="font-family:var(--display);font-size:22px;font-weight:800">Product Catalogue</h2>
+        </div>
+        <button class="topbar-btn primary" onclick="showPanel('add')">+ Add Product</button>
+      </div>
+      <div>
+        <div class="table-header">
+          <div class="th">Product</div>
+          <div class="th">Status</div>
+          <div class="th">Pricing</div>
+          <div class="th">Android</div>
+          <div class="th">Actions</div>
+        </div>
+        <div id="prod-list-body"></div>
+      </div>
+    </div>
+
+    <!-- ADD / EDIT PANEL -->
+    <div class="panel" id="panel-add">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;flex-shrink:0">
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:6px" id="editor-mode-label">// New Product</div>
+          <h2 style="font-family:var(--display);font-size:22px;font-weight:800" id="editor-title">Add Product</h2>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="topbar-btn primary" onclick="saveProduct()">💾 Save Product</button>
+          <button class="topbar-btn" onclick="resetEditor();showPanel('list')">Cancel</button>
+        </div>
+      </div>
+      <div class="editor">
+        <!-- COL 1: Core Info -->
+        <div class="editor-col">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border)">Core Information</div>
+          <div class="form-group">
+            <label class="form-label">Product Name <span class="req">*</span></label>
+            <input class="form-input" id="f-name" placeholder="e.g. SimpliBudget" oninput="autoSlug()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Slug <span class="req">*</span></label>
+            <input class="form-input" id="f-slug" placeholder="e.g. simplibudget">
+            <span class="form-hint">URL-safe identifier. Auto-generated from name.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tagline</label>
+            <input class="form-input" id="f-tagline" placeholder="Short punchy description">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description <span class="req">*</span></label>
+            <textarea class="form-textarea" id="f-desc" rows="4" placeholder="Main about paragraph shown on the product card and detail modal..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Icon URL (Dropbox ?raw=1)</label>
+            <input class="form-input" id="f-icon" placeholder="https://www.dropbox.com/s/.../icon.png?raw=1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Banner / Hero Image URL</label>
+            <input class="form-input" id="f-banner" placeholder="https://www.dropbox.com/s/.../banner.png?raw=1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tags (comma-separated)</label>
+            <input class="form-input" id="f-tags" placeholder="Finance, Android, Python">
+          </div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border);margin-top:8px">Status & Settings</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group">
+              <label class="form-label">Status <span class="req">*</span></label>
+              <select class="form-select" id="f-status">
+                <option value="live">Live</option>
+                <option value="coming-soon">Coming Soon</option>
+                <option value="archived">Archived</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sort Order</label>
+              <input class="form-input" id="f-sort" type="number" placeholder="0" value="0">
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);background:var(--surface)">
+            <input type="checkbox" id="f-featured" style="accent-color:var(--accent);width:16px;height:16px">
+            <label for="f-featured" style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:none">Featured Product</label>
+          </div>
+        </div>
+
+        <!-- COL 2: Pricing, Technical, Rich Content -->
+        <div class="editor-col">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border)">Pricing</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group">
+              <label class="form-label">Pricing Type <span class="req">*</span></label>
+              <select class="form-select" id="f-pricing-type">
+                <option value="free">Free</option>
+                <option value="paid" selected>Paid</option>
+                <option value="subscription">Subscription</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Currency</label>
+              <select class="form-select" id="f-currency" onchange="updatePricePlaceholder()">
+                <option value="LKR">LKR — Sri Lankan Rupee</option>
+                <option value="$">$ — US Dollar</option>
+                <option value="€">€ — Euro</option>
+                <option value="£">£ — British Pound</option>
+                <option value="AED">AED — UAE Dirham</option>
+                <option value="custom">Custom / None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price Amount</label>
+              <div style="display:flex;gap:0">
+                <div id="currency-prefix" style="font-family:var(--mono);font-size:12px;padding:11px 12px;background:rgba(34,197,94,.08);border:1px solid var(--border);border-right:none;color:var(--accent);white-space:nowrap;flex-shrink:0">LKR</div>
+                <input class="form-input" id="f-price-amount" placeholder="1,500" style="border-left:none">
+              </div>
+              <span class="form-hint">Leave blank for Free apps. This builds the price label shown on the site.</span>
+            </div>
+          </div>
+
+          <!-- Pricing tiers -->
+          <div class="form-group">
+            <label class="form-label">Pricing Tiers</label>
+            <div class="array-editor" id="tiers-editor"></div>
+            <button class="array-add-btn" onclick="addTier()">+ Add Tier</button>
+          </div>
+
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border);margin-top:8px">Technical Info</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group">
+              <label class="form-label">Min Android</label>
+              <input class="form-input" id="f-android" placeholder="Android 8.0+">
+            </div>
+            <div class="form-group">
+              <label class="form-label">App Version</label>
+              <input class="form-input" id="f-version" placeholder="v1.0.0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">App Size</label>
+              <input class="form-input" id="f-size" placeholder="~18 MB">
+            </div>
+            <div class="form-group">
+              <label class="form-label">App Code</label>
+              <input class="form-input" id="f-code" placeholder="simplibudget">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Video Demo URL (YouTube)</label>
+            <input class="form-input" id="f-video" placeholder="https://youtube.com/watch?v=...">
+          </div>
+
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border);margin-top:8px">Screenshots (Dropbox URLs)</div>
+          <div class="form-group">
+            <div class="array-editor" id="screenshots-editor"></div>
+            <button class="array-add-btn" onclick="addScreenshot()">+ Add Screenshot</button>
+          </div>
+
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border);margin-top:8px">Features</div>
+          <div class="form-group">
+            <div class="array-editor" id="features-editor"></div>
+            <button class="array-add-btn" onclick="addFeature()">+ Add Feature</button>
+          </div>
+
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding-bottom:8px;border-bottom:1px solid var(--border);margin-top:8px">Pros / Selling Points</div>
+          <div class="form-group">
+            <div class="array-editor" id="pros-editor"></div>
+            <button class="array-add-btn" onclick="addPro()">+ Add Pro</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div class="panel" id="panel-settings">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:8px">// Site Settings</div>
+        <h1 style="font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px">Global Settings</h1>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:24px">Changes here apply instantly across the entire site — no code editing needed.</p>
+      </div>
+
+      <!-- STORE APK URL -->
+      <div style="border:1px solid var(--border);background:var(--bg2);padding:28px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)"></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">Store APK Download Link</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:20px">
+          This single URL powers <strong style="color:var(--text)">all download buttons</strong> across the site —
+          the homepage, the Store page, and the Products page.<br>
+          Update it here whenever you release a new version of the SHV Store APK.
+        </p>
+        <div class="form-group">
+          <label class="form-label">SHV Store APK URL <span class="req">*</span></label>
+          <input class="form-input" id="s-apk-url" placeholder="https://www.dropbox.com/..." style="font-family:var(--mono);font-size:11px">
+          <span class="form-hint" style="margin-top:8px;display:block">Paste your Dropbox direct link here. Make sure it ends with <code style="font-family:var(--mono);color:var(--accent);background:rgba(34,197,94,.08);padding:2px 6px">?dl=1</code> or <code style="font-family:var(--mono);color:var(--accent);background:rgba(34,197,94,.08);padding:2px 6px">?raw=1</code> for a direct download.</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px">
+          <button class="topbar-btn primary" onclick="saveApkUrl()">💾 Save Link</button>
+          <button class="topbar-btn" onclick="testApkUrl()">↗ Test Link</button>
+          <div id="apk-save-msg" style="font-family:var(--mono);font-size:10px;color:var(--accent);display:none"></div>
+        </div>
+      </div>
+
+      <!-- INFO BOX -->
+      <div style="border:1px solid var(--border);background:var(--surface);padding:20px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:12px">How this works</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8">
+          The APK URL is stored in your Supabase <code style="font-family:var(--mono);color:var(--accent);background:rgba(34,197,94,.08);padding:2px 6px">site_settings</code> table.<br>
+          All pages load it on startup and apply it to every download button automatically.<br>
+          If the database is unreachable, a hardcoded fallback URL is used so buttons never break.
+        </div>
+        <div style="margin-top:16px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase">Pages with download buttons</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <span style="font-family:var(--mono);font-size:9px;padding:4px 10px;border:1px solid rgba(34,197,94,.25);color:var(--accent);background:var(--accent-dim)">index.html — Store Promo</span>
+          <span style="font-family:var(--mono);font-size:9px;padding:4px 10px;border:1px solid rgba(34,197,94,.25);color:var(--accent);background:var(--accent-dim)">store.html — Hero + CTA</span>
+          <span style="font-family:var(--mono);font-size:9px;padding:4px 10px;border:1px solid rgba(34,197,94,.25);color:var(--accent);background:var(--accent-dim)">products.html — Store Banner</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./shv-supabase-config.js"></script>
+<script>
+// CURSOR
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+
+const CFG=window.SHV_SUPABASE;
+let sb=null;
+let editingId=null;
+let allProds=[];
+let syncedAppIds=new Set();
+
+// ── AUTH ──
+async function doLogin(){
+  const email=document.getElementById('adminEmail').value.trim();
+  const pass=document.getElementById('adminPass').value;
+  const err=document.getElementById('loginErr');
+  if(!email||!pass){err.textContent='Enter email and password.';err.style.display='block';return}
+  try{
+    sb=window.supabase.createClient(CFG.url,CFG.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
+    const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
+    if(error)throw error;
+    // Admin whitelist check
+    if(data.user.email.toLowerCase()!=='ceo.shvertex@gmail.com'){
+      await sb.auth.signOut();
+      throw new Error('Access denied. This panel is restricted.');
+    }
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('adminTag').textContent=data.user.email;
+    await loadProducts(); loadSettings(); showPanel('overview');
+  }catch(e){err.textContent='Login failed: '+e.message;err.style.display='block'}
+}
+
+async function doLogout(){
+  if(sb)await sb.auth.signOut();
+  location.reload();
+}
+
+// Check existing session
+(async()=>{
+  try{
+    sb=window.supabase.createClient(CFG.url,CFG.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
+    const{data}=await sb.auth.getSession();
+    if(data.session){
+      if(data.session.user.email.toLowerCase()!=='ceo.shvertex@gmail.com'){
+        await sb.auth.signOut();
+        return;
+      }
+      document.getElementById('login-screen').style.display='none';
+      document.getElementById('adminTag').textContent=data.session.user.email;
+      await loadProducts(); loadSettings(); showPanel('overview');
+    }
+  }catch(e){}
+})();
+
+// ── PANEL NAV ──
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('act'));
+  document.getElementById('panel-'+id).classList.add('act');
+  const linkMap={overview:0,list:1,add:2};
+  const links=document.querySelectorAll('.sidebar-link');
+  if(id==='overview'&&links[0])links[0].classList.add('act');
+  if(id==='list'&&links[1])links[1].classList.add('act');
+  if(id==='add'&&links[2])links[2].classList.add('act');
+  if(id==='add'&&!editingId)resetEditor();
+}
+
+// ── LOAD PRODUCTS ──
+async function loadProducts(){
+  if(!sb)return;
+  const{data,error}=await sb.from('products').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+  if(error){toast('Failed to load products: '+error.message,'err');return}
+  allProds=data||[];
+  try{
+    const{data:appRows}=await sb.from('apps').select('id').eq('sync_to_website',true);
+    syncedAppIds=new Set((appRows||[]).map(a=>a.id));
+  }catch(e){syncedAppIds=new Set()}
+  document.getElementById('sidebar-count').textContent=allProds.length;
+  renderOverview();renderList();
+}
+
+function renderOverview(){
+  document.getElementById('ov-total').textContent=allProds.length;
+  document.getElementById('ov-live').textContent=allProds.filter(p=>p.status==='live').length;
+  document.getElementById('ov-soon').textContent=allProds.filter(p=>p.status==='coming-soon').length;
+  document.getElementById('ov-archived').textContent=allProds.filter(p=>p.status==='archived').length;
+}
+
+function renderList(){
+  const body=document.getElementById('prod-list-body');
+  if(!allProds.length){body.innerHTML='<div style="padding:32px;text-align:center;border:1px solid var(--border);border-top:none;color:var(--muted);font-size:13px">No products yet. Click "Add Product" to create the first one.</div>';return}
+  body.innerHTML=allProds.map(p=>{
+    const statusCls=p.status==='live'?'pill-live':p.status==='coming-soon'?'pill-soon':'pill-archived';
+    const priceCls=p.pricing_type==='free'?'pill-free':p.pricing_type==='subscription'?'pill-sub':'pill-paid';
+    const initial=p.name?p.name[0].toUpperCase():'?';
+    const synced=syncedAppIds.has(p.id);
+    return `<div class="prod-row">
+      <div class="td td-name">
+        <div class="td-icon">${p.icon_url?`<img src="${p.icon_url}" onerror="this.style.display='none';this.parentElement.innerHTML='${initial}'">`:`${initial}`}</div>
+        <div><div style="font-size:14px;display:flex;align-items:center;gap:6px">${p.name}${synced?'<span title="Synced from SLACKLINE — edits here will be overwritten on next app save" style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:100px;border:1px solid rgba(34,197,94,.35);color:var(--accent);background:rgba(34,197,94,.08)">🔒 SLACKLINE</span>':''}</div><div style="font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:2px">${p.slug}</div></div>
+      </div>
+      <div class="td"><span class="status-pill ${statusCls}">${p.status}</span></div>
+      <div class="td"><span class="status-pill ${priceCls}">${p.pricing_type}</span>${p.price_label?`<span style="font-size:11px;color:var(--muted);margin-left:8px">${p.price_label}</span>`:''}</div>
+      <div class="td" style="font-size:12px;color:var(--muted)">${p.min_android||'—'}</div>
+      <div class="td">
+        <button class="action-btn" onclick="editProduct('${p.id}')">${synced?'View':'Edit'}</button>
+        <button class="action-btn del" onclick="confirmDelete('${p.id}','${p.name.replace(/'/g,"\\'")}')">Del</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── EDITOR ──
+function resetEditor(){
+  editingId=null;
+  document.getElementById('editor-mode-label').textContent='// New Product';
+  document.getElementById('editor-title').textContent='Add Product';
+  ['f-name','f-slug','f-tagline','f-desc','f-icon','f-banner','f-tags','f-price-label','f-android','f-version','f-size','f-code','f-video'].forEach(id=>{document.getElementById(id).value=''});
+  document.getElementById('f-status').value='live';
+  document.getElementById('f-currency').value='LKR';
+  document.getElementById('currency-prefix').textContent='LKR';
+  document.getElementById('f-price-amount').value='';
+  document.getElementById('f-pricing-type').value='paid';
+  document.getElementById('f-sort').value='0';
+  document.getElementById('f-featured').checked=false;
+  document.getElementById('tiers-editor').innerHTML='';
+  document.getElementById('screenshots-editor').innerHTML='';
+  document.getElementById('features-editor').innerHTML='';
+  document.getElementById('pros-editor').innerHTML='';
+}
+
+function editProduct(id){
+  const p=allProds.find(x=>x.id===id);if(!p)return;
+  editingId=id;
+  document.getElementById('editor-mode-label').textContent='// Editing Product';
+  document.getElementById('editor-title').textContent='Edit: '+p.name;
+  if(syncedAppIds.has(id)){
+    toast('This product is synced from SLACKLINE — any changes you save here will be overwritten the next time this app is saved in the admin app.','err');
+  }
+  document.getElementById('f-name').value=p.name||'';
+  document.getElementById('f-slug').value=p.slug||'';
+  document.getElementById('f-tagline').value=p.tagline||'';
+  document.getElementById('f-desc').value=p.description||'';
+  document.getElementById('f-icon').value=p.icon_url||'';
+  document.getElementById('f-banner').value=p.banner_url||'';
+  document.getElementById('f-tags').value=parseJson(p.tags).join(', ');
+  document.getElementById('f-status').value=p.status||'live';
+  document.getElementById('f-pricing-type').value=p.pricing_type||'paid';
+  // Parse price_label back into currency + amount
+  (()=>{
+    const pl=p.price_label||'';
+    const currencies=['LKR','AED','$','€','£'];
+    let matched=false;
+    for(const c of currencies){
+      if(pl.startsWith(c)){
+        document.getElementById('f-currency').value=c;
+        document.getElementById('currency-prefix').textContent=c;
+        document.getElementById('f-price-amount').value=pl.replace(c,'').trim();
+        matched=true;break;
+      }
+    }
+    if(!matched&&pl){
+      document.getElementById('f-currency').value='custom';
+      document.getElementById('currency-prefix').textContent='';
+      document.getElementById('f-price-amount').value=pl;
+    }
+    if(!pl){
+      document.getElementById('f-currency').value='LKR';
+      document.getElementById('currency-prefix').textContent='LKR';
+      document.getElementById('f-price-amount').value='';
+    }
+  })();
+  document.getElementById('f-android').value=p.min_android||'';
+  document.getElementById('f-version').value=p.app_version||'';
+  document.getElementById('f-size').value=p.app_size||'';
+  document.getElementById('f-code').value=p.app_code||'';
+  document.getElementById('f-video').value=p.video_url||'';
+  document.getElementById('f-sort').value=p.sort_order||0;
+  document.getElementById('f-featured').checked=p.is_featured||false;
+  // Arrays
+  document.getElementById('tiers-editor').innerHTML='';parseJson(p.pricing_tiers).forEach(t=>addTier(t));
+  document.getElementById('screenshots-editor').innerHTML='';parseJson(p.screenshots).forEach(s=>addScreenshot(s));
+  document.getElementById('features-editor').innerHTML='';parseJson(p.features).forEach(f=>addFeature(f));
+  document.getElementById('pros-editor').innerHTML='';parseJson(p.pros).forEach(pr=>addPro(pr));
+  showPanel('add');
+}
+
+async function saveProduct(){
+  const name=document.getElementById('f-name').value.trim();
+  const slug=document.getElementById('f-slug').value.trim();
+  if(!name||!slug){toast('Name and slug are required.','err');return}
+  const tags=document.getElementById('f-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const payload={
+    name,slug,
+    tagline:document.getElementById('f-tagline').value.trim()||null,
+    description:document.getElementById('f-desc').value.trim()||null,
+    icon_url:document.getElementById('f-icon').value.trim()||null,
+    banner_url:document.getElementById('f-banner').value.trim()||null,
+    tags,
+    status:document.getElementById('f-status').value,
+    pricing_type:document.getElementById('f-pricing-type').value,
+    price_label:(()=>{
+      const cur=document.getElementById('f-currency').value;
+      const amt=document.getElementById('f-price-amount').value.trim();
+      if(!amt)return null;
+      if(cur==='custom'||cur==='$'||cur==='€'||cur==='£')return cur+amt;
+      return cur+' '+amt;
+    })(),
+    min_android:document.getElementById('f-android').value.trim()||null,
+    app_version:document.getElementById('f-version').value.trim()||null,
+    app_size:document.getElementById('f-size').value.trim()||null,
+    app_code:document.getElementById('f-code').value.trim()||null,
+    video_url:document.getElementById('f-video').value.trim()||null,
+    sort_order:parseInt(document.getElementById('f-sort').value)||0,
+    is_featured:document.getElementById('f-featured').checked,
+    pricing_tiers:collectTiers(),
+    screenshots:collectScreenshots(),
+    features:collectFeatures(),
+    pros:collectPros()
+  };
+  try{
+    let err;
+    if(editingId){
+      const r=await sb.from('products').update(payload).eq('id',editingId);err=r.error;
+    }else{
+      const r=await sb.from('products').insert(payload);err=r.error;
+    }
+    if(err)throw err;
+    toast(editingId?'Product updated!':'Product added!','ok');
+    resetEditor();await loadProducts();showPanel('list');
+  }catch(e){toast('Save failed: '+e.message,'err')}
+}
+
+// ── ARRAY EDITORS ──
+function addTier(data={}){
+  const el=document.createElement('div');el.className='array-item';
+  el.innerHTML=`<div class="array-item-fields">
+    <input class="form-input tier-name" placeholder="Tier name (e.g. Standard)" value="${data.name||''}">
+    <input class="form-input tier-price" placeholder="Price (e.g. LKR 1,500)" value="${data.price||''}">
+    <input class="form-input tier-features" placeholder="Features (comma-separated)" value="${(data.features||[]).join(', ')}">
+    <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+      <input type="checkbox" ${data.highlighted?'checked':''} class="tier-hl" style="accent-color:var(--accent)">
+      <span style="font-family:var(--mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Highlight this tier</span>
+    </div>
+  </div><button class="array-item-del" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('tiers-editor').appendChild(el);
+}
+function collectTiers(){
+  return Array.from(document.querySelectorAll('#tiers-editor .array-item')).map(el=>({
+    name:el.querySelector('.tier-name').value.trim(),
+    price:el.querySelector('.tier-price').value.trim(),
+    features:el.querySelector('.tier-features').value.split(',').map(f=>f.trim()).filter(Boolean),
+    highlighted:el.querySelector('.tier-hl').checked
+  })).filter(t=>t.name);
+}
+
+function addScreenshot(data={}){
+  const url=typeof data==='string'?data:(data.url||'');
+  const caption=typeof data==='object'?data.caption||'':'';
+  const el=document.createElement('div');el.className='array-item';
+  el.innerHTML=`<div class="array-item-fields">
+    <input class="form-input ss-url" placeholder="Dropbox URL (?raw=1)" value="${url}">
+    <input class="form-input ss-cap" placeholder="Caption (optional)" value="${caption}">
+  </div><button class="array-item-del" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('screenshots-editor').appendChild(el);
+}
+function collectScreenshots(){
+  return Array.from(document.querySelectorAll('#screenshots-editor .array-item')).map(el=>({
+    url:el.querySelector('.ss-url').value.trim(),
+    caption:el.querySelector('.ss-cap').value.trim()
+  })).filter(s=>s.url);
+}
+
+function addFeature(data={}){
+  const el=document.createElement('div');el.className='array-item';
+  el.innerHTML=`<div class="array-item-fields">
+    <input class="form-input feat-title" placeholder="Feature title" value="${data.title||''}">
+    <input class="form-input feat-desc" placeholder="Feature description" value="${data.description||''}">
+  </div><button class="array-item-del" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('features-editor').appendChild(el);
+}
+function collectFeatures(){
+  return Array.from(document.querySelectorAll('#features-editor .array-item')).map(el=>({
+    title:el.querySelector('.feat-title').value.trim(),
+    description:el.querySelector('.feat-desc').value.trim()
+  })).filter(f=>f.title);
+}
+
+function addPro(data=''){
+  const val=typeof data==='string'?data:'';
+  const el=document.createElement('div');el.className='array-item';
+  el.innerHTML=`<div class="array-item-fields"><input class="form-input pro-val" placeholder="e.g. No third-party tracking" value="${val}"></div>
+  <button class="array-item-del" onclick="this.parentElement.remove()">✕</button>`;
+  document.getElementById('pros-editor').appendChild(el);
+}
+function collectPros(){return Array.from(document.querySelectorAll('#pros-editor .pro-val')).map(i=>i.value.trim()).filter(Boolean)}
+
+// ── DELETE ──
+let pendingDeleteId=null;
+function confirmDelete(id,name){
+  pendingDeleteId=id;
+  document.getElementById('confirmTitle').textContent='Delete Product';
+  document.getElementById('confirmMsg').textContent=`Permanently delete "${name}"? This cannot be undone.`;
+  document.getElementById('confirmYes').onclick=doDelete;
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+function closeConfirm(){document.getElementById('confirmOverlay').classList.remove('open');pendingDeleteId=null}
+async function doDelete(){
+  if(!pendingDeleteId)return;
+  try{
+    const{error}=await sb.from('products').delete().eq('id',pendingDeleteId);
+    if(error)throw error;
+    toast('Product deleted.','ok');closeConfirm();await loadProducts();
+  }catch(e){toast('Delete failed: '+e.message,'err')}
+}
+
+// ── HELPERS ──
+function autoSlug(){
+  const name=document.getElementById('f-name').value;
+  if(!editingId)document.getElementById('f-slug').value=name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+function parseJson(v){if(!v)return[];if(Array.isArray(v))return v;try{return JSON.parse(v)}catch{return[]}}
+
+let toastTimer;
+function toast(msg,type='ok'){
+  const el=document.getElementById('toast');el.textContent=msg;el.className='toast show '+type;
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// ── SETTINGS ──
+async function loadSettings() {
+  if (!sb) return;
+  try {
+    const { data, error } = await sb
+      .from('site_settings')
+      .select('key, value');
+    if (error || !data) return;
+    data.forEach(row => {
+      if (row.key === 'store_apk_url') {
+        document.getElementById('s-apk-url').value = row.value;
+      }
+    });
+  } catch (e) {}
+}
+
+async function saveApkUrl() {
+  const url = document.getElementById('s-apk-url').value.trim();
+  const msg = document.getElementById('apk-save-msg');
+  if (!url) { toast('Please enter a URL.', 'err'); return; }
+  try {
+    const { error } = await sb
+      .from('site_settings')
+      .upsert({ key: 'store_apk_url', value: url }, { onConflict: 'key' });
+    if (error) throw error;
+    msg.textContent = '✓ Saved! All download buttons updated.';
+    msg.style.display = 'block';
+    toast('Store APK link updated across all pages!', 'ok');
+    setTimeout(() => { msg.style.display = 'none'; }, 4000);
+  } catch (e) {
+    toast('Save failed: ' + e.message, 'err');
+  }
+}
+
+function testApkUrl() {
+  const url = document.getElementById('s-apk-url').value.trim();
+  if (!url) { toast('Enter a URL first.', 'err'); return; }
+  window.open(url, '_blank');
+}
+
+
+function updatePricePlaceholder(){
+  const sel=document.getElementById('f-currency');
+  const prefix=document.getElementById('currency-prefix');
+  const val=sel.value;
+  prefix.textContent=val==='custom'?'':val;
+  const amtInput=document.getElementById('f-price-amount');
+  if(val==='$')amtInput.placeholder='9.99';
+  else if(val==='LKR')amtInput.placeholder='1,500';
+  else if(val==='AED')amtInput.placeholder='35.00';
+  else amtInput.placeholder='Amount';
+}
+
+</script>
